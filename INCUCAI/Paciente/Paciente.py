@@ -15,7 +15,7 @@ class Paciente (ABC):
         self.contacto=contacto
         self.tipo_sangre = tipo_sangre
         self.centro_salud = centro_salud
-        self.que_es = incucai.asignar_pac()
+        self.que_es = Incucai.clasificar_pac()
         #que_es #para ver si es receptor o donante 
         self.lista_pacientes=[]
 
@@ -29,9 +29,7 @@ class Paciente (ABC):
         #agregar sexo --> verificacion m/f
         #agregar centro de salud asociado
         #agregar tipo de sangre --> verificacion que sea un tipo de sangre valido
-        
-        if super().asignar_lista() == 1: #la asignacion de la lista quiero hacerla en base a la palabra donante o receptor (revisar en metodo asignar_lista)
-            
+    
     def datos_pacientes(self): #funciona a modo de getter 
         #completar la impresion de este getter
         print(f"El paciente es {self.nombre}\nDNI:{self.DNI}\nfecha de nacimiento:{self.fecha_nac}")
