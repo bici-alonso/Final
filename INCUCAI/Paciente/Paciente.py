@@ -1,10 +1,12 @@
 from abc import ABC
+from INCUCAI import Incucai 
 
 
 
 class Paciente (ABC):
 
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro_salud, que_es):
+        
         self.nombre = nombre
         self.DNI = DNI
         self.fecha_nac = fecha_nac
@@ -13,7 +15,8 @@ class Paciente (ABC):
         self.contacto=contacto
         self.tipo_sangre = tipo_sangre
         self.centro_salud = centro_salud
-        self.que_es = que_es #para ver si es receptor o donante 
+        self.que_es = incucai.asignar_pac()
+        #que_es #para ver si es receptor o donante 
         self.lista_pacientes=[]
 
     def agregar(self): #Falta validacion de carga de datos
