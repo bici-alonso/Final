@@ -1,4 +1,3 @@
-
 from Paciente import *
 
 class Receptor(Paciente):
@@ -11,10 +10,19 @@ class Receptor(Paciente):
         self.patologia = patologia
         self.estado = estado
         #Falta determinar de que otros atributos dependeria su prioridad
+
+    lista_receptor = []
         
+    def agregar(self, cls, datos):
+        cls.lista_receptor.append(datos)
+        print("Donante agregado correctamente. \n")
+
+    def listar(self, cls):
+        return cls.lista_receptor
     #def metodo_prioridad --> un metodo que en base a consideraciones
     # de los atributos, defina el estado de prioridad
     
     #metodo que determine que frente a dos pacientes con la misma prioridad, va antes el que esta
     #hace mas tiempo esperando 
+    
     
