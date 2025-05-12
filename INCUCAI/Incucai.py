@@ -38,6 +38,8 @@ from Paciente.Paciente import Paciente
 from Paciente.Donante import Donante #no me esta dejando importar, como esta en carpetas chat me dijo q le ponga ese punto pero tampoco funciona
 from Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
 
+
+#comentario
 class Incucai:
     
     '''
