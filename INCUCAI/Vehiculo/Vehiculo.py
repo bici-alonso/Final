@@ -31,7 +31,6 @@ from geopy.geocoders import Nominatim
 
 #Hago a vehiculo mi clase abstracta:
 
-
 class Vehiculo(ABC):
     def __init__(self, velocidad, patente):
         self.velocidad = velocidad
@@ -39,8 +38,8 @@ class Vehiculo(ABC):
         self.viajes = []
         
     @abstractmethod
-    def calculo_tiempo (self, dist, trafico): #?
-        pass
+    def calculo_tiempo (self, dist, trafico):
+        pass #solo el pass?
             
     def agregar_viaje(self, dist, tiempo):
         self.viajes.append({
