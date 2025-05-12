@@ -21,6 +21,12 @@ exitoso o no se define con un valor aleatorio que varia dependiendo de la especi
 from geopy.geocoders import Nominatim
 '''
 
+
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+import time
+
+
 class Centro_de_salud():
 
 
@@ -33,6 +39,7 @@ class Centro_de_salud():
         self.tel_contacto = tel_contacto
         self.cirujanos = []
         self.vehiculos = []
+        self.coords = None
         
         #la carga de datos de a direccion debe hacerse como str separada o toda junta para el geopy?
         #tengo una lista de centros habilitados?
@@ -42,18 +49,51 @@ class Centro_de_salud():
         
 #El incucai tiene centros de salud HABILITADOS PARA TRANSPLANTE, CREO UNA LISTA EN INCUCAI DEL TIPO CENTRO DE SALUD CON CIERTOS CENTROS CARGADOS
 
-cs1 = Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
-cs2 = Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
-cs3 = Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "Comuna 2", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
-cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "Comuna 10", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
-cs5 = Centro_de_salud ("Hospital Italiano de La Plata", "Av. 51", "Gambier", "Buenos Aires", "022-15129500")
-cs6 = Centro_de_salud ("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
-cs7 = Centro_de_salud ("CETRAMOR", "Rioja 1529", "Barrio Centro", "Rosario", "Santa Fe", "0341-4488962")
-cs8 = Centro_de_salud ("Hospital Alejandro Posadas", "Av. Presidente Arturo U. Ilia 386", "El Palomar", "Moron", "Buenos Aires", "01144699300")
-cs9 = Centro_de_salud ("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "01149825555")
-cs10= Centro_de_salud ("Sanatorio Pasteur", "Chacabuco 675","El Jumeal", "San Fernandi del Valle de Catamarca", "Catamarca")
-cs11= Centro_de_salud ("Hospital Dr. Julio Cecilio Perrando", "Av. 9 de Julio 1110", "Don Rafael", "Resistencia", "Chaco")
-'''
+def main():
+    # Crear geolocalizador
+    geolocator = Nominatim(user_agent="incucai_test")
+    
+    # Crear centros de salud
+    cs1 = Centro_de_salud("Hospital Garrahan", "Argentina", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
+    cs2 = Centro_de_salud("Hospital El Cruce", "Argentina", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
+    cs3 = Centro_de_salud("Fundacion Favaloro", "Argentina", "Av. Belgrano 1746", "Comuna 2", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
+    cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Argentina", "Gallo 1330", "Comuna 10", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
+    cs5 = Centro_de_salud("Hospital Italiano de La Plata", "Argentina", "Av. 51", "Gambier", "Buenos Aires", "022-15129500")
+    cs6 = Centro_de_salud("Hospital Universitario Austral", "Argentina", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
+    cs7 = Centro_de_salud("CETRAMOR", "Argentina", "Rioja 1529", "Barrio Centro", "Rosario", "Santa Fe", "0341-4488962")
+    cs8 = Centro_de_salud("Hospital Alejandro Posadas", "Argentina", "Av. Presidente Arturo U. Ilia 386", "El Palomar", "Moron", "Buenos Aires", "01144699300")
+    cs9 = Centro_de_salud("Hospital Gral. de Agudos Carlos G. Durand", "Argentina", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "01149825555")
+    cs10 = Centro_de_salud("Sanatorio Pasteur", "Argentina", "Chacabuco 675", "El Jumeal", "San Fernando del Valle de Catamarca", "Catamarca", "03834432000")
+    cs11 = Centro_de_salud("Hospital Dr. Julio Cecilio Perrando", "Argentina", "Av. 9 de Julio 1110", "Don Rafael", "Resistencia", "Chaco", "03624427233")
+
+    # Lista de centros
+    centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs7, cs8, cs9, cs10, cs11]
+
+    for centro in centros:
+        print(f"\n📍 {centro.nombre_cs}")
+        direccion = centro.direccion_completa()
+        print(f"Dirección completa: {direccion}")
+        location = geolocator.geocode(direccion)
+        if location:
+            print(f"🔢 Coordenadas: ({location.latitude}, {location.longitude})")
+            centro.coords = (location.latitude, location.longitude)
+        else:
+            print("❌ No se pudo geolocalizar.")
+        time.sleep(1)  # Para evitar bloqueo de Nominatim
+
+    # Calcular distancia entre los dos centros si ambos fueron geolocalizados
+    if hasattr(cs1, 'coords') and hasattr(cs2, 'coords'):
+        distancia_km = geodesic(cs1.coords, cs2.coords).kilometers
+        print(f"\n📏 Distancia entre {cs1.nombre_cs} y {cs2.nombre_cs}: {distancia_km:.2f} km")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+''' terminar esta carga de datos que va en incucai
 cs12= Centro_de_salud ("Hospital Alvear Comodoro Rivadavia", "Juan Ramon Balcarce", "Barrio 25 de mayo", "Comodor Rivadavia", "Chubut")
 cs13= Centro_de_salud ("Hospital de Urgencias") #cordoba
 cs14= Centro_de_salud ("Hospital Privado de Cordoba")#cordoba
@@ -73,3 +113,4 @@ cs27 = Centro_de_salud ("Hospital Regional Dr. Ramon Carrillo" )
 cs28 = Centro_de_salud ("Rospital Rio Grande")#tierra del fuego
 cs29 = Centro_de_salud ("Clinica Mayo SRL") #tucuman
 '''
+
