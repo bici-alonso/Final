@@ -8,5 +8,5 @@ class Centro_de_salud: #pertenece a la clase INCUCAI?
         self.provincia = provincia
         self.tel_contacto = tel_contacto
         self.cirujanos = []
-        self.vehiculos = []
+        self.vehiculos = [
 
