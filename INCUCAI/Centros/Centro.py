@@ -17,8 +17,9 @@ prioridad del paciente receptor a la de mayor prioridad y se setea su estado a i
 exitoso o no se define con un valor aleatorio que varia dependiendo de la especialidad del cirujano.
 '''
 
-
+'''
 from geopy.geocoders import Nominatim
+'''
 
 class Centro_de_salud():
 
