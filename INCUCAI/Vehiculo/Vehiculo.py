@@ -47,3 +47,6 @@ class Vehiculo(ABC):
             'distancia': dist,
             'tiempo estimado': tiempo
         })
+        
+    def __str__(self):
+        return f"{self.__class__.__name__} - Patente: {self.patente}, Velocidad: {self.velocidad} km/h"
