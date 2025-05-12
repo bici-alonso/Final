@@ -39,7 +39,6 @@ from Paciente.Donante import Donante #no me esta dejando importar, como esta en 
 from Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
 
 
-#comentario
 class Incucai:
     
     '''
