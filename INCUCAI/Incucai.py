@@ -1,3 +1,37 @@
+'''
+TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. 
+SIMULACION SIST. DONACION DE ORGANOS
+
+Alonso Victoria
+Pfeifer Zoe
+
+El INCUCAI se encarga de la coordinación y logística de la donación de tejidos y órganos. 
+Debido a que su sistema quedó desactualizado por el paso del tiempo, le solicitaron realizar una nueva versión dónde tendrá que mejorar la automatización y
+la logística para optimizar la llegada de órganos a los pacientes que se encuentran en la lista de espera. 
+Este consta de una lista de receptores, una lista de donantes y una lista de centros de salud habilitados.
+
+El Sistema tiene que permitir:
+    -Registrar pacientes nuevos (Validando que no se encuentre en otra lista ni se repita).
+    -Quitar de la lista de donantes a aquellos cuyos organos ya han sido utilizados en su totalidad.
+    -Quitar de la lista a un receptor una vez que ha recibido su organo exitosamente.
+    -Buscar por centro de salud los pacientes de la lista de espera.
+    -Buscar un receptor e informar qué prioridad tiene en la lista de espera.
+    -Imprimir listado de pacientes donantes y receptores.
+    -Realizar correctamente todo el proceso de asignación y derivación de un organo a un receptor,
+    contemplando el viaje, la disponibilidad en ese horario de los vehiculos de un centro medico y el tiempo de viaje.
+
+
+para subir los archivos al git:
+
+git add .
+
+git commit -m "Descripción de lo que hiciste"
+
+git push
+
+'''
+
+
 #La clase INCUCAI la uso como manager de mis demas clases --> Permite manejar/linkear mis clases y listas
 
 from Paciente import Paciente
