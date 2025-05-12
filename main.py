@@ -1,10 +1,10 @@
-from INCUCAI.Centros import Centro
+#from INCUCAI.Centros import Centro
 from INCUCAI.Incucai import Incucai
-from INCUCAI.Paciente import Donante
-from INCUCAI.Organos import Organo
-from INCUCAI.Paciente import Paciente
-from INCUCAI.Paciente import Receptor
-from INCUCAI.Vehiculo import Vehiculo
+#from INCUCAI.Paciente import Donante
+#from INCUCAI.Organos import Organo
+#from INCUCAI.Paciente import Paciente
+#from INCUCAI.Paciente import Receptor
+#from INCUCAI.Vehiculo import Vehiculo
 
 def main():
     #a fines de testeo usamos estos objetos que no los hago por carga de datos

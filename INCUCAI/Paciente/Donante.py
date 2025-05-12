@@ -1,6 +1,6 @@
 
 
-from Paciente import *
+from .Paciente import *
 from datetime import datetime, date
 
 class Donante(Paciente):
