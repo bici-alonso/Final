@@ -1,11 +1,10 @@
-main.py
-from Centros_de_salud import Centro_de_salud
-from INCUCAI import INCUCAI
-from Donante import Donante
-from Organos import Organos
-from Paciente import Paciente
-from Receptor import Receptor
-from Vehiculos import Vehiculos
+from INCUCAI.Centros import Centro
+from INCUCAI import Incucai
+from INCUCAI.Paciente import Donante
+from INCUCAI.Organos import Organo
+from INCUCAI.Paciente import Paciente
+from INCUCAI.Paciente import Receptor
+from INCUCAI.Vehiculo import Vehiculo
 
 def main():
     #a fines de testeo usamos estos objetos que no los hago por carga de datos
@@ -13,6 +12,8 @@ def main():
     paciente2=Paciente("Vicky", 46583726, "25/03/2005", "F", 1135857168, "0+", "Favaloro", "Donante" )
     paciente.datos_pacientes() #metodo tipo getter
     paciente2.datos_paciente()
+
+
 
 
 

@@ -87,7 +87,7 @@ class Incucai:
         else:
             Donante.agregar(datos)
 
-
+    
             
     #incucai debe tener una validacion que ningun paciente se repite
     #debo sacar de la lista a pacientes que no tiene mas organos para donar
