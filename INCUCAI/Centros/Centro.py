@@ -43,4 +43,25 @@ class Centro_de_salud():
 
 cs1 = Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
 cs2 = Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
-
+cs3 = Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "Comuna 2", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
+cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", ""
+cs5 = Centro_de_salud ("Hospital Italiano de La Plata", 
+cs6 = Centro_de_salud ("Hospital Universitario Austral", 
+cs7 = Centro_de_salud ("CETRAMOR", 
+cs8 = Centro_de_salud ("Hospital Alejandro Posadas", 
+cs9 = Centro_de_salud ("Hospital Gral. de Agudos Carlos G. Durand", 
+cs10= Centro_de_salud ("Sanatorio Pasteur", #catamarca
+cs11= Centro_de_salud ("Hospital Dr. Julio Cecilio Perrando" #chaco
+cs12= Centro_de_salud ("Hospital Alvear Comodoro Rivadavia", #chubut
+cs13= Centro_de_salud ("Hospital de Urgencias", #cordoba
+cs14= Centro_de_salud ("Hospital Privado de Cordoba" #cordoba
+cs15= Centro_de_salud ("Hospital Gral. San Martin", #corrientes
+cs16= Centro_de_salud ("Hospital Justo Jose de Urquiza", #entre rios
+cs17= Centro_de_salud ("Central de Formosa", #formosa
+cs18= Centro_de_salud ("Hospital Central de Mendoza", #mendoza
+cs19= Centro_de_salud ("Hospital El Carmen", #mendoz
+cs20= Centro_de_salud ("Autogestion SAMIC El Dorado", #misiones
+cs21 = Centro_de_salud ("Castro Rendon", #nqn
+cs22 = Centro_de_salud ("Hospital Area Programa Cipoletti Dr. Pedro Moguillansky", #rio negro
+cs23 = Centro_de_salud ("Hospital Papa Francisco", #salta
+cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson" #san juan
