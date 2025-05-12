@@ -45,15 +45,16 @@ class Centro_de_salud():
 cs1 = Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
 cs2 = Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
 cs3 = Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "Comuna 2", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
-cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez")
-cs5 = Centro_de_salud ("Hospital Italiano de La Plata")
-cs6 = Centro_de_salud ("Hospital Universitario Austral")
-cs7 = Centro_de_salud ("CETRAMOR")
-cs8 = Centro_de_salud ("Hospital Alejandro Posadas")
-cs9 = Centro_de_salud ("Hospital Gral. de Agudos Carlos G. Durand")
-cs10= Centro_de_salud ("Sanatorio Pasteur") #catamarca
-cs11= Centro_de_salud ("Hospital Dr. Julio Cecilio Perrando")#chaco
-cs12= Centro_de_salud ("Hospital Alvear Comodoro Rivadavia") #chubut
+cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "Comuna 10", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
+cs5 = Centro_de_salud ("Hospital Italiano de La Plata", "Av. 51", "Gambier", "Buenos Aires", "022-15129500")
+cs6 = Centro_de_salud ("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
+cs7 = Centro_de_salud ("CETRAMOR", "Rioja 1529", "Barrio Centro", "Rosario", "Santa Fe", "0341-4488962")
+cs8 = Centro_de_salud ("Hospital Alejandro Posadas", "Av. Presidente Arturo U. Ilia 386", "El Palomar", "Moron", "Buenos Aires", "01144699300")
+cs9 = Centro_de_salud ("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "01149825555")
+cs10= Centro_de_salud ("Sanatorio Pasteur", "Chacabuco 675","El Jumeal", "San Fernandi del Valle de Catamarca", "Catamarca")
+cs11= Centro_de_salud ("Hospital Dr. Julio Cecilio Perrando", "Av. 9 de Julio 1110", "Don Rafael", "Resistencia", "Chaco")
+'''
+cs12= Centro_de_salud ("Hospital Alvear Comodoro Rivadavia", "Juan Ramon Balcarce", "Barrio 25 de mayo", "Comodor Rivadavia", "Chubut")
 cs13= Centro_de_salud ("Hospital de Urgencias") #cordoba
 cs14= Centro_de_salud ("Hospital Privado de Cordoba")#cordoba
 cs15= Centro_de_salud ("Hospital Gral. San Martin") #corrientes
@@ -70,3 +71,5 @@ cs25 = Centro_de_salud ("Hospital Dr. Clemente Alvarez")#santa fe
 cs26 = Centro_de_salud ("Hospital del Centenario")
 cs27 = Centro_de_salud ("Hospital Regional Dr. Ramon Carrillo" )
 cs28 = Centro_de_salud ("Rospital Rio Grande")#tierra del fuego
+cs29 = Centro_de_salud ("Clinica Mayo SRL") #tucuman
+'''
