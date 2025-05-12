@@ -5,7 +5,6 @@ from datetime import datetime, date
 
 class Donante(Paciente):
 
-    lista_donantes = []  # Lista de todos los donantes (atributo de clase)
 
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es,  fecha_fall, hora_fall, hora_ablacion, fecha_ablacion, lista_organos):
         super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
@@ -16,6 +15,7 @@ class Donante(Paciente):
         self.lista_organos = lista_organos
         self.fecha_creacion = date.today()
         self.hora_creacion = datetime.now().time()
+        self.lista_donantes = []  # Lista de todos los donantes (atributo de clase)
         Donante.lista_donantes.append(self) 
 
     

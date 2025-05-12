@@ -2,16 +2,17 @@ from .Paciente import *
 
 class Receptor(Paciente):
 
-
+    lista_receptor = []
     def __init__(self, orga_recib, fecha_list_esp, patologia, estado):
         #falta heredar los datos de paciente
         self.org_recib = orga_recib #solo puede recibir un organo --> como valido esto?
         self.fecha_list_esp = fecha_list_esp
         self.patologia = patologia
         self.estado = estado
+        #self.lista_receptor = []
         #Falta determinar de que otros atributos dependeria su prioridad
 
-    lista_receptor = []
+    
         
     def agregar(self, cls, datos):
         cls.lista_receptor.append(datos)

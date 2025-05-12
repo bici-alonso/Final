@@ -65,9 +65,9 @@ class Incucai:
         datos = paciente.__dict__  #este dict toma los dAtos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "receptor":
-            Receptor.agregar(datos)
+            Receptor.lista_receptor.append(datos)
         else:
-            Donante.agregar(datos)
+            self.donantes.append(paciente)
 
 
     

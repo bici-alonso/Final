@@ -2,8 +2,8 @@
 from INCUCAI.Incucai import Incucai
 #from INCUCAI.Paciente import Donante
 #from INCUCAI.Organos import Organo
-#from INCUCAI.Paciente import Paciente
-#from INCUCAI.Paciente import Receptor
+from INCUCAI.Paciente import Paciente
+from INCUCAI.Paciente import Receptor
 #from INCUCAI.Vehiculo import Vehiculo
 
 def main():
@@ -13,7 +13,10 @@ def main():
     #paciente.datos_pacientes() #metodo tipo getter
     #paciente2.datos_paciente()
     incucai = Incucai()
+    paciente = Paciente()
+    receptor = Receptor(paciente)
     incucai.clasificar_pac()
+    receptor.listar()
 
 
 if __name__ == "__main__":
