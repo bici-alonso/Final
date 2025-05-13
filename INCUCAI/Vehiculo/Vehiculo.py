@@ -29,6 +29,9 @@ from datetime import datetime
 from geopy.geocoders import Nominatim
 
 
+#PRIMERO INGRESO DIRECCION --> LA CONVIERTO A LATITUD --> CALCULO DISTANCIA
+
+
 #Hago a vehiculo mi clase abstracta:
 
 class Vehiculo(ABC):
@@ -50,3 +53,5 @@ class Vehiculo(ABC):
         
     def __str__(self):
         return f"{self.__class__.__name__} - Patente: {self.patente}, Velocidad: {self.velocidad} km/h"
+    
+
