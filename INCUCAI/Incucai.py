@@ -81,14 +81,12 @@ class Incucai:
         paciente = Paciente(que_es)
         paciente.cargar_datos()
 
-        datos = paciente.__dict__  #este dict toma los dAtos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
+        datos = paciente.__dict__  #este dict toma los datos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "receptor":
             Receptor.agregar(datos)
         else:
             Donante.agregar(datos)
-            
-    def crear_centros (self):
         
 
     
