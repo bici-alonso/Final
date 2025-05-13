@@ -29,55 +29,19 @@ git commit -m "Descripción de lo que hiciste"
 
 git push
 
-'''
 
+
+'''
 
 #La clase INCUCAI la uso como manager de mis demas clases --> Permite manejar/linkear mis clases y listas
 
-from .Paciente.Paciente import Paciente
-from .Paciente.Donante import Donante #no me esta dejando importar, como esta en carpetas chat me dijo q le ponga ese punto pero tampoco funciona
-from .Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
-
+from Paciente.Paciente import Paciente
+from Paciente.Donante import Donante #no me esta dejando importar, como esta en carpetas chat me dijo q le ponga ese punto pero tampoco funciona
+from Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
+from Centros.Centro import Centro_de_salud 
 
 class Incucai:
-
-
-    def __init__(self):
-        #Constructor de INCUCAI
-        
-        self.receptores = []
-        self.donantes = []
-        self.Centros_de_salud = []
-        
-    def clasificar_pac (self):
-        opcion_don_rec=int(input("A que lista quiere agregar?\n1- Lista Receptores\n2-Lista donantes \n"))
-        
-        if opcion_don_rec == 1:
-            que_es = 'receptor'
-        elif opcion_don_rec == 2:
-            que_es = 'donante' 
-        else:
-            print("\nOpcion no valida. El paciente DEBE SER DONANTE O RECEPTOR")
-            return
-        
-        paciente = Paciente('.', '.', '.', '.', '.', '.', '.', '.', que_es)
-        paciente.agregar(que_es)
-        datos = paciente.__dict__  #este dict toma los dAtos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
-
-        if que_es == "receptor":
-            Receptor.lista_receptor.append(datos)
-        else:
-            self.donantes.append(paciente)
-
-
     
-            
-    #incucai debe tener una validacion que ningun paciente se repite
-    #debo sacar de la lista a pacientes que no tiene mas organos para donar
-    #debo sacar a los receptores que tuvieron un transplante exitoso
-
-
-        
     '''
     El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa. 
     El INCUCAI NO HACE LA CARGA DE DATOS
@@ -94,3 +58,41 @@ class Incucai:
     de donantes.
 
     '''
+    
+
+    def __init__(self):
+        #Constructor de INCUCAI
+        
+        self.receptores = []
+        self.donantes = []
+        self.Centros_de_salud = []
+        
+    def clasificar_pac (self):
+        opcion_don_rec=int(input("A que lista quiere agregar?\n1- Lista Receptores\n2-Lista donantes"))
+        
+        if opcion_don_rec == 1:
+            que_es = 'receptor'
+        elif opcion_don_rec == 2:
+            que_es = 'donante' 
+        else:
+            print("\nOpcion no valida. El paciente DEBE SER DONANTE O RECEPTOR")
+            return
+        
+        paciente = Paciente(que_es)
+        paciente.cargar_datos()
+
+        datos = paciente.__dict__  #este dict toma los dAtos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
+
+        if que_es == "receptor":
+            Receptor.agregar(datos)
+        else:
+            Donante.agregar(datos)
+            
+    def crear_centros (self):
+        
+
+    
+            
+    #incucai debe tener una validacion que ningun paciente se repite
+    #debo sacar de la lista a pacientes que no tiene mas organos para donar
+    #debo sacar a los receptores que tuvieron un transplante exitoso
