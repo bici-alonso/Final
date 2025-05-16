@@ -1,10 +1,10 @@
-#from INCUCAI.Centros import Centro
+#from INCUCAI.Centros.Centro import Centro
 from INCUCAI.Incucai import Incucai
-#from INCUCAI.Paciente import Donante
-#from INCUCAI.Organos import Organo
-from INCUCAI.Paciente import Paciente
-from INCUCAI.Paciente import Receptor
-#from INCUCAI.Vehiculo import Vehiculo
+from INCUCAI.Paciente.Donante import Donante
+#from INCUCAI.Organos.Organo import Organo
+from INCUCAI.Paciente.Paciente import Paciente
+from INCUCAI.Paciente.Receptor import Receptor
+#from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 
 def main():
     #a fines de testeo usamos estos objetos que no los hago por carga de datos
@@ -13,12 +13,17 @@ def main():
     #paciente.datos_pacientes() #metodo tipo getter
     #paciente2.datos_paciente()
     incucai = Incucai()
-    paciente = Paciente()
-    receptor = Receptor(paciente)
     incucai.clasificar_pac()
-    receptor.listar()
+
+    for d in Donante.listar():
+        print("--------------------lista donantes---------------")
+        print(d)
+    
+    for r in Receptor.listar():
+        print("---------------------lista receptores------------------")
+        print(r)
 
 
 if __name__ == "__main__":
     main()
-    
+
