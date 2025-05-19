@@ -71,7 +71,7 @@ class Incucai:
         if paciente_exist:
             paciente_base = paciente_exist
             que_es = paciente_base.que_es.lower()
-        else:
+        '''else:
             opcion_don_rec=int(input("A que lista quiere agregar?\n1- Lista Receptores\n2-Lista donantes\n"))
             
             if opcion_don_rec == 1:
@@ -80,14 +80,20 @@ class Incucai:
                 que_es = 'donante' 
             else:
                 print("\nOpcion no valida. El paciente DEBE SER DONANTE O RECEPTOR")
-                return
+                return'''
             
-            paciente_base = Paciente.agregar(que_es)
-    
+        paciente_base = Paciente.agregar(que_es)
 
+        dni_a_verificar = paciente_base.DNI
+
+        if any(p.DNI == dni_a_verificar for p in self.donantes + self.receptores):
+            print(f" Ya existe un paciente con DNI {dni_a_verificar} en el sistema. No se puede agregar.")
+            return
+        
         #datos = paciente_base.__dict__  #este dict toma los datos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "donante":
+        
             if not paciente_exist:
                 fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
                 hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
@@ -111,7 +117,7 @@ class Incucai:
                     fecha_ablacion,
                     lista_organos)
             else:
-                #donante = paciente_exist
+                donante = paciente_exist
                 fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
                 hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
                 fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
@@ -139,6 +145,7 @@ class Incucai:
             self.donantes.append(donante)
 
         elif que_es == "receptor":
+        
             if not paciente_exist:
                 org_recib = input("Ingrese órgano que recibe: ")
                 fecha_list_esp = input("Ingrese fecha en lista de espera (dd/mm/yyyy): ")
@@ -182,7 +189,9 @@ class Incucai:
 
             Receptor.agregar(receptor)
             self.receptores.append(receptor)
-        
+
+    
+            
 
     
             
