@@ -62,9 +62,7 @@ class Organo:
             return
 
         ablacion_datetime = datetime.combine(self.fecha_ablacion, self.hora_ablacion)
-        ahora = datetime.now()
-        diferencia = ahora - ablacion_datetime
-
+        diferencia = hora_actual - ablacion_datetime
         if diferencia.total_seconds() >= 0:
             print(f"⏱ Tiempo transcurrido desde la ablación: {diferencia}")
         else:
@@ -78,12 +76,12 @@ if organo.tipo in Organo.organos_validos:
     organo.ingresar_datos_ablacion()
     organo.mostrar_datos()
     organo.calcular_tiempo_transcurrido_hoy_ablacion()
-hora_actual = datetime.now()
+
 fecha_deseada = datetime(2025, 5, 20, 10, 0, 0)  # Año, Mes, Día, Hora, Minuto, Segundo
 
-if fecha_deseada > hora_actual:
+if fecha_deseada > organo.calcular_tiempo_transcurrido_hoy_ablacion :
     print("La fecha deseada es en el futuro.")
-elif fecha_deseada < hora_actual:
+elif fecha_deseada < organo.calcular_tiempo_transcurrido_hoy_ablacion:
     print("La fecha deseada ya ha pasado.")
 else:
     print("La fecha deseada es la misma que la fecha actual.")
