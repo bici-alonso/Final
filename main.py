@@ -9,14 +9,6 @@ def main():
     #incucai.clasificar_pac(paciente_exist=paciente)
     #incucai.clasificar_pac(paciente_exist=paciente2)
    # incucai.clasificar_pac(que_es = "receptor") #ESTO ES PARA Q LO CARGUE POR PANTALLA
-
-    '''for d in Donante.listar(): #ESTO PARA QUE IMPRIMA LISTAS Y VER Q ETSAN BIEN
-        print("--------------------lista donantes---------------")
-        print(d)
-    
-    for r in Receptor.listar():
-        print("---------------------lista receptores------------------")
-        print(r)'''
     
     menu()
     

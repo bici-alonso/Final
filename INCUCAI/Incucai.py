@@ -43,8 +43,7 @@ from INCUCAI.Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero 
 class Incucai:
     
     '''
-    El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa. 
-    El INCUCAI NO HACE LA CARGA DE DATOS
+    El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa.
     
     Si el paciente es donante, al ser ingresado se lo agrega a la lista de pacientes donantes.
     Luego se busca los posibles receptores para
