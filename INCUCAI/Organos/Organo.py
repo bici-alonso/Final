@@ -23,7 +23,7 @@ class Organo:
             print(f" '{tipo}' no es un órgano válido.")
             print(f"Órganos válidos: {', '.join(self.organos_validos)}")
         else:
-            print(f"✅ Órgano registrado:  🫀🫁🦴 {self.tipo.capitalize()} 🫀🫁🦴  ")
+            print(f"✅ Órgano registrado:  🫀 🫁  {self.tipo.capitalize()} 🫀 🫁 ")
 
     def quitar_acentos(self, texto):
         return ''.join(
@@ -64,25 +64,15 @@ class Organo:
         ablacion_datetime = datetime.combine(self.fecha_ablacion, self.hora_ablacion)
         diferencia = hora_actual - ablacion_datetime
         if diferencia.total_seconds() >= 0:
-            print(f"⏱ Tiempo transcurrido desde la ablación: {diferencia}")
+            print(f"Tiempo transcurrido desde la ablación: {diferencia} horas")
         else:
             print("La fecha de ablación está en el futuro.")
 
 
 
-tipo_usuario = input("Ingrese el tipo de órgano: ")
-organo = Organo(tipo_usuario)
+tipo = input("Ingrese el tipo de órgano: ")
+organo = Organo(tipo)
 if organo.tipo in Organo.organos_validos:
     organo.ingresar_datos_ablacion()
     organo.mostrar_datos()
     organo.calcular_tiempo_transcurrido_hoy_ablacion()
-
-fecha_deseada = datetime(2025, 5, 20, 10, 0, 0)  # Año, Mes, Día, Hora, Minuto, Segundo
-
-if fecha_deseada > organo.calcular_tiempo_transcurrido_hoy_ablacion :
-    print("La fecha deseada es en el futuro.")
-elif fecha_deseada < organo.calcular_tiempo_transcurrido_hoy_ablacion:
-    print("La fecha deseada ya ha pasado.")
-else:
-    print("La fecha deseada es la misma que la fecha actual.")
-        
