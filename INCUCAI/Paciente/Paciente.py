@@ -31,7 +31,7 @@ class Paciente (ABC):
             print("❌El nombre solo debe contener letras y espacios")
         
         while True:
-            DNI = int(input("\nIngrese DNI: ")) 
+            DNI = input("\nIngrese DNI: ")
             if DNI.isdigit() and 7 <= len(DNI) <= 8:
                 DNI = int(DNI)
                 break
@@ -46,14 +46,14 @@ class Paciente (ABC):
                 print("❌ Fecha inválida. Use el formato dd/mm/aaaa.")
 
         while True:
-            telefono = int(input ("\nIngrese telefono: "))
+            telefono = input ("\nIngrese telefono: ")
             if telefono.isdigit() and len(telefono) >= 6:
                 telefono = int(telefono)
                 break
             print("❌ Teléfono inválido. Debe tener solo números (mín. 6 dígitos).")
 
         while True:
-            contacto = int(input ("\nIngrese telefono de emergencia: "))
+            contacto = input ("\nIngrese telefono de emergencia: ")
             if contacto.isdigit() and len(contacto) >= 6:
                 contacto = int(contacto)
                 break

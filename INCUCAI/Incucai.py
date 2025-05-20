@@ -66,22 +66,37 @@ class Incucai:
         self.Centros_de_salud = []
         
     def clasificar_pac (self,que_es = None, paciente_exist = None):
-
+    
         if paciente_exist:
+            if isinstance(paciente_exist, Donante):
+                if any(p.DNI == paciente_exist.DNI for p in self.donantes + self.receptores):
+                    print(f"Ya existe un paciente con DNI {paciente_exist.DNI}.")
+                    return
+                Donante.agregar(paciente_exist)
+                self.donantes.append(paciente_exist)
+                return
+
+            if isinstance(paciente_exist, Receptor):
+                if any(p.DNI == paciente_exist.DNI for p in self.donantes + self.receptores):
+                    print(f"Ya existe un paciente con DNI {paciente_exist.DNI}.")
+                    return
+                Receptor.agregar(paciente_exist)
+                self.receptores.append(paciente_exist)
+                return
             paciente_base = paciente_exist
             que_es = paciente_base.que_es.lower()
-        '''else:
-            opcion_don_rec=int(input("A que lista quiere agregar?\n1- Lista Receptores\n2-Lista donantes\n"))
-            
-            if opcion_don_rec == 1:
-                que_es = 'receptor'
-            elif opcion_don_rec == 2:
-                que_es = 'donante' 
-            else:
-                print("\nOpcion no valida. El paciente DEBE SER DONANTE O RECEPTOR")
-                return'''
-            
-        paciente_base = Paciente.agregar(que_es)
+            '''else:
+                opcion_don_rec=int(input("A que lista quiere agregar?\n1- Lista Receptores\n2-Lista donantes\n"))
+                
+                if opcion_don_rec == 1:
+                    que_es = 'receptor'
+                elif opcion_don_rec == 2:
+                    que_es = 'donante' 
+                else:
+                    print("\nOpcion no valida. El paciente DEBE SER DONANTE O RECEPTOR")
+                    return'''
+        else:
+            paciente_base = Paciente.agregar(que_es)
 
         dni_a_verificar = paciente_base.DNI
 
@@ -92,103 +107,54 @@ class Incucai:
         #datos = paciente_base.__dict__  #este dict toma los datos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "donante":
-        
-            if not paciente_exist:
-                fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
-                hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
-                fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
-                hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
-                lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')
+            fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
+            hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
+            fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
+            hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
+            lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')
 
-                donante = Donante(
-                    paciente_base.nombre,
-                    paciente_base.DNI,
-                    paciente_base.fecha_nac,
-                    paciente_base.sexo,
-                    paciente_base.telefono,
-                    paciente_base.contacto,
-                    paciente_base.tipo_sangre,
-                    paciente_base.centro,
-                    que_es,
-                    fecha_fall,
-                    hora_fall,
-                    hora_ablacion,
-                    fecha_ablacion,
-                    lista_organos)
-            else:
-                donante = paciente_exist
-                fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
-                hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
-                fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
-                hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
-                lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')
-
-                donante = Donante(
-                    paciente_base.nombre,
-                    paciente_base.DNI,
-                    paciente_base.fecha_nac,
-                    paciente_base.sexo,
-                    paciente_base.telefono,
-                    paciente_base.contacto,
-                    paciente_base.tipo_sangre,
-                    paciente_base.centro,
-                    que_es,
-                    fecha_fall,
-                    hora_fall,
-                    hora_ablacion,
-                    fecha_ablacion,
-                    lista_organos)
-                
+            donante = Donante(
+                paciente_base.nombre,
+                paciente_base.DNI,
+                paciente_base.fecha_nac,
+                paciente_base.sexo,
+                paciente_base.telefono,
+                paciente_base.contacto,
+                paciente_base.tipo_sangre,
+                paciente_base.centro,
+                que_es,
+                fecha_fall,
+                hora_fall,
+                hora_ablacion,
+                fecha_ablacion,
+                lista_organos)
 
             Donante.agregar(donante)
             self.donantes.append(donante)
 
         elif que_es == "receptor":
-        
-            if not paciente_exist:
-                org_recib = input("Ingrese órgano que recibe: ")
-                fecha_list_esp = input("Ingrese fecha en lista de espera (dd/mm/yyyy): ")
-                patologia = input("Ingrese patología: ")
-                estado = input("Ingrese estado: ")
+            organo = input("Ingrese órgano que recibe: ")
+            fecha_lista = input("Ingrese fecha en lista de espera (dd/mm/yyyy): ")
+            patologia = input("Ingrese patología: ")
+            estado = input("Ingrese estado: ")
 
-                receptor = Receptor(
-                    paciente_base.nombre,
-                    paciente_base.DNI,
-                    paciente_base.fecha_nac,
-                    paciente_base.sexo,
-                    paciente_base.telefono,
-                    paciente_base.contacto,
-                    paciente_base.tipo_sangre,
-                    paciente_base.centro,
-                    que_es,
-                    org_recib,
-                    fecha_list_esp,
-                    patologia,
-                    estado)
-            else:
-                org_recib = input("Ingrese órgano que recibe: ")
-                fecha_list_esp = input("Ingrese fecha en lista de espera (dd/mm/yyyy): ")
-                patologia = input("Ingrese patología: ")
-                estado = input("Ingrese estado: ")
-
-                receptor = Receptor(
-                    paciente_base.nombre,
-                    paciente_base.DNI,
-                    paciente_base.fecha_nac,
-                    paciente_base.sexo,
-                    paciente_base.telefono,
-                    paciente_base.contacto,
-                    paciente_base.tipo_sangre,
-                    paciente_base.centro,
-                    que_es,
-                    org_recib,
-                    fecha_list_esp,
-                    patologia,
-                    estado)
+            receptor = Receptor(
+                paciente_base.nombre,
+                paciente_base.DNI,
+                paciente_base.fecha_nac,
+                paciente_base.sexo,
+                paciente_base.telefono,
+                paciente_base.contacto,
+                paciente_base.tipo_sangre,
+                paciente_base.centro,
+                que_es,
+                organo,
+                fecha_lista,
+                patologia,
+                estado)
 
             Receptor.agregar(receptor)
             self.receptores.append(receptor)
-
     
             
 
