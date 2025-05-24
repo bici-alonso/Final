@@ -48,12 +48,17 @@ import time
 class Centro_de_salud:
 
     def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto):
+        if not all([nombre_cs, direccion, barrio, provincia, tel_contacto]):
+            raise ValueError("Todos los campos son obligatorios.")
+        
+        
+        
         self.pais = "Argentina"
-        self.nombre_cs = nombre_cs
-        self.direccion = direccion
-        self.ciudad = barrio
-        self.provincia = provincia
-        self.tel_contacto = tel_contacto
+        self.nombre_cs = nombre_cs.strip()
+        self.direccion = direccion.strip()
+        self.ciudad = barrio.strip()
+        self.provincia = provincia.strip()
+        self.tel_contacto = tel_contacto.strip()
         self.cirujanos = []
         self.vehiculos = []
         self.coords = None
@@ -79,6 +84,57 @@ class Centro_de_salud:
         if self.coords is None or otro_centro.coords is None:
             raise ValueError("Uno o ambos centros no tienen coordenadas geográficas.")
         return geodesic(self.coords, otro_centro.coords).kilometers
+    
+    
+    def agregar_cirujano(self, cirujano):
+        if cirujano not in self.cirujanos:
+            self.cirujanos.append(cirujano)
+            
+    def agregar_vehiculo(self, vehiculo):
+        if vehiculo not in self.vehiculos:
+            self.vehiculos.append(vehiculo)
+            
+    def seleccionar_vehiculo(self, centro_destino):
+        if not self.vehiculos:
+            raise ValueError("No hay vehículos disponibles en este centro")
+            
+        #misma provincia y ciudad/barrio:
+        if (self.provincia.lower() == centro_destino.provincia.lower() and 
+            self.ciudad.lower() == centro_destino.ciudad.lower()):
+
+            ambulancias = [v for v in self.vehiculos if v.__class__.__name__ == 'Ambulancia'] #crea nuevo array de ambulancias, solo incluye a las ambulancias de mi array de vehiculos
+            '''
+            equivalente a:
+            ambulancias = []
+            for vehiculo in self.vehiculos:
+                if isinstance(vehiculo, Ambulancia):
+                    ambulancias.append(vehiculo)
+                if ambulancias:
+                    ambulancia_mas_rapida = ambulancias[0]
+                    for ambulancia in ambulancias:
+                        if ambulancia.velocidad > ambulancia_mas_rapida.velocidad:
+                            ambulancia_mas_rapida = ambulancia
+            return ambulancia_mas_rapida
+            '''
+            if ambulancias:
+                return max(ambulancias, key=lambda x: x.velocidad) #usa el atributo de velocidad para elegir a la ambulancia de mayor velocidad
+        
+        #misma provincia pero diferente ciudad
+        elif self.provincia.lower() == centro_destino.provincia.lower():
+            #buscar helicóptero
+            helicopteros = [v for v in self.vehiculos if v.__class__.__name__ == 'Helicoptero']
+            if helicopteros:
+                return helicopteros[0]  # Primer helicóptero disponible
+        
+        #diferentes provincias
+        else:
+            # Buscar avión
+            aviones = [v for v in self.vehiculos if v.__class__.__name__ == 'Avion']
+            if aviones:
+                return aviones[0]  # Primer avión disponible
+        
+        
+        return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
 
 def main():
     geolocator = Nominatim(user_agent="incucai_test")

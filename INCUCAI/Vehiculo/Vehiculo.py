@@ -34,8 +34,6 @@ Una vez que se asignó el vehículo, el centro procede a realizar la ablación d
 Ese vehículo realiza el transporte (el cual demora un tiempo dependiendo de la distancia). 
 Finalmente, el centro de salud del receptor realiza el trasplante. 
 Para realizar el trasplante se verifica que no hayan transcurrido más de 20 horas desde la ablación del órgano y procede a realizar el trasplante. 
-
-
 '''
 
 
