@@ -1,4 +1,19 @@
 '''
+Los centros de salud asignan un vehiculo para el transporte del órgano. 
+Esta selección de vehículos se realiza en base a la distancia. 
+Si se encuentra en la misma provincia y partido, se debe hacer uso del vehiculo disponible de mayor velocidad pero que no se use
+para distancias mayores. 
+Si se encuentra en la misma provincia, pero en un partido distinto, se utiliza el
+helicóptero.
+Si discierne la provincia se utiliza el avión.
+Una vez que el INCUCAI encontró un match, inicia el protocolo de transporte y trasplante. Este le pide al
+centro de salud del donante que asigne un vehículo y un cirujano. Una vez que se asignó el vehículo, el centro
+procede a realizar la ablación del órgano que necesita el receptor. 
+Ese vehículo realiza el transporte (el cual demora un tiempo dependiendo de la distancia). 
+
+Para realizar el trasplante se verifica que no hayan transcurrido más de 20 horas desde la ablación del órgano y procede a realizar el trasplante con el cirujano elegido. 
+
+
 Los vehículos que realizan el transporte tienen una velocidad y un registro de viajes realizados. Cuando se
 despacha el organo se les indica la distancia y el nivel de trafico. Ambos datos los obtiene el centro de salud
 consultando un servicio de terceros (pueden utilizar valores inventados a su discreción dentro de main
@@ -13,9 +28,9 @@ Si se encuentra en la misma provincia y partido, se debe hacer uso del vehiculo 
 para distancias mayores. 
 Si se encuentra en la misma provincia, pero en un partido distinto, se utiliza el helicóptero. 
 Si discierne la provincia se utiliza el avión.
-Una vez que el INCUCAI encontró un match, inicia el protocolo de transporte y trasplante. Este le pide al
-centro de salud del donante que asigne un vehículo y un cirujano. Una vez que se asignó el vehículo, el centro
-procede a realizar la ablación del órgano que necesita el receptor.
+Una vez que el INCUCAI encontró un match, inicia el protocolo de transporte y trasplante. 
+Este le pide al centro de salud del donante que asigne un vehículo y un cirujano. 
+Una vez que se asignó el vehículo, el centro procede a realizar la ablación del órgano que necesita el receptor.
 Ese vehículo realiza el transporte (el cual demora un tiempo dependiendo de la distancia). 
 Finalmente, el centro de salud del receptor realiza el trasplante. 
 Para realizar el trasplante se verifica que no hayan transcurrido más de 20 horas desde la ablación del órgano y procede a realizar el trasplante. 
@@ -26,7 +41,7 @@ Para realizar el trasplante se verifica que no hayan transcurrido más de 20 hor
 
 from abc import ABC, abstractmethod
 from datetime import datetime
-from geopy.geocoders import Nominatim
+#from geopy.geocoders import Nominatim
 
 
 #PRIMERO INGRESO DIRECCION --> LA CONVIERTO A LATITUD --> CALCULO DISTANCIA
@@ -35,9 +50,16 @@ from geopy.geocoders import Nominatim
 #Hago a vehiculo mi clase abstracta:
 
 class Vehiculo(ABC):
+    
+    
     def __init__(self, velocidad, patente):
+        if velocidad <= 0:
+            raise ValueError("La velocidad debe ser mayor a 0")
+        if not patente or not patente.strip():
+            raise ValueError("La patente no puede estar vacía")
+            
         self.velocidad = velocidad
-        self.patente = patente
+        self.patente = patente.strip().upper()
         self.viajes = []
         
     @abstractmethod
@@ -52,6 +74,8 @@ class Vehiculo(ABC):
         })
         
     def __str__(self):
+        #define cómo se representa un objeto de una clase como una cadena de texto.
         return f"{self.__class__.__name__} - Patente: {self.patente}, Velocidad: {self.velocidad} km/h"
+    
     
 

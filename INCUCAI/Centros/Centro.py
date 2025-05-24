@@ -89,21 +89,12 @@ def main():
     cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "C1425EFD", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
     cs5 = Centro_de_salud("Hospital Italiano de La Plata", "Av. 51, B1900 La Plata", "La Plata", "Provincia de Buenos Aires", "022-15129500")
     cs6 = Centro_de_salud("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
-    #cs7 = Centro_de_salud("CETRAMOR", "1529, AYW, Rioja, S2000", "Rosario", "Santa Fe", "0341-4488962")
-    #cs8 = Centro_de_salud("Hospital Alejandro Posadas", "Avenida Presidente Arturo U. Illia s/n y, Marconi Morón 386, B1684", "El Palomar", "Provincia de Buenos Aires", "011 4469-9300")
     cs9 = Centro_de_salud("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "011 4982-5555")
     cs10 = Centro_de_salud("Sanatorio Pasteur", "Chacabuco 675", "San Fernando del Valle de Catamarca", "Catamarca", "038 3443-2000")
-    #cs11 = Centro_de_salud("Hospital Dr. Julio Cecilio Perrando", "Av. 9 de Julio 1110", "Don Rafael, Resistencia", "Chaco", "036 2442-7233")
     cs12= Centro_de_salud ("Hospital Zonal Alvear", "Juan Ramón Balcarce, Comodoro Rivadavia, Chubut", "Comodoro Rivadavia", "Chubut", "029 7455-9952")
     cs13= Centro_de_salud ("Hospital de Urgencias", "Catamarca 441, X5000 Córdoba", "Barrio Centro" , "Córdoba", "0351 427-6200")
-    #cs14= Centro_de_salud ("Hospital Privado de Cordoba", "Naciones Unidas 346, X5016 Córdoba","Colinas de Velez Sarfield, Córdoba Capital","Córdoba","0351 468-8200")
-    #cs15= Centro_de_salud ("Hospital Gral. San Martin", "Av. 3 de Abril 1224, W3410 HHA", "Corrientes", "Corrientes", "---") 
-    #cs16= Centro_de_salud ("Hospital Justo Jose de Urquiza", "Av. Hipólito Irigoyen s/n, E3180 Federal", "Barrio Centro", "Entre Ríos", "034 5442-1791" ) 
-    #cs17= Centro_de_salud ("Hospita Central de Formosa", "Salta S/N, 3600 Formosa, Padre Patiño 1163, P3600 Formosa", "San Pio X", "Formosa", "037 0442-6194")
-    #cs18= Centro_de_salud ("Hospital Central de Mendoza", "L. N. Alem & M5502 Salta", "Mendoza", "Mendoza", "026 1385-5509")
     cs19= Centro_de_salud ("Hospital El Carmen", "Godoy Cruz 5504", "Godoy Cruz", "Mendoza", "081 0810-1033" ) 
     cs20= Centro_de_salud ("Hospital Samic Alem de autogestión nivel II", "Misiónes, N3315 Leandro N. Alem", "Misiones", "Misiones", "037 6415-6950") 
-    #cs21 = Centro_de_salud ("Castro Rendon", "Buenos Aires 450, Q8302 Neuquén", "Neuquén Capital", "Neuquén", "0299 4490-800")
     cs22 = Centro_de_salud ("Hospital Area Programa Cipoletti Dr. Pedro Moguillansky", "Naciones Unidas 1450", "Cipolletti", "Río Negro" , "0299 4775-469")#rio negro
     cs23 = Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022" )
     cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005")
@@ -124,13 +115,12 @@ def main():
             print(f"🔢 Coordenadas: ({location.latitude}, {location.longitude})")
         else:
             print("⚠️ No se pudo obtener coordenadas.")
-
         time.sleep(1)
 
     
     try:
         distancia_km = cs1.calcular_distancia_a(cs2)
-        print(f"\n📏 Distancia entre {cs1.nombre_cs} y {cs2.nombre_cs}: {distancia_km:.2f} km")
+        print(f"\n Distancia entre {cs1.nombre_cs} y {cs2.nombre_cs}: {distancia_km:.2f} km")
     except ValueError as e:
         print(f"⚠️ Error al calcular distancia: {e}")
 
