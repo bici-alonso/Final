@@ -8,14 +8,12 @@ import unicodedata
 from datetime import datetime, date, timedelta
 
 class Organo:
-    # Lista base de órganos válidos (sin acentos)
+    #organos válidos (sin acentos)
     organos_validos = [
         "corazon", "higado", "pancreas", "huesos", "riñon",
         "pulmones", "intestino", "piel", "corneas"
     ]
-    
-    # CORREGIDO: Cambié el nombre de tiempos_maximo a tiempos_conservacion
-    # Y corregí el tiempo del riñón de 20 a 24 horas según tu especificación original
+    #vida util de cada organo post ablacion
     tiempos_conservacion = {
         "corazon": 6, "higado": 12, "pancreas": 12, "huesos": 20, "riñon": 24,
         "pulmones": 6, "intestino": 12, "piel": 60, "corneas": 90
@@ -40,15 +38,14 @@ class Organo:
         )
     
     def get_tiempo_conservacion(self):
-        #tiempo máximo de conservación del organo en horas"""
+        #tiempo de conservación del organo en horas
         return self.tiempos_conservacion.get(self.tipo, 0)
 
-   
     def ingresar_datos_ablacion(self):
         """Permite ingresar manualmente los datos de ablación con validación continua"""
-        print("\n📅 INGRESO DE DATOS DE ABLACIÓN")
-        print("Formato de fecha: YYYY-MM-DD (ejemplo: 2024-12-25)")
-        print("Formato de hora: HH:MM:SS (ejemplo: 14:30:00)")
+        print("\n INGRESO DE DATOS DE ABLACIÓN")
+        print("Formato de fecha: YYYY-MM-DD (ejemplo: 2025-05-25)")
+        print("Formato de hora: HH:MM:SS (ejemplo: 10:30:00)")
         
         while True:
             try:
@@ -60,7 +57,7 @@ class Organo:
                 fecha = datetime.strptime(fecha_str, "%Y-%m-%d").date()
                 break
             except ValueError:
-                print("❌ Formato de fecha incorrecto. Use el formato YYYY-MM-DD (ejemplo: 2024-12-25)")
+                print("❌ Formato de fecha incorrecto. Use el formato YYYY-MM-DD (ejemplo: 2025-05-25)")
                 print("   Intente nuevamente...")
         
         while True:
@@ -72,21 +69,21 @@ class Organo:
                     
                 hora = datetime.strptime(hora_str, "%H:%M:%S").time()
                 
-                # Verificar que no esté en el futuro
+                # verifica que no esté en el futuro
                 fecha_hora_completa = datetime.combine(fecha, hora)
                 if fecha_hora_completa > datetime.now():
-                    print("⚠️ La fecha y hora no pueden estar en el futuro.")
+                    print("\nLa fecha y hora no pueden estar en el futuro.")
                     print("   Ingrese una hora válida...")
-                    continue
-                    
+                    continue 
                 break
+            
             except ValueError:
-                print("❌ Formato de hora incorrecto. Use el formato HH:MM:SS (ejemplo: 14:30:00)")
+                print("\nFormato de hora incorrecto. Use el formato HH:MM:SS (ejemplo: 14:30:00)")
                 print("   Intente nuevamente...")
         
         self.fecha_ablacion = fecha
         self.hora_ablacion = hora
-        print("✅ Datos de ablación guardados correctamente.")
+        print("\nDatos de ablación guardados correctamente.")
         return True
     
     def set_ablacion_auto(self, fecha_ablacion, hora_ablacion):
@@ -120,15 +117,13 @@ class Organo:
         return max(0, tiempo_restante)  # No devolver valores negativos
     
     def es_viable_para_trasplante(self):
-        """Verifica si el órgano aún es viable para trasplante"""
         if not self.fecha_ablacion or not self.hora_ablacion:
             return False
-            
         tiempo_restante = self.calcular_tiempo_restante()
         return tiempo_restante is not None and tiempo_restante > 0
 
     def get_fecha_vencimiento(self):
-        """Retorna la fecha y hora límite para el trasplante"""
+        """retorna la fecha y hora límite para el trasplante"""
         if not self.fecha_ablacion or not self.hora_ablacion:
             return None
             
@@ -137,7 +132,6 @@ class Organo:
         return vencimiento
 
     def calcular_tiempo_transcurrido_hoy_ablacion(self):
-        """Método para mantener compatibilidad con tu código original"""
         tiempo_transcurrido = self.calcular_tiempo_transcurrido()
         if tiempo_transcurrido is not None:
             print(f"Tiempo transcurrido desde la ablación: {tiempo_transcurrido:.2f} horas")
@@ -146,20 +140,18 @@ class Organo:
 
     def mostrar_datos(self):
         """Muestra toda la información del órgano"""
-        print(f"📋 INFORMACIÓN DEL ÓRGANO")
+        print(f"\n------------------------------------INFORMACIÓN DEL ÓRGANO-----------------------------------------")
         print(f"Tipo: {self.tipo.capitalize()}")
         print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
         
         if self.fecha_ablacion and self.hora_ablacion:
             print(f"Fecha de ablación: {self.fecha_ablacion}")
             print(f"Hora de ablación: {self.hora_ablacion}")
-
-            # Mostrar tiempo transcurrido y tiempo restante
             tiempo_transcurrido = self.calcular_tiempo_transcurrido()
             tiempo_restante = self.calcular_tiempo_restante()
             
             if tiempo_transcurrido is not None:
-                print(f"⏱️  Tiempo transcurrido desde ablación: {tiempo_transcurrido:.0f} horas")
+                print(f"\nTiempo transcurrido desde ablación: {tiempo_transcurrido:.0f} horas")
                 if tiempo_restante is not None:
                     if tiempo_restante > 0:
                         print(f"⏳ Tiempo restante para trasplante: {tiempo_restante:.1f} horas")
@@ -183,7 +175,7 @@ if organo.tipo in Organo.organos_validos:
         print(f"\n🔍 ¿Es viable para trasplante? {'✅ Sí' if organo.es_viable_para_trasplante() else '❌ No'}")
             
         if organo.get_fecha_vencimiento():
-            print(f"📅 Fecha límite para trasplante: {organo.get_fecha_vencimiento()}")
+            print(f"\nFecha límite para trasplante: {organo.get_fecha_vencimiento()}")
         else:
             print("No se pudieron establecer correctamente los datos de ablación.")
     else:
