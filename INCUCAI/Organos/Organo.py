@@ -140,7 +140,7 @@ class Organo:
 
     def mostrar_datos(self):
         """Muestra toda la información del órgano"""
-        print(f"\n------------------------------------INFORMACIÓN DEL ÓRGANO-----------------------------------------")
+        print(f"\n----------------------------------------------------INFORMACIÓN DEL ÓRGANO----------------------------------------------------")
         print(f"Tipo: {self.tipo.capitalize()}")
         print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
         
@@ -164,7 +164,7 @@ class Organo:
 
 
 
-print("------------------------GESTIÓN DE ÓRGANOS--------------------------")
+print("----------------------------------------------------GESTIÓN DE ÓRGANOS----------------------------------------------------")
 tipo = input("Ingrese el tipo de órgano: ")
 organo = Organo(tipo)    
 if organo.tipo in Organo.organos_validos:

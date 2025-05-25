@@ -135,6 +135,105 @@ class Centro_de_salud:
         
         
         return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
+    
+    def realizar_ablacion(self, organo, donante):
+        """
+        Realiza la ablación de un órgano.
+            organo (Organo): Órgano 
+            donante: Paciente donante
+            
+            retorna bool: True si la ablación fue exitosa
+        """
+        from datetime import datetime
+        
+        try:
+            # Setear fecha y hora de ablación usando el método de la clase Organo
+            ahora = datetime.now()
+            organo.set_ablacion_auto(ahora.date(), ahora.time())
+            
+            # Quitar órgano de la lista del donante
+            if organo in donante.organos_a_donar:
+                donante.organos_a_donar.remove(organo)
+                print(f"✅ Ablación exitosa de {organo.tipo.capitalize()} en {self.nombre_cs}")
+                print(f"⏰ Tiempo máximo de conservación: {organo.get_tiempo_conservacion()} horas")
+                return True
+            
+            print(f"❌ Error: el órgano no está en la lista del donante")
+            return False
+            
+        except Exception as e:
+            print(f"❌ Error durante la ablación: {e}")
+            return False
+
+    def realizar_trasplante(self, organo, receptor, cirujano):
+        """
+        Realiza el trasplante de un órgano.
+            organo: a trasplantar
+            receptor: Paciente receptor
+            cirujano: Cirujano que realizará la operación
+            
+            retorna bool: True si el trasplante fue exitoso
+        """
+        # Verificar viabilidad del órgano usando los métodos de la clase Organo
+        if not organo.es_viable_para_trasplante():
+            tiempo_transcurrido = organo.calcular_tiempo_transcurrido()
+            print(f"❌ Órgano no viable - han pasado {tiempo_transcurrido:.1f} horas desde la ablación")
+            print(f"⏰ Tiempo máximo permitido: {organo.get_tiempo_conservacion()} horas")
+            return False
+        
+        #info del organo antes del trasplante
+        tiempo_restante = organo.calcular_tiempo_restante()
+        print(f"\nTiempo restante para trasplante: {tiempo_restante:.1f} horas")
+        
+        # Realizar trasplante usando el cirujano
+        try:
+            exito = cirujano.realizar_operacion(organo.tipo)
+            
+            if exito:
+                print(f"✅ Trasplante exitoso de {organo.tipo.capitalize()} en {self.nombre_cs}")
+                print(f"\nCirujano: {cirujano.nombre}")
+            else:
+                print(f"❌ Trasplante fallido de {organo.tipo.capitalize()} en {self.nombre_cs}")
+                # Cambiar prioridad del receptor y estado
+                receptor.prioridad = 1  # Mayor prioridad
+                receptor.estado = "Inestable"
+                print(f"\nReceptor {receptor.nombre} cambiado a estado INESTABLE con prioridad máxima")
+            
+            return exito
+            
+        except Exception as e:
+            print(f"❌ Error durante el trasplante: {e}")
+            return False
+    
+    def __str__(self):
+        """ Descripción del centro
+        """
+        return f"{self.nombre_cs} - {self.ciudad}, {self.provincia}"
+
+    def __len__(self):
+        """
+        Retorna el número total de recursos (cirujanos + vehículos).
+        
+        Returns:
+            int: Cantidad total de recursos
+        """
+        return len(self.cirujanos) + len(self.vehiculos)
+
+    def __eq__(self, otro):
+        """
+        Compara dos centros de salud por nombre y dirección.
+        
+        Args:
+            other (Centro_de_salud): Otro centro a comparar
+            
+        Returns:
+            bool: True si son el mismo centro
+        """
+        if not isinstance(otro, Centro_de_salud):
+            return False
+        return (self.nombre_cs == otro.nombre_cs and 
+                self.direccion == otro.direccion)
+
 
 def main():
     geolocator = Nominatim(user_agent="incucai_test")
