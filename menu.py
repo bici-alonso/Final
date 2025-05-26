@@ -62,7 +62,11 @@ def menu ():
         print("6- Ver lista de espera ordenada")
         print("7- Lista centros de salud")
         print("8- Cirujanos en cada centro de salud")
-        print("9- ")
+        print("9- Buscar paciente por DNI")
+        print("10- Estadisticas de cirujanos")
+        print("11- Vehiculos (disponibles y viajes)")
+        print("12- Modificar datos") #buscar apciente mediante dni y meodificar dato 
+        print("13- ")
         print("0- Cerrar programa")
         opcion = int(input("Seleccione una opcion: "))
 

@@ -108,8 +108,8 @@ class Incucai:
         #datos = paciente_base.__dict__  #este dict toma los datos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "donante":
-
-            while True:
+            '''preguntar si esta vivo o no y agregar funcion proveniente de organos de pedir los datos de ablacion'''
+            '''while True:
                 fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
                 try:
                     datetime.strptime(fecha_fall, "%d/%m/%Y")
@@ -141,7 +141,7 @@ class Incucai:
                 except ValueError:
                     print("❌ Hora inválida. Use el formato HH:MM (24 hs).")
 
-            lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')
+            lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')'''
 
             donante = Donante(
                 paciente_base.nombre,
@@ -153,7 +153,7 @@ class Incucai:
                 paciente_base.tipo_sangre,
                 paciente_base.centro,
                 que_es,
-                fecha_fall,
+                fecha_fall, #iniciar variables de fallecimiento vacias y llenarlas depedenidnedo si esta vivo o no
                 hora_fall,
                 hora_ablacion,
                 fecha_ablacion,
