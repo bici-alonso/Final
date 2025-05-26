@@ -38,7 +38,7 @@ git push
 from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Donante import Donante #no me esta dejando importar, como esta en carpetas chat me dijo q le ponga ese punto pero tampoco funciona
 from INCUCAI.Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
-#from INCUCAI.Centros.Centro import Centro_de_salud 
+from INCUCAI.Centros.Centro import Centro_de_salud 
 from datetime import datetime
 
 class Incucai:

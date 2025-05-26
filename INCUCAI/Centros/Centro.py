@@ -279,5 +279,9 @@ def main():
     except ValueError as e:
         print(f"⚠️ Error al calcular distancia: {e}")
 
+def nombrar_centros(centros):
+    return [centro.nombre_cs for centro in centros]
+
+
 if __name__ == "__main__":
     main()
