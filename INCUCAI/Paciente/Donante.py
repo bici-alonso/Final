@@ -13,7 +13,7 @@ class Donante(Paciente):
         self.lista_organos = lista_organos
         self.fecha_creacion = date.today()
         self.hora_creacion = datetime.now().time()
-          # Lista de todos los donantes (atributo de clase)
+        # Lista de todos los donantes (atributo de clase)
         #Donante.lista_donantes.append(self) 
 
     
