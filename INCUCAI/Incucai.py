@@ -108,10 +108,39 @@ class Incucai:
         #datos = paciente_base.__dict__  #este dict toma los datos que se guardaron en pqciente y los pasa como uno solo, pata guardarlo en la lista
 
         if que_es == "donante":
-            fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
-            hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
-            fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
-            hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
+
+            while True:
+                fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
+                try:
+                    datetime.strptime(fecha_fall, "%d/%m/%Y")
+                    break
+                except ValueError:
+                    print("❌ Fecha inválida. Use el formato dd/mm/yyyy.")
+
+            while True:
+                hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
+                try:
+                    datetime.strptime(hora_fall, "%H:%M")
+                    break
+                except ValueError:
+                    print("❌ Hora inválida. Use el formato HH:MM (24 hs).")
+
+            while True:
+                fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
+                try:
+                    datetime.strptime(fecha_ablacion, "%d/%m/%Y")
+                    break
+                except ValueError:
+                    print("❌ Fecha inválida. Use el formato dd/mm/yyyy.")
+
+            while True:
+                hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
+                try:
+                    datetime.strptime(hora_ablacion, "%H:%M")
+                    break
+                except ValueError:
+                    print("❌ Hora inválida. Use el formato HH:MM (24 hs).")
+
             lista_organos = input("Ingrese lista de órganos disponibles (separados por coma): ").split(',')
 
             donante = Donante(
