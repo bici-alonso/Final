@@ -14,10 +14,9 @@ import re
 from INCUCAI.Centros.Centro import *
 
 
-
 class Paciente (ABC):
 
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es):
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2):
         
         self.nombre = nombre
         self.DNI = DNI
@@ -29,6 +28,14 @@ class Paciente (ABC):
         self.centro = centro
         self.que_es = que_es 
         self.lista_pacientes=[]
+        self.hla_a1=hla_a1
+        self.hla_a2=hla_a2
+        self.hla_b1=hla_b1
+        self.hla_b2=hla_b2
+        self.hla_dr1=hla_dr1
+        self.hla_dr2=hla_dr2
+        
+        
     
     @classmethod
     def agregar(cls, que_es, self): 
@@ -84,8 +91,7 @@ class Paciente (ABC):
             if tipo_sangre in tipos_validos:
                 break
             print("❌ Tipo de sangre inválido.")
-        
-        
+            
         que_es = que_es
         
         hoy=date.today()
@@ -93,10 +99,34 @@ class Paciente (ABC):
         
         return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
     
-    #def estado (self):
-    #   return 
-
-    #def prioridad (self):
+    def compatibilidad_hla(self, otro_paciente: 'Paciente') -> tuple [int, int]:
+        matchs = 0
+        total = 6
+        
+        #compara genoma A:
+        if self.hla_a1 in [otro_paciente.hla_a1, otro_paciente.hla_a2]:
+            coincidencias += 1
+        if self.hla_a2 in [otro_paciente.hla_a1, otro_paciente.hla_a2] and self.hla_a2 != self.hla_a1:
+            coincidencias += 1
+            
+        #compara genoma B:
+        if self.hla_b1 in [otro_paciente.hla_b1, otro_paciente.hla_b1]:
+            coincidencias += 1
+        if self.hla_a2 in [otro_paciente.hla_b1, otro_paciente.hla_b2] and self.hla_b2 != self.hla_11:
+            coincidencias += 1
+        
+        #compara genoma dr:
+        if self.hla_dr1 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2]:
+            coincidencias += 1
+        if self.hla_a2 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2] and self.hla_dr2 != self.hla_dr1:
+            coincidencias += 1
+            
+        '''
+        implementacion:
+        matchs, total = paciente1.compatibilidad_hla(paciente2)
+        print(f"{matchs} de {total} alelos HLA compatibles.")
+        '''  
+        return matchs, total
     
     
     def es_compatible_sangre(self, otro_paciente: 'Paciente') -> bool:
@@ -107,7 +137,7 @@ class Paciente (ABC):
         """
         
         compatibilidades = {
-                "O-": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],  #0- dona a tosoa
+                "O-": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],  #0- dona a todos
                 "O+": ["O+", "A+", "B+", "AB+"],
                 "A-": ["A-", "A+", "AB-", "AB+"],
                 "A+": ["A+", "AB+"],
@@ -122,7 +152,7 @@ class Paciente (ABC):
         return tipo_receptor in compatibilidades.get(tipo_donante, [])
     
     
-    def datos_pacientes(self): #funciona a modo de getter 
+    def datos_pacientes_generico(self): #funciona a modo de getter 
         print("\nINFORMACION DE PACIENTE:")
         print(f"\nDNI: {self.DNI}. Paciente: {self.nombre}.") 
         print (f"\nTelefono: {self.telefono}. \nContacto de emergencia: {self.contacto}")
