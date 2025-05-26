@@ -171,3 +171,14 @@ class Incucai:
     #incucai debe tener una validacion que ningun paciente se repite
     #debo sacar de la lista a pacientes que no tiene mas organos para donar
     #debo sacar a los receptores que tuvieron un transplante exitoso
+    
+
+'''    
+- match (sangre,edad) y prioridad
+- agregar edad como atributo 
+- menu dar datos de estadisticas (impirmir centros de salud, cuantos cirjuanos de los centros, vehiculos disponibles)
+- cuando pedis dato de centro, dar las opciones q hay y ahi determianrlo
+- donante muerto o donante vivo
+- restringir los datos pedidos extras
+-impresion de datos del paciente
+'''

@@ -1,7 +1,8 @@
 from abc import ABC
-from datetime import datetime
+from datetime import datetime, date
 #from INCUCAI import Incucai 
 import re
+from Centros.Centro import *
 
 
 
@@ -20,6 +21,7 @@ class Paciente (ABC):
         self.que_es = que_es 
         self.lista_pacientes=[]
 
+
     @classmethod
     def agregar(cls, que_es): 
         print("\nINGRESE DATOS DEL PACIENTE:")
@@ -28,7 +30,7 @@ class Paciente (ABC):
             nombre = input("\nIngrese nombre: ")
             if re.fullmatch(r"[A-Za-zÁÉÍÓÚáéíóúÑñüÜ ]+", nombre):
                 break
-            print("❌El nombre solo debe contener letras y espacios")
+            print("❌El nombre solo puede contener letras y espacios")
         
         while True:
             DNI = input("\nIngrese DNI: ")
@@ -58,7 +60,7 @@ class Paciente (ABC):
                 contacto = int(contacto)
                 break
             print("❌ Teléfono inválido. Debe tener solo números (mín. 6 dígitos).")
-         
+        
         while True:
             sexo = input ("\nIngrese sexo (F/M): ").upper() 
             if sexo in ["F", "M"]:
@@ -67,6 +69,7 @@ class Paciente (ABC):
         
         centro = input ("\nIngrese el centro de salud: ") #yo susnpingo q aca deberiamos dar las opciones de centro de salud que tenemos vargadas o nose q es lo q vamos a usar al final respecto a eso
         
+        
         tipos_validos = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
         while True:
             tipo_sangre = input ("\nIngrese tipo de sangre: ").upper()
@@ -74,11 +77,20 @@ class Paciente (ABC):
                 break
             print("❌ Tipo de sangre inválido.")
         
+        
         que_es = que_es
-        return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
+
+        hoy=date.today()
+        edad = hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
+        
+        return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
+    
+    def edad(self):
+        hoy = date.today()
+        return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day)) #edad
 
         
-            
+    
     '''def datos_pacientes(self): #funciona a modo de getter 
         #completar la impresion de este getter
         print(f"El paciente es {self.nombre}\nDNI:{self.DNI}\nfecha de nacimiento:{self.fecha_nac}")'''
