@@ -5,8 +5,8 @@ from INCUCAI.Paciente.Paciente import Paciente
 class Donante(Paciente):
 
     lista_donantes = []
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es,  edad, fecha_fall, hora_fall, hora_ablacion, fecha_ablacion, lista_organos):
-        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, fecha_fall, hora_fall, hora_ablacion, fecha_ablacion, lista_organos):
+        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
         self.fecha_fall = fecha_fall
         self.fecha_ablacion = fecha_ablacion
         self.hora_ablacion = hora_ablacion
@@ -32,3 +32,5 @@ class Donante(Paciente):
     
     def __str__ (self):
         return f"Donante: {self.nombre}, DNI: {self.DNI}, Órganos: {self.lista_organos}, Sangre: {self.tipo_sangre}"
+    
+    

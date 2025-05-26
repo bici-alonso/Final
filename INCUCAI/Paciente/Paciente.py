@@ -94,7 +94,46 @@ class Paciente (ABC):
     #   return 
 
     #def prioridad (self):
+    
+    
+    def es_compatible_sangre(self, otro_paciente: 'Paciente') -> bool:
+        """
+        Verifica compatibilidad sanguínea con otro paciente.
         
+        Args:
+            otro_paciente (Paciente): Otro paciente para verificar compatibilidad
+            
+        Returns:
+            bool: True si son compatibles, False en caso contrario
+        """
+        # Reglas básicas de compatibilidad sanguínea para trasplantes
+        
+        compatibilidades = {
+            
+            self.tipo_sangre.O-: [otro_paciente.tipo_sangre.O-, otro_paciente.tipo_sangre.O+, 
+            otro_paciente.tipo_sangre.A-, otro_paciente.tipo_sangre.A+, otro_paciente.tipo_sangre.B-, otro_paciente.tipo_sangre.B+,
+            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
+            
+            
+            self.tipo_sangre.O+: [otro_paciente.tipo_sangre.O+, otro_paciente.tipo_sangre.A+,
+            otro_paciente.tipo_sangre.B+, otro_paciente.tipo_sangre.AB+],
+            
+            self.tipo_sangre.A-: [otro_paciente.tipo_sangre.A-, otro_paciente.tipo_sangre.A+,
+            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
+            
+            self.tipo_sangre.A+: [otro_paciente.tipo_sangre.A+, otro_paciente.tipo_sangre.AB+],
+            
+            self.tipo_sangre.B-: [otro_paciente.tipo_sangre.B-, otro_paciente.tipo_sangre.B+,
+            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
+    
+            self.tipo_sangre.B+: [otro_paciente.tipo_sangre.B+, otro_paciente.tipo_sangre.AB+],
+            
+            self.tipo_sangre.AB-: [otro_paciente.tipo_sangre.AB+, otro_paciente.tipo_sangre.AB+],
+            
+            self.tipo_sangre.AB+: [otro_paciente.tipo_sangre.AB+]
+        }
+        
+        return otro_paciente.tipo_sangre in compatibilidades.get(self._tipo_sangre, [])
     
         
     

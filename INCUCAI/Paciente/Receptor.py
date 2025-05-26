@@ -5,8 +5,8 @@ from datetime import datetime, date
 class Receptor(Paciente):
 
     lista_receptor = []
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad, org_recib, fecha_list_esp, patologia, estado):
-        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, org_recib, fecha_list_esp, patologia, estado):
+        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
         self.org_recib = org_recib #solo puede recibir un organo --> como valido esto?
         self.fecha_list_esp = datetime.strptime(fecha_list_esp, "%d/%m/%Y")
         self.patologia = patologia
