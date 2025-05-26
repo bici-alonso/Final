@@ -279,6 +279,14 @@ def main():
     except ValueError as e:
         print(f"⚠️ Error al calcular distancia: {e}")
 
+    '''nombres = nombrar_centros(centros)
+    print("\n📝 Nombres de centros:")
+    for nombre in nombres:
+        print(f"✔️ {nombre}")'''
+    
+    return centros
+
+@staticmethod
 def nombrar_centros(centros):
     return [centro.nombre_cs for centro in centros]
 
