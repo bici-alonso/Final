@@ -1,6 +1,6 @@
 from Paciente.Paciente import Paciente
 from datetime import datetime, date
-from 
+
 
 class Receptor(Paciente):
 
@@ -31,12 +31,12 @@ class Receptor(Paciente):
         '''para ordenar la liista de pacientes y que me los de por orden de agregado a la lista, mas cerca a mas lejos'''
         return sorted(cls.lista_receptor, key=lambda r: r.fecha_list_esp)
     
-    def prioridad (self):
+    '''def prioridad (self):
         if self.patologia == "cancer estadio 1":
             
         if self.patologia == "cancer estadio 2":
         if self.patologia ="cancer estadio 3":
-        
+       ''' 
             
         
         

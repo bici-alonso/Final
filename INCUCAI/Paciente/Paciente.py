@@ -2,7 +2,7 @@ from abc import ABC
 from datetime import datetime, date
 #from INCUCAI import Incucai 
 import re
-from Centros.Centro import *
+from INCUCAI.Centros.Centro import *
 
 
 
@@ -22,12 +22,13 @@ class Paciente (ABC):
         self.lista_pacientes=[]
 
 
-    def edad(self):
+    '''def edad(self):
         hoy = date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
+    '''
     
     @classmethod
-    def agregar(cls, que_es): 
+    def agregar(cls, que_es, self): 
         print("\nINGRESE DATOS DEL PACIENTE:")
         
         while True:
@@ -40,7 +41,7 @@ class Paciente (ABC):
             DNI = input("\nIngrese DNI: ")
             if DNI.isdigit() and 7 <= len(DNI) <= 8:
                 DNI = int(DNI)
-                break
+                break 
             print("❌ DNI inválido. Debe tener solo números (7 u 8 cifras).")
 
         while True:
@@ -83,17 +84,18 @@ class Paciente (ABC):
         
         
         que_es = que_es
-
+        
         hoy=date.today()
-        edad = hoy.year - fecha_nac.year - ((hoy.month, hoy.day) < (fecha_nac.month, fecha_nac.day))
+        edad = hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
         
         return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
     
-    def edad(self):
-        hoy = date.today()
-        return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day)) #edad
+    #def estado (self):
+    #   return 
 
-
+    #def prioridad (self):
+        
+    
         
     
     '''def datos_pacientes(self): #funciona a modo de getter 
