@@ -36,7 +36,7 @@ class Receptor(Paciente):
             
         if self.patologia == "cancer estadio 2":
         if self.patologia ="cancer estadio 3":
-       ''' 
+    ''' 
             
         
         

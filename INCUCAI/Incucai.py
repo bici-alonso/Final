@@ -47,10 +47,9 @@ class Incucai:
     El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa.
     
     Si el paciente es donante, al ser ingresado se lo agrega a la lista de pacientes donantes.
-    Luego se busca los posibles receptores para
-    cada órgano que el donante puede donar, para esto se busca en su lista de pacientes receptores todos los
-    pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. Finalmente, se elige el receptor, en
-    función a la prioridad del paciente (si tienen la misma prioridad elige al que tiene una fecha anterior de
+    Luego se busca los posibles receptores para cada órgano que el donante puede donar, 
+    para esto se busca en su lista de pacientes receptores todos los pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. 
+    Finalmente, se elige el receptor, en función a la prioridad del paciente (si tienen la misma prioridad elige al que tiene una fecha anterior de
     ingreso a la lista de espera). En tal caso, se envia el organo correspondiente a la ubicación del paciente
     receptor y se quita de la lista de donantes la disponibilidad de ese organo para ese donante en particular. Si el
     paciente es receptor, se lo agrega a la lista de pacientes receptores, y se busca si hay alguna coincidencia en
@@ -193,7 +192,17 @@ class Incucai:
             Receptor.agregar(receptor)
             self.receptores.append(receptor)
     
+        def buscar_match(self, donante):
+            return
+        
+        def buscar_receptores(self, organo, donante):
+            receptores_compatibles=[]
             
+            return receptores_compatibles
+        
+        def elegir_receptor(self)
+            return
+        
 
     
             
@@ -203,7 +212,7 @@ class Incucai:
     
 
 '''    
-- match (sangre,edad) y prioridad
+- match (sangre,hla, edad) y prioridad
 - agregar edad como atributo 
 - menu dar datos de estadisticas (impirmir centros de salud, cuantos cirjuanos de los centros, vehiculos disponibles)
 - cuando pedis dato de centro, dar las opciones q hay y ahi determianrlo

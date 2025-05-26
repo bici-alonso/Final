@@ -16,7 +16,12 @@ from INCUCAI.Centros.Centro import *
 
 class Paciente (ABC):
 
+    _pacientes_registrados = {} 
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2):
+        
+        if DNI in Paciente._pacientes_registrados:
+            raise ValueError(f"Ya existe un paciente con DNI {DNI}")
+        
         
         self.nombre = nombre
         self.DNI = DNI
@@ -36,9 +41,13 @@ class Paciente (ABC):
         self.hla_dr2=hla_dr2
         
         
+    def calculo_edad(self):
+        hoy=date.today()
+        return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
+        
     
     @classmethod
-    def agregar(cls, que_es, self): 
+    def agregar(self, cls, que_es): 
         print("\nINGRESE DATOS DEL PACIENTE:")
         
         while True:
@@ -94,10 +103,7 @@ class Paciente (ABC):
             
         que_es = que_es
         
-        hoy=date.today()
-        edad = hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
-        
-        return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
+        return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
     
     def compatibilidad_hla(self, otro_paciente: 'Paciente') -> tuple [int, int]:
         matchs = 0
@@ -105,21 +111,21 @@ class Paciente (ABC):
         
         #compara genoma A:
         if self.hla_a1 in [otro_paciente.hla_a1, otro_paciente.hla_a2]:
-            coincidencias += 1
+            matchs += 1
         if self.hla_a2 in [otro_paciente.hla_a1, otro_paciente.hla_a2] and self.hla_a2 != self.hla_a1:
-            coincidencias += 1
+            matchs += 1
             
         #compara genoma B:
         if self.hla_b1 in [otro_paciente.hla_b1, otro_paciente.hla_b1]:
-            coincidencias += 1
-        if self.hla_a2 in [otro_paciente.hla_b1, otro_paciente.hla_b2] and self.hla_b2 != self.hla_11:
-            coincidencias += 1
+            matchs += 1
+        if self.hla_a2 in [otro_paciente.hla_b1, otro_paciente.hla_b2] and self.hla_b2 != self.hla_b1:
+            matchs += 1
         
         #compara genoma dr:
         if self.hla_dr1 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2]:
-            coincidencias += 1
+            matchs += 1
         if self.hla_a2 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2] and self.hla_dr2 != self.hla_dr1:
-            coincidencias += 1
+            matchs += 1
             
         '''
         implementacion:
@@ -156,7 +162,9 @@ class Paciente (ABC):
         print("\nINFORMACION DE PACIENTE:")
         print(f"\nDNI: {self.DNI}. Paciente: {self.nombre}.") 
         print (f"\nTelefono: {self.telefono}. \nContacto de emergencia: {self.contacto}")
-        print(f"\nFecha de nacimiento: {self.fecha_nac}. \nTipo de sangre: {self.tipo_sangre} \nSexo: {self.sexo}")
+        print(f"\nFecha de nacimiento: {self.fecha_nac}. \nTipo de sangre: {self.tipo_sangre}")
+        print(f"HLA: A({self.hla_a1}/{self.hla_a2}) B({self.hla_b1}/{self.hla_b2}) DR({self.hla_dr1}/{self.hla_dr2})")
+        print (f"\nSexo: {self.sexo}")
         print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")
 
 
