@@ -1,4 +1,4 @@
-from Paciente.Paciente import Paciente
+from INCUCAI.Paciente.Paciente import Paciente
 from datetime import datetime, date
 
 

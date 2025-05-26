@@ -1,15 +1,15 @@
-from INCUCAI.Centros.Centro import *
+from INCUCAI.Centros.Centro import Centro_de_salud
 from INCUCAI.Incucai import Incucai
 from INCUCAI.Paciente.Donante import Donante
 #from INCUCAI.Organos.Organo import Organo
-from INCUCAI.Paciente.Paciente import Paciente
+#from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Receptor import Receptor
 #from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 
 
 def menu ():
     incucai = Incucai()
-    centro = Centro_de_salud()
+    #centro = Centro_de_salud()
     '''paciente= Paciente("Zoe", 46821489, "6/11/2005", "F", 1126485713, 1125365869, "0+", "Favaloro", "Donante") #esta carga deberia resolverse con la funcion agregar
     paciente2=Paciente("Vicky", 46821489, "25/03/2005", "F", 1135857168, 1158694552, "0+", "Favaloro", "Receptor" )
     incucai.clasificar_pac(paciente_exist=paciente)
@@ -72,7 +72,7 @@ def menu ():
                 print(r)
 
         elif opcion == 7:
-            nombres = centro.nombrar_centros
+            nombres = Centro_de_salud.nombrar_centros()
             print("-------Los centros de salud disponibles-----------------------------\n")
             for nombre in nombres:
                 print("-", nombre)

@@ -1,5 +1,6 @@
 from .Paciente import *
 from datetime import datetime, date
+from INCUCAI.Paciente.Paciente import Paciente
 
 class Donante(Paciente):
 
