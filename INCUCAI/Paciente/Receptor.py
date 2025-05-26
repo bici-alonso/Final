@@ -1,17 +1,17 @@
-from .Paciente import *
-from datetime import datetime
+from Paciente.Paciente import Paciente
+from datetime import datetime, date
+from 
 
 class Receptor(Paciente):
 
     lista_receptor = []
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, org_recib, fecha_list_esp, patologia, estado):
-        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad, org_recib, fecha_list_esp, patologia, estado):
+        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
         self.org_recib = org_recib #solo puede recibir un organo --> como valido esto?
         self.fecha_list_esp = datetime.strptime(fecha_list_esp, "%d/%m/%Y")
         self.patologia = patologia
         self.estado = estado
-        #self.lista_receptor = []
-        #Falta determinar de que otros atributos dependeria su prioridad
+        #Falta determinar de que otros atributos dependeria su prioridad --> distancia??
 
     
     @classmethod
@@ -28,12 +28,22 @@ class Receptor(Paciente):
     
     @classmethod
     def lista_espera_ordenada(cls):
-        '''para ordenar la loista de pacientes y que me los de por orden de agregado a la lista, mas cerca a mas lejos'''
+        '''para ordenar la liista de pacientes y que me los de por orden de agregado a la lista, mas cerca a mas lejos'''
         return sorted(cls.lista_receptor, key=lambda r: r.fecha_list_esp)
+    
+    def prioridad (self):
+        if self.patologia == "cancer estadio 1":
+            
+        if self.patologia == "cancer estadio 2":
+        if self.patologia ="cancer estadio 3":
+        
+            
+        
+        
+        
+    
     #def metodo_prioridad --> un metodo que en base a consideraciones
     # de los atributos, defina el estado de prioridad
     
     #metodo que determine que frente a dos pacientes con la misma prioridad, va antes el que esta
     #hace mas tiempo esperando 
-    
-    
