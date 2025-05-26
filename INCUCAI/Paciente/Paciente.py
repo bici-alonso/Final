@@ -1,6 +1,15 @@
+'''
+Los Pacientes poseen nombre, DNI (el cual es único), fecha de nacimiento, sexo, teléfono de contacto, tipo de
+sangre, y centro de salud asociado. Los pacientes se dividen entre receptores y donantes.
+El donante posee la fecha y hora de fallecimiento, fecha y hora del comienzo de ablación y listado de órganos a donar. 
+El receptor contiene órgano que va a recibir (uno solo) fecha que fue agregado a la lista de espera, prioridad, patología y
+estado (Estable o Inestable).
+
+
+'''
+
 from abc import ABC
 from datetime import datetime, date
-#from INCUCAI import Incucai 
 import re
 from INCUCAI.Centros.Centro import *
 
@@ -20,12 +29,6 @@ class Paciente (ABC):
         self.centro = centro
         self.que_es = que_es 
         self.lista_pacientes=[]
-
-
-    '''def edad(self):
-        hoy = date.today()
-        return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
-    '''
     
     @classmethod
     def agregar(cls, que_es, self): 
@@ -116,12 +119,14 @@ class Paciente (ABC):
     
         tipo_donante = self.tipo_sangre
         tipo_receptor = otro_paciente.tipo_sangre
-    
         return tipo_receptor in compatibilidades.get(tipo_donante, [])
     
     
-    '''def datos_pacientes(self): #funciona a modo de getter 
-        #completar la impresion de este getter
-        print(f"El paciente es {self.nombre}\nDNI:{self.DNI}\nfecha de nacimiento:{self.fecha_nac}")'''
+    def datos_pacientes(self): #funciona a modo de getter 
+        print("\nINFORMACION DE PACIENTE:")
+        print(f"\nDNI: {self.DNI}. Paciente: {self.nombre}.") 
+        print (f"\nTelefono: {self.telefono}. \nContacto de emergencia: {self.contacto}")
+        print(f"\nFecha de nacimiento: {self.fecha_nac}. \nTipo de sangre: {self.tipo_sangre} \nSexo: {self.sexo}")
+        print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")
 
 
