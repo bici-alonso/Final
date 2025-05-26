@@ -39,6 +39,10 @@ Para realizar el trasplante se verifica que no hayan transcurrido más de 20 hor
 
 from abc import ABC, abstractmethod
 from datetime import datetime
+import random
+
+
+
 #from geopy.geocoders import Nominatim
 
 
@@ -59,9 +63,13 @@ class Vehiculo(ABC):
         self.velocidad = velocidad
         self.patente = patente.strip().upper()
         self.viajes = []
+
+    def nivel_trafico(self):
+        return round(random.uniform(0.1, 2.0), 2)
+        
         
     @abstractmethod
-    def calculo_tiempo (self, dist, trafico):
+    def calculo_tiempo (self, dist, trafico=None):
         pass #solo el pass?
             
     def agregar_viaje(self, dist, tiempo):

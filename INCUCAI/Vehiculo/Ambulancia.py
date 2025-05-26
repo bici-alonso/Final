@@ -5,9 +5,16 @@ class Ambulancia(Vehiculo):
     def calculo_tiempo(self, dist, trafico):
         if dist < 0:
             raise ValueError("La distancia no puede ser negativa")
+        if trafico is None:
+            trafico = self.generar_nivel_trafico()
         if trafico < 0:
             raise ValueError("El tráfico no puede ser negativo")
         
-        return dist / self.velocidad + trafico
+        tiempo_basico = dist / self.velocidad
+        tiempo_total = tiempo_basico + trafico
+        
+        self.agregar_viaje(dist, tiempo_total, trafico)
+        
+        return tiempo_total
     
     
