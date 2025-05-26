@@ -254,13 +254,13 @@ def main():
     cs23 = Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022" )
     cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005")
     cs25 = Centro_de_salud ("Hospital Dr. Clemente Alvarez", "Av. Pellegrini 3205", "Rosario Centro", "Santa Fe", "034 1480-8111") #santa fe
-    cs26 = Centro_de_salud ("Hospital Regional Dr. Ramon Carrillo", "", "", "", ""  )
+    #cs26 = Centro_de_salud ("Hospital Regional Dr. Ramon Carrillo", "", "", "", ""  )
     cs27 = Centro_de_salud ("Hospital Regional Rio Grande", "Florentino Ameghino 709", "Rio Grande", "Tierra del Fuego", "029 6442-2042")#tierra del fuego
     cs28 = Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600") #tucuman
     
 
     #Lista de centros habilitados por el INCUCAI:
-    centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs9, cs10, cs12, cs13, cs19, cs20, cs22, cs23, cs24, cs25, cs26, cs27, cs28] #cs7, cs8, cs11, cs14, cs15, cs16, cs17, cs18, cs21, cs25, cs26, cs27, cs28] 
+    centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs9, cs10, cs12, cs13, cs19, cs20, cs22, cs23, cs24, cs25, cs27, cs28] #cs7, cs8, cs11, cs14, cs15, cs16, cs17, cs18, cs21, cs25, cs26, cs27, cs28] 
 
     for centro in centros:
         print(f"\n📍 {centro.nombre_cs}")
