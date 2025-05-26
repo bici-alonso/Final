@@ -34,6 +34,9 @@ def menu ():
         print("4- Ver lista de receptores")
         print("5- Agregar los pacientes ya cargados")
         print("6- Ver lista de espera ordenada")
+        print("7- Lista centros de salud")
+        print("8- Cirujanos en cada centro de salud")
+        print("9- ")
         print("0- Cerrar programa")
         opcion = int(input("Seleccione una opcion: "))
 
@@ -63,9 +66,12 @@ def menu ():
             print("Pacientes de prueba agregados con éxito.")
         
         elif opcion == 6:
-            print("-------Lista de receptores por fecha de ingreso a la lista de espera:\n")
+            print("-------Lista de receptores por fecha de ingreso a la lista de espera---------------\n")
             for r in Receptor.lista_espera_ordenada():
                 print(r)
+
+        elif opcion == 7:
+            print("-------Los centros de salud disponibles-----------------------------\n")
 
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")
