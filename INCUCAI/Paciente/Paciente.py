@@ -22,6 +22,10 @@ class Paciente (ABC):
         self.lista_pacientes=[]
 
 
+    def edad(self):
+        hoy = date.today()
+        return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
+    
     @classmethod
     def agregar(cls, que_es): 
         print("\nINGRESE DATOS DEL PACIENTE:")
@@ -81,13 +85,14 @@ class Paciente (ABC):
         que_es = que_es
 
         hoy=date.today()
-        edad = hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
+        edad = hoy.year - fecha_nac.year - ((hoy.month, hoy.day) < (fecha_nac.month, fecha_nac.day))
         
         return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, edad)
     
     def edad(self):
         hoy = date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day)) #edad
+
 
         
     
