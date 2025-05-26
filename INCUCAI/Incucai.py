@@ -39,6 +39,7 @@ from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Donante import Donante #no me esta dejando importar, como esta en carpetas chat me dijo q le ponga ese punto pero tampoco funciona
 from INCUCAI.Paciente.Receptor import Receptor #lo dejo asi con todo hecho pero nose si esta funcionando bien porque no puedo correrlo
 #from INCUCAI.Centros.Centro import Centro_de_salud 
+from datetime import datetime
 
 class Incucai:
     
@@ -134,7 +135,14 @@ class Incucai:
 
         elif que_es == "receptor":
             organo = input("Ingrese órgano que recibe: ")
+
             fecha_lista = input("Ingrese fecha en lista de espera (dd/mm/yyyy): ")
+            try:
+                fecha_lista = datetime.strptime(fecha_lista, "%d/%m/%Y")
+            except ValueError:
+                print("Formato de fecha invalido. Use dd/mm/yyyy.")
+                return
+            
             patologia = input("Ingrese patología: ")
             estado = input("Ingrese estado: ")
 

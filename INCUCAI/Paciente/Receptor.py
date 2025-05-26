@@ -1,4 +1,5 @@
 from .Paciente import *
+from datetime import datetime
 
 class Receptor(Paciente):
 
@@ -6,7 +7,7 @@ class Receptor(Paciente):
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, org_recib, fecha_list_esp, patologia, estado):
         super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
         self.org_recib = org_recib #solo puede recibir un organo --> como valido esto?
-        self.fecha_list_esp = fecha_list_esp
+        self.fecha_list_esp = datetime.strptime(fecha_list_esp, "%d/%m/%Y")
         self.patologia = patologia
         self.estado = estado
         #self.lista_receptor = []
@@ -24,6 +25,11 @@ class Receptor(Paciente):
     
     def __str__(self):
         return f"Receptor: {self.nombre}, DNI: {self.DNI}, Órganos a recibir: {self.org_recib}, Sangre: {self.tipo_sangre}"
+    
+    @classmethod
+    def lista_espera_ordenada(cls):
+        '''para ordenar la loista de pacientes y que me los de por orden de agregado a la lista, mas cerca a mas lejos'''
+        return sorted(cls.lista_receptor, key=lambda r: r.fecha_list_esp)
     #def metodo_prioridad --> un metodo que en base a consideraciones
     # de los atributos, defina el estado de prioridad
     

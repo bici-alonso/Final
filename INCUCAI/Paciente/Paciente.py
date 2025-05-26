@@ -76,6 +76,7 @@ class Paciente (ABC):
         
         que_es = que_es
         return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
+
         
             
     '''def datos_pacientes(self): #funciona a modo de getter 
