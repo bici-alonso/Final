@@ -98,44 +98,27 @@ class Paciente (ABC):
     
     def es_compatible_sangre(self, otro_paciente: 'Paciente') -> bool:
         """
-        Verifica compatibilidad sanguínea con otro paciente.
+        Revisa compatibilidad sanguinea entre donante y receptor
         
-        Args:
-            otro_paciente (Paciente): Otro paciente para verificar compatibilidad
-            
-        Returns:
-            bool: True si son compatibles, False en caso contrario
+        retorna un bool: True si son compatibles, False en caso contrario
         """
-        # Reglas básicas de compatibilidad sanguínea para trasplantes
         
         compatibilidades = {
-            
-            self.tipo_sangre.O-: [otro_paciente.tipo_sangre.O-, otro_paciente.tipo_sangre.O+, 
-            otro_paciente.tipo_sangre.A-, otro_paciente.tipo_sangre.A+, otro_paciente.tipo_sangre.B-, otro_paciente.tipo_sangre.B+,
-            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
-            
-            
-            self.tipo_sangre.O+: [otro_paciente.tipo_sangre.O+, otro_paciente.tipo_sangre.A+,
-            otro_paciente.tipo_sangre.B+, otro_paciente.tipo_sangre.AB+],
-            
-            self.tipo_sangre.A-: [otro_paciente.tipo_sangre.A-, otro_paciente.tipo_sangre.A+,
-            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
-            
-            self.tipo_sangre.A+: [otro_paciente.tipo_sangre.A+, otro_paciente.tipo_sangre.AB+],
-            
-            self.tipo_sangre.B-: [otro_paciente.tipo_sangre.B-, otro_paciente.tipo_sangre.B+,
-            otro_paciente.tipo_sangre.AB-, otro_paciente.tipo_sangre.AB+],
+                "O-": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],  #0- dona a tosoa
+                "O+": ["O+", "A+", "B+", "AB+"],
+                "A-": ["A-", "A+", "AB-", "AB+"],
+                "A+": ["A+", "AB+"],
+                "B-": ["B-", "B+", "AB-", "AB+"],
+                "B+": ["B+", "AB+"],
+                "AB-": ["AB-", "AB+"],
+                "AB+": ["AB+"] 
+            }
     
-            self.tipo_sangre.B+: [otro_paciente.tipo_sangre.B+, otro_paciente.tipo_sangre.AB+],
-            
-            self.tipo_sangre.AB-: [otro_paciente.tipo_sangre.AB+, otro_paciente.tipo_sangre.AB+],
-            
-            self.tipo_sangre.AB+: [otro_paciente.tipo_sangre.AB+]
-        }
-        
-        return otro_paciente.tipo_sangre in compatibilidades.get(self._tipo_sangre, [])
+        tipo_donante = self.tipo_sangre
+        tipo_receptor = otro_paciente.tipo_sangre
     
-        
+        return tipo_receptor in compatibilidades.get(tipo_donante, [])
+    
     
     '''def datos_pacientes(self): #funciona a modo de getter 
         #completar la impresion de este getter
