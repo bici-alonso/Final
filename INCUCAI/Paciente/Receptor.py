@@ -2,15 +2,23 @@ from INCUCAI.Paciente.Paciente import Paciente
 from datetime import datetime, date
 
 
+'''
+El receptor contiene órgano que va a recibir, fecha que fue agregado a la lista de espera, 
+prioridad, patología y estado (Estable o Inestable).
+
+
+'''
+
 class Receptor(Paciente):
 
     lista_receptor = []
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, org_recib, fecha_list_esp, patologia, estado):
-        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
-        self.org_recib = org_recib #solo puede recibir un organo --> como valido esto?
+    
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, org_recib, fecha_list_esp, patologia, estado):
+        super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2)
+        self.org_recib = org_recib #puede recibir mas de un organo
         self.fecha_list_esp = datetime.strptime(fecha_list_esp, "%d/%m/%Y")
         self.patologia = patologia
-        self.estado = estado
+        self.estado = estado 
         #Falta determinar de que otros atributos dependeria su prioridad --> distancia??
 
     

@@ -9,17 +9,16 @@ estado (Estable o Inestable).
 '''
 
 from abc import ABC
-from datetime import datetime, date
-import re
+from datetime import date
 from INCUCAI.Centros.Centro import *
 
 
 class Paciente (ABC):
 
-    _pacientes_registrados = {} 
+    pacientes_registrados = [] 
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2):
         
-        if DNI in Paciente._pacientes_registrados:
+        if DNI in Paciente.pacientes_registrados:
             raise ValueError(f"Ya existe un paciente con DNI {DNI}")
         
         
@@ -44,66 +43,7 @@ class Paciente (ABC):
     def calculo_edad(self):
         hoy=date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
-        
     
-    @classmethod
-    def agregar(self, cls, que_es): 
-        print("\nINGRESE DATOS DEL PACIENTE:")
-        
-        while True:
-            nombre = input("\nIngrese nombre: ")
-            if re.fullmatch(r"[A-Za-zÁÉÍÓÚáéíóúÑñüÜ ]+", nombre):
-                break
-            print("❌El nombre solo puede contener letras y espacios")
-        
-        while True:
-            DNI = input("\nIngrese DNI: ")
-            if DNI.isdigit() and 7 <= len(DNI) <= 8:
-                DNI = int(DNI)
-                break 
-            print("❌ DNI inválido. Debe tener solo números (7 u 8 cifras).")
-
-        while True:
-            fecha_nac = input("\nIngrese fecha de nacimiento dd/mm/aaaa: ") 
-            try: 
-                datetime.strptime(fecha_nac, "%d/%m/%Y")
-                break
-            except ValueError:
-                print("❌ Fecha inválida. Use el formato dd/mm/aaaa.")
-
-        while True:
-            telefono = input ("\nIngrese telefono: ")
-            if telefono.isdigit() and len(telefono) >= 6:
-                telefono = int(telefono)
-                break
-            print("❌ Teléfono inválido. Debe tener solo números (mín. 6 dígitos).")
-
-        while True:
-            contacto = input ("\nIngrese telefono de emergencia: ")
-            if contacto.isdigit() and len(contacto) >= 6:
-                contacto = int(contacto)
-                break
-            print("❌ Teléfono inválido. Debe tener solo números (mín. 6 dígitos).")
-        
-        while True:
-            sexo = input ("\nIngrese sexo (F/M): ").upper() 
-            if sexo in ["F", "M"]:
-                break
-            print("❌ Ingrese 'F' o 'M' solamente.")
-        
-        centro = input ("\nIngrese el centro de salud: ") #yo susnpingo q aca deberiamos dar las opciones de centro de salud que tenemos vargadas o nose q es lo q vamos a usar al final respecto a eso
-        
-        
-        tipos_validos = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
-        while True:
-            tipo_sangre = input ("\nIngrese tipo de sangre: ").upper()
-            if tipo_sangre in tipos_validos:
-                break
-            print("❌ Tipo de sangre inválido.")
-            
-        que_es = que_es
-        
-        return cls(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es)
     
     def compatibilidad_hla(self, otro_paciente: 'Paciente') -> tuple [int, int]:
         matchs = 0
@@ -136,8 +76,7 @@ class Paciente (ABC):
     
     
     def es_compatible_sangre(self, otro_paciente: 'Paciente') -> bool:
-        """
-        Revisa compatibilidad sanguinea entre donante y receptor
+        """compatibilidad sanguinea entre donante y receptor
         
         retorna un bool: True si son compatibles, False en caso contrario
         """
@@ -162,7 +101,8 @@ class Paciente (ABC):
         print("\nINFORMACION DE PACIENTE:")
         print(f"\nDNI: {self.DNI}. Paciente: {self.nombre}.") 
         print (f"\nTelefono: {self.telefono}. \nContacto de emergencia: {self.contacto}")
-        print(f"\nFecha de nacimiento: {self.fecha_nac}. \nTipo de sangre: {self.tipo_sangre}")
+        print(f"\nFecha de nacimiento: {self.fecha_nac}. \nEdad: {self.calculo_edad()}")
+        print(f"\nTipo de sangre: {self.tipo_sangre}")
         print(f"HLA: A({self.hla_a1}/{self.hla_a2}) B({self.hla_b1}/{self.hla_b2}) DR({self.hla_dr1}/{self.hla_dr2})")
         print (f"\nSexo: {self.sexo}")
         print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")

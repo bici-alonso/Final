@@ -49,9 +49,7 @@ class Centro_de_salud:
 
     def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto):
         if not all([nombre_cs, direccion, barrio, provincia, tel_contacto]):
-            raise ValueError("Todos los campos son obligatorios.")
-        
-        
+            raise ValueError("Todos los campos son obligatorios.")        
         
         self.pais = "Argentina"
         self.nombre_cs = nombre_cs.strip()
@@ -234,7 +232,7 @@ class Centro_de_salud:
         return (self.nombre_cs == otro.nombre_cs and 
                 self.direccion == otro.direccion)
 
-
+''' 
 def main():
     geolocator = Nominatim(user_agent="incucai_test")
 
@@ -254,7 +252,6 @@ def main():
     cs23 = Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022" )
     cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005")
     cs25 = Centro_de_salud ("Hospital Dr. Clemente Alvarez", "Av. Pellegrini 3205", "Rosario Centro", "Santa Fe", "034 1480-8111") #santa fe
-    #cs26 = Centro_de_salud ("Hospital Regional Dr. Ramon Carrillo", "", "", "", ""  )
     cs27 = Centro_de_salud ("Hospital Regional Rio Grande", "Florentino Ameghino 709", "Rio Grande", "Tierra del Fuego", "029 6442-2042")#tierra del fuego
     cs28 = Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600") #tucuman
     
@@ -279,10 +276,10 @@ def main():
     except ValueError as e:
         print(f"⚠️ Error al calcular distancia: {e}")
 
-    '''nombres = nombrar_centros(centros)
+    nombres = nombrar_centros(centros)
     print("\n📝 Nombres de centros:")
     for nombre in nombres:
-        print(f"✔️ {nombre}")'''
+        print(f"✔️ {nombre}")
     
     return centros
 
@@ -293,3 +290,4 @@ def nombrar_centros(centros):
 
 if __name__ == "__main__":
     main()
+    '''
