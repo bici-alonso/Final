@@ -6,6 +6,6 @@ class Helicoptero(Vehiculo):
             raise ValueError("La distancia no puede ser negativa")
 
         tiempo=dist/self.velocidad
-        self.agregar_viaje(dist, tiempo, 0)
+        self.agregar_viaje(dist, tiempo, trafico=0)
         return tiempo
     

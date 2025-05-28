@@ -70,7 +70,7 @@ class Vehiculo(ABC):
         
     @abstractmethod
     def calculo_tiempo (self, dist, trafico=None):
-        pass #solo el pass?
+        pass 
             
     def agregar_viaje(self, dist, tiempo):
         self.viajes.append({

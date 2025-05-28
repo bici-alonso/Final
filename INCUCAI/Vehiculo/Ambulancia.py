@@ -6,7 +6,7 @@ class Ambulancia(Vehiculo):
         if dist < 0:
             raise ValueError("La distancia no puede ser negativa")
         if trafico is None:
-            trafico = self.generar_nivel_trafico()
+            trafico = self.nivel_trafico()
         if trafico < 0:
             raise ValueError("El tráfico no puede ser negativo")
         
