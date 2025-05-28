@@ -2,7 +2,7 @@ from Vehiculo.Vehiculo import Vehiculo
 
 class Ambulancia(Vehiculo):
     
-    def calculo_tiempo(self, dist, trafico):
+    def calculo_tiempo(self, dist, trafico=None):
         if dist < 0:
             raise ValueError("La distancia no puede ser negativa")
         if trafico is None:

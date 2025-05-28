@@ -42,8 +42,7 @@ import random
 
 #vehiculo es clase abstracta:
 class Vehiculo(ABC):
-    
-    
+
     def __init__(self, velocidad, patente):
         if velocidad <= 0:
             raise ValueError("La velocidad debe ser mayor a 0")
@@ -53,6 +52,7 @@ class Vehiculo(ABC):
         self.velocidad = velocidad
         self.patente = patente.strip().upper()
         self.viajes = []
+        self.disponible=True
 
     def nivel_trafico(self):
         return round(random.uniform(0.1, 2.0), 2)
@@ -62,16 +62,24 @@ class Vehiculo(ABC):
     def calculo_tiempo (self, dist, trafico=None):
         pass 
             
-    def agregar_viaje(self, dist, tiempo):
+    def agregar_viaje(self, dist, tiempo, trafico=0):
         self.viajes.append({
             'fecha': datetime.now(), # ??
             'distancia': dist,
-            'tiempo estimado': tiempo
+            'tiempo estimado': tiempo,
+            'trafico': trafico
         })
+    
+    def historial_viajes(self):
+        return self.viajes.copy()
         
     def __str__(self):
         #define cómo se representa un objeto de una clase como una cadena de texto.
         return f"{self.__class__.__name__} - Patente: {self.patente}, Velocidad: {self.velocidad} km/h"
     
+    def __eq__(self, other):
+        if not isinstance(other, Vehiculo):
+            return False
+        return self.patente == other.patente
     
 
