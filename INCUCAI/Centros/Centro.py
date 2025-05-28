@@ -37,12 +37,13 @@ Para realizar el trasplante se verifica que no hayan transcurrido más de 20 hor
 '''
 
 
-
 #LIBRERIAS
-from geopy.geocoders import Nominatim
+#from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from geopy.exc import GeocoderTimedOut
 import time
+from datetime import datetime
+#from Vehiculo.Ambulancia import Ambulancia
 
 
 class Centro_de_salud:
@@ -134,6 +135,15 @@ class Centro_de_salud:
         
         return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
     
+    def seleccionar_cirujano(self, organo):
+        disponibles = [c for c in self.cirujanos if c.cirujano_disponible()]
+        for c in disponibles:
+            if hasattr(c, 'especialidad') and organo.lower() in c.organos.get(c.especialidad, []):
+                return c
+        return disponibles[0] if disponibles else None
+        
+    
+    
     def realizar_ablacion(self, organo, donante):
         """
         Realiza la ablación de un órgano.
@@ -142,7 +152,6 @@ class Centro_de_salud:
             
             retorna bool: True si la ablación fue exitosa
         """
-        from datetime import datetime
         
         try:
             # Setear fecha y hora de ablación usando el método de la clase Organo
@@ -150,8 +159,8 @@ class Centro_de_salud:
             organo.set_ablacion_auto(ahora.date(), ahora.time())
             
             # Quitar órgano de la lista del donante
-            if organo in donante.organos_a_donar:
-                donante.organos_a_donar.remove(organo)
+            if organo in donante.lista_organos:
+                donante.lista_organos.remove(organo)
                 print(f"✅ Ablación exitosa de {organo.tipo.capitalize()} en {self.nombre_cs}")
                 print(f"⏰ Tiempo máximo de conservación: {organo.get_tiempo_conservacion()} horas")
                 return True
@@ -175,8 +184,8 @@ class Centro_de_salud:
         # Verificar viabilidad del órgano usando los métodos de la clase Organo
         if not organo.es_viable_para_trasplante():
             tiempo_transcurrido = organo.calcular_tiempo_transcurrido()
-            print(f"❌ Órgano no viable - han pasado {tiempo_transcurrido:.1f} horas desde la ablación")
-            print(f"⏰ Tiempo máximo permitido: {organo.get_tiempo_conservacion()} horas")
+            print(f"Órgano no viable - han pasado {tiempo_transcurrido:.1f} horas desde la ablación")
+            print(f"Tiempo máximo permitido: {organo.get_tiempo_conservacion()} horas")
             return False
         
         #info del organo antes del trasplante
@@ -185,18 +194,17 @@ class Centro_de_salud:
         
         # Realizar trasplante usando el cirujano
         try:
-            exito = cirujano.realizar_operacion(organo.tipo)
+            exito = cirujano.exito_operacion(organo)
             
             if exito:
                 print(f"✅ Trasplante exitoso de {organo.tipo.capitalize()} en {self.nombre_cs}")
                 print(f"\nCirujano: {cirujano.nombre}")
             else:
-                print(f"❌ Trasplante fallido de {organo.tipo.capitalize()} en {self.nombre_cs}")
+                print(f"Trasplante fallido de {organo.tipo.capitalize()} en {self.nombre_cs}")
                 # Cambiar prioridad del receptor y estado
                 receptor.prioridad = 1  # Mayor prioridad
-                receptor.estado = "Inestable"
+                receptor.estado = "INESTABLE"
                 print(f"\nReceptor {receptor.nombre} cambiado a estado INESTABLE con prioridad máxima")
-            
             return exito
             
         except Exception as e:
@@ -204,17 +212,9 @@ class Centro_de_salud:
             return False
     
     def __str__(self):
-        """ Descripción del centro
-        """
-        return f"{self.nombre_cs} - {self.ciudad}, {self.provincia}"
+        return f"{self.nombre_cs} - {self.ciudad}, {self.provincia}, Argentina"
 
     def __len__(self):
-        """
-        Retorna el número total de recursos (cirujanos + vehículos).
-        
-        Returns:
-            int: Cantidad total de recursos
-        """
         return len(self.cirujanos) + len(self.vehiculos)
 
     def __eq__(self, otro):
@@ -234,28 +234,6 @@ class Centro_de_salud:
 
 ''' 
 def main():
-    geolocator = Nominatim(user_agent="incucai_test")
-
-    cs1 = Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
-    cs2 = Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
-    cs3 = Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "C1093", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
-    cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "C1425EFD", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
-    cs5 = Centro_de_salud("Hospital Italiano de La Plata", "Av. 51, B1900 La Plata", "La Plata", "Provincia de Buenos Aires", "022-15129500")
-    cs6 = Centro_de_salud("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
-    cs9 = Centro_de_salud("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "011 4982-5555")
-    cs10 = Centro_de_salud("Sanatorio Pasteur", "Chacabuco 675", "San Fernando del Valle de Catamarca", "Catamarca", "038 3443-2000")
-    cs12= Centro_de_salud ("Hospital Zonal Alvear", "Juan Ramón Balcarce, Comodoro Rivadavia, Chubut", "Comodoro Rivadavia", "Chubut", "029 7455-9952")
-    cs13= Centro_de_salud ("Hospital de Urgencias", "Catamarca 441, X5000 Córdoba", "Barrio Centro" , "Córdoba", "0351 427-6200")
-    cs19= Centro_de_salud ("Hospital El Carmen", "Godoy Cruz 5504", "Godoy Cruz", "Mendoza", "081 0810-1033" ) 
-    cs20= Centro_de_salud ("Hospital Samic Alem de autogestión nivel II", "Misiónes, N3315 Leandro N. Alem", "Misiones", "Misiones", "037 6415-6950") 
-    cs22 = Centro_de_salud ("Hospital Area Programa Cipoletti Dr. Pedro Moguillansky", "Naciones Unidas 1450", "Cipolletti", "Río Negro" , "0299 4775-469")#rio negro
-    cs23 = Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022" )
-    cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005")
-    cs25 = Centro_de_salud ("Hospital Dr. Clemente Alvarez", "Av. Pellegrini 3205", "Rosario Centro", "Santa Fe", "034 1480-8111") #santa fe
-    cs27 = Centro_de_salud ("Hospital Regional Rio Grande", "Florentino Ameghino 709", "Rio Grande", "Tierra del Fuego", "029 6442-2042")#tierra del fuego
-    cs28 = Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600") #tucuman
-    
-
     #Lista de centros habilitados por el INCUCAI:
     centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs9, cs10, cs12, cs13, cs19, cs20, cs22, cs23, cs24, cs25, cs27, cs28] #cs7, cs8, cs11, cs14, cs15, cs16, cs17, cs18, cs21, cs25, cs26, cs27, cs28] 
 
@@ -282,12 +260,4 @@ def main():
         print(f"✔️ {nombre}")
     
     return centros
-
-@staticmethod
-def nombrar_centros(centros):
-    return [centro.nombre_cs for centro in centros]
-
-
-if __name__ == "__main__":
-    main()
     '''
