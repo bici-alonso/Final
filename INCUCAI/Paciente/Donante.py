@@ -16,18 +16,6 @@ class Donante(Paciente):
         self.hora_creacion = datetime.now().time()
         # Lista de todos los donantes (atributo de clase)
         #Donante.lista_donantes.append(self) 
-
-    
-    @classmethod
-    def agregar(cls, donante): #uso este cls porque estoy usando una lista, un atributo de la CLASE, no una sola variable
-        cls.lista_donantes.append(donante)
-        print("Donante agregado correctamente. \n")
-
-    @classmethod
-    def listar(cls):
-        return cls.lista_donantes
-    
-    #def donar_organo(self, organo):
         
     
     def __str__ (self):

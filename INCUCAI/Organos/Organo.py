@@ -5,7 +5,7 @@ Los órganos almacenan la fecha y hora de ablación (si todavía no corresponde,
 '''
 
 import unicodedata
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 
 class Organo:
     #organos válidos (sin acentos)
@@ -14,6 +14,7 @@ class Organo:
         "pulmones", "intestino", "piel", "corneas"
     ]
     #vida util de cada organo post ablacion
+    
     tiempos_conservacion = {
         "corazon": 6, "higado": 12, "pancreas": 12, "huesos": 20, "riñon": 24,
         "pulmones": 6, "intestino": 12, "piel": 60, "corneas": 90
@@ -27,6 +28,7 @@ class Organo:
         if self.tipo not in self.organos_validos:
             print(f"❌ '{tipo}' no es un órgano válido.")
             print(f"Órganos válidos: {', '.join(self.organos_validos)}")
+            raise ValueError(f"'{tipo}' no es un órgano válido.")
         else:
             print(f"Órgano registrado: 🫀  {self.tipo.capitalize()} ")
             print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
@@ -41,6 +43,7 @@ class Organo:
         #tiempo de conservación del organo en horas
         return self.tiempos_conservacion.get(self.tipo, 0)
 
+    '''
     def ingresar_datos_ablacion(self):
         """Permite ingresar manualmente los datos de ablación con validación continua"""
         print("\n INGRESO DE DATOS DE ABLACIÓN")
@@ -85,6 +88,7 @@ class Organo:
         self.hora_ablacion = hora
         print("\nDatos de ablación guardados correctamente.")
         return True
+    '''
     
     def set_ablacion_auto(self, fecha_ablacion, hora_ablacion):
         #establece la fecha y hora de ablación en automatico
@@ -163,7 +167,7 @@ class Organo:
             print("No se ha registrado aún una fecha y hora de ablación.")
 
 
-
+'''
 print("----------------------------------------------------GESTIÓN DE ÓRGANOS----------------------------------------------------")
 tipo = input("Ingrese el tipo de órgano: ")
 organo = Organo(tipo)    
@@ -180,3 +184,4 @@ if organo.tipo in Organo.organos_validos:
             print("No se pudieron establecer correctamente los datos de ablación.")
     else:
         print("No se puede proceder con un órgano inválido.")
+    '''
