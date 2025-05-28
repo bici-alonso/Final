@@ -30,10 +30,10 @@ class Cirujano(ABC):
     
     def dar_operacion (self):
         if not self.cirujano_disponible():
-            raise Exception (f"\nCirujano/a {self.nombre} no disponible para otra operacion en el dia.")
+            raise Exception (f"\nCirujano/a {self.nombre} no disponible")
         self.ult_operacion=date.today()
         self.operaciones_del_dia.append(datetime.now())
     
     @abstractmethod
-    def exito_operacion(self):
+    def exito_operacion(self, organo):
         pass 
