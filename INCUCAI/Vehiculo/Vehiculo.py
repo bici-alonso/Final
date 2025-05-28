@@ -36,21 +36,11 @@ Finalmente, el centro de salud del receptor realiza el trasplante.
 Para realizar el trasplante se verifica que no hayan transcurrido más de 20 horas desde la ablación del órgano y procede a realizar el trasplante. 
 '''
 
-
 from abc import ABC, abstractmethod
 from datetime import datetime
 import random
 
-
-
-#from geopy.geocoders import Nominatim
-
-
-#PRIMERO INGRESO DIRECCION --> LA CONVIERTO A LATITUD --> CALCULO DISTANCIA
-
-
-#Hago a vehiculo mi clase abstracta:
-
+#vehiculo es clase abstracta:
 class Vehiculo(ABC):
     
     

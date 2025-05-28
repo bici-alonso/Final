@@ -37,36 +37,177 @@ class Incucai:
     paciente es receptor, se lo agrega a la lista de pacientes receptores, y se busca si hay alguna coincidencia en
     la lista de donantes. De haberlo se despacha el organo para el receptor, actualizando de igual manera la lista
     de donantes.
+    
+    #incucai debe tener una validacion que ningun paciente se repite
+    #debo sacar de la lista a pacientes que no tiene mas organos para donar
+    #debo sacar a los receptores que tuvieron un transplante exitoso
+    
+    
+    METODOS DE INCUCAI:
+    
+    clasificar_paciente_ya_existente(paciente_exist=None, que_es=None)
+    registrar_donante(paciente_base)
+    registrar_receptor(paciente_base)
+    
+    buscar_match_para_receptor(receptor)
+    buscar_receptor_organo_especifico(donante, organo)
+    procesar_donacion_multiple(donante)
+    elegir_receptor(lista_receptores) --> (usa HLA, sangre, edad, prioridad, fecha)
+    
+    procesar_asignacion(donante, receptor, organo)
+    validar_compatibilidad(donante, receptor, organo) --> (centraliza sangre, HLA, edad pediátrica)
+    
+    mostrar_centros_salud()
+    estadisticas_transplantes_realizados() (opcional si llevás registro)
+    vehiculos_disponibles_por_centro()
+    
+    
+    
 
     '''
+    
     geolocator = Nominatim(user_agent="incucai_test")
     
     def __init__(self):
         #Constructor de INCUCAI
         self.receptores = []
         self.donantes = []
+        self.centros = self.centros()
         
-        cs1 = Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678")
-        cs2 = Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432")
-        cs3 = Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "C1093", "Ciudad Autónoma de Buenos Aires", "011-4378-1200")
-        cs4 = Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "C1425EFD", "Ciudad Autónoma de Buenos Aires", "011 4962-9247")
-        cs5 = Centro_de_salud("Hospital Italiano de La Plata", "Av. 51, B1900 La Plata", "La Plata", "Provincia de Buenos Aires", "022-15129500")
-        cs6 = Centro_de_salud("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888")
-        cs9 = Centro_de_salud("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "011 4982-5555")
-        cs10 = Centro_de_salud("Sanatorio Pasteur", "Chacabuco 675", "San Fernando del Valle de Catamarca", "Catamarca", "038 3443-2000")
-        cs12= Centro_de_salud ("Hospital Zonal Alvear", "Juan Ramón Balcarce, Comodoro Rivadavia, Chubut", "Comodoro Rivadavia", "Chubut", "029 7455-9952")
-        cs13= Centro_de_salud ("Hospital de Urgencias", "Catamarca 441, X5000 Córdoba", "Barrio Centro" , "Córdoba", "0351 427-6200")
-        cs19= Centro_de_salud ("Hospital El Carmen", "Godoy Cruz 5504", "Godoy Cruz", "Mendoza", "081 0810-1033" ) 
-        cs20= Centro_de_salud ("Hospital Samic Alem de autogestión nivel II", "Misiónes, N3315 Leandro N. Alem", "Misiones", "Misiones", "037 6415-6950") 
-        cs22 = Centro_de_salud ("Hospital Area Programa Cipoletti Dr. Pedro Moguillansky", "Naciones Unidas 1450", "Cipolletti", "Río Negro" , "0299 4775-469")#rio negro
-        cs23 = Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022" )
-        cs24 = Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005")
-        cs25 = Centro_de_salud ("Hospital Dr. Clemente Alvarez", "Av. Pellegrini 3205", "Rosario Centro", "Santa Fe", "034 1480-8111") #santa fe
-        cs27 = Centro_de_salud ("Hospital Regional Rio Grande", "Florentino Ameghino 709", "Rio Grande", "Tierra del Fuego", "029 6442-2042")#tierra del fuego
-        cs28 = Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600") #tucuman
+    def centros(self):
+        return [
+            Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678"),
+            Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432"),
+            Centro_de_salud("Fundacion Favaloro", "Av. Belgrano 1746", "C1093", "Ciudad Autónoma de Buenos Aires", "011-4378-1200"),
+            Centro_de_salud("Hospital General de Niños Dr. R. Gutierrez", "Gallo 1330", "C1425EFD", "Ciudad Autónoma de Buenos Aires", "011 4962-9247"),
+            Centro_de_salud("Hospital Italiano de La Plata", "Av. 51, B1900 La Plata", "La Plata", "Provincia de Buenos Aires", "022-15129500"),
+            Centro_de_salud("Hospital Universitario Austral", "Mariano Acosta 1611", "Pilar", "Buenos Aires", "023-04388888"),
+            Centro_de_salud("Hospital Gral. de Agudos Carlos G. Durand", "Av. Diaz Velez 5044", "Caballito", "Ciudad Autónoma de Buenos Aires", "011 4982-5555"),
+            Centro_de_salud("Sanatorio Pasteur", "Chacabuco 675", "San Fernando del Valle de Catamarca", "Catamarca", "038 3443-2000"),
+            Centro_de_salud ("Hospital Zonal Alvear", "Juan Ramón Balcarce, Comodoro Rivadavia, Chubut", "Comodoro Rivadavia", "Chubut", "029 7455-9952"),
+            Centro_de_salud ("Hospital de Urgencias", "Catamarca 441, X5000 Córdoba", "Barrio Centro" , "Córdoba", "0351 427-6200"),
+            Centro_de_salud ("Hospital El Carmen", "Godoy Cruz 5504", "Godoy Cruz", "Mendoza", "081 0810-1033"), 
+            Centro_de_salud ("Hospital Samic Alem de autogestión nivel II", "Misiónes, N3315 Leandro N. Alem", "Misiones", "Misiones", "037 6415-6950"), 
+            Centro_de_salud ("Hospital Area Programa Cipoletti Dr. Pedro Moguillansky", "Naciones Unidas 1450", "Cipolletti", "Río Negro" , "0299 4775-469"), #rio negro
+            Centro_de_salud ("Hospital Papa Francisco", "C. 120 S/N, A4400 Salta", "Salta", "Salta", "0387 438-5022"),
+            Centro_de_salud ("Hospital Dr. Guillermo Rawson", "Av. Guillermo Rawson Sur 494", "J5400 San Juan", "San Juan", "026 4422-4005"),
+            Centro_de_salud ("Hospital Dr. Clemente Alvarez", "Av. Pellegrini 3205", "Rosario Centro", "Santa Fe", "034 1480-8111"), #santa fe
+            Centro_de_salud ("Hospital Regional Rio Grande", "Florentino Ameghino 709", "Rio Grande", "Tierra del Fuego", "029 6442-2042"), #tierra del fuego
+            Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600"), #tucuman               
+        ]
+        
+    def clasificar_paciente_ya_existente(self, paciente_existente=None):
+            if paciente_existente:
+                if isinstance(paciente_existente, Donante):
+                    if self.paciente_existente(paciente_existente.DNI): 
+                        return
+                    self.donantes.append(paciente_existente)
+                    self.procesar_donacion_multiple(paciente_existente) #cuando uso el de donacion de un organo?
+                    return
+                    
+                if isinstance(paciente_existente, Receptor):
+                    if self.paciente_existente(paciente_existente.DNI): 
+                        return
+                    self.receptores.append(paciente_existente)
+                    self.buscar_match_para_receptor(paciente_existente)
+                    return
     
-        self.centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs9, cs10, cs12, cs13, cs19, cs20, cs22, cs23, cs24, cs25, cs27, cs28]
+    def paciente_existente(self, dni):
+        if any(p.DNI == dni for p in self.donantes + self.receptores):
+            print(f"Ya existe un paciente con DNI {dni}.")
+            return True
+        return False
+    
+    def compatibilidad(self, donante, receptor):
+        if not donante.es_compatible_sangre(receptor):
+            return False
+        hla_match, _ = donante.compatibilidad_hla(receptor)
+        if hla_match < 3:
+            return False
+        edad_donante = donante.calculo_edad()
+        edad_receptor = receptor.calculo_edad()
+        if edad_receptor < 18 and abs(edad_receptor - edad_donante) > 3:
+            return False
+        return True
 
+    def buscar_receptor_organo_especifico(self, donante, organo):
+        print(f"\nBuscando receptor para {organo} del donante {donante.nombre}...")
+        compatibles = [r for r in self.receptores if organo.lower() in r.org_recib and self.compatibilidad(donante, r)]
+        if compatibles:
+            receptor = self.elegir_receptor(compatibles)
+            self.procesar_asignacion(donante, receptor, organo)
+        else:
+            print(f"No se encontro receptor compatible para {organo}.")
+            
+    def buscar_match_para_receptor(self, receptor):
+        for donante in self.donantes:
+            for organo in donante.lista_organos:
+                if organo.lower() in receptor.org_recib and self.validar_compatibilidad(donante, receptor):
+                    self.procesar_asignacion(donante, receptor, organo)
+                    return
+        print(f"No hay donante compatible para {receptor.nombre}.")
+
+    def procesar_donacion_multiple(self, donante):
+        print(f"\nProcesando donación de {donante.nombre}...")
+        for organo in donante.lista_organos[:]:  # copia para modificar e iterar
+            self.buscar_receptor_organo_especifico(donante, organo)
+
+    def elegir_receptor(self, lista):
+        return sorted(lista, key=lambda r: (r.prioridad_numerica(), r.fecha_list_esp))[0]
+
+    def procesar_asignacion(self, donante, receptor, organo):
+        print(f"\nAsignación: {organo} de {donante.nombre} a {receptor.nombre}")
+        donante.lista_organos = [o for o in donante.lista_organos if o.lower() != organo.lower()]
+        if not donante.lista_organos:
+            self.donantes.remove(donante)
+        self.receptores.remove(receptor)
+            
+    def procesar_asignacion(self, donante, receptor, organo):
+        print(f"\nAsignando {organo} de {donante.nombre} a {receptor.nombre} en {receptor.centro}")
+        donante.lista_organos = [o for o in donante.lista_organos if o.lower() != organo.lower()]
+        if not donante.lista_organos:
+            self.donantes.remove(donante)
+            print(f"Donante {donante.nombre} removido (sin órganos disponibles)")
+        if receptor in self.receptores:
+            self.receptores.remove(receptor)
+            print(f"Receptor {receptor.nombre} removido (trasplante programado)")
+
+    def mostrar_centros_salud(self):
+        print("\nCentros de salud habilitados:")
+        for cs in self.centros:
+            print(f"- {cs}")
+
+    def listar_donantes(self):
+        for d in self.donantes:
+            print(d)
+
+    def listar_receptores(self):
+        for r in self.receptores:
+            print(r)
+
+    
+    '''
+    def pedir_datos_basicos_paciente(self):
+        datos = {}
+        datos['nombre'] = self.validaciones('nombre')
+        datos['DNI'] = self.validaciones('dni')
+        datos['fecha_nac'] = self.validaciones('fecha_nacimiento')
+        datos['sexo'] = self.validaciones('sexo')
+        datos['telefono'] = self.validaciones('telefono')
+        datos['contacto'] = self.validaciones('contacto_emergencia')
+        datos['tipo_sangre'] = self.validaciones('tipo_sangre')
+        datos['centro'] = self.validaciones('centro_salud')
+        print("\n--- ANTÍGENOS HLA ---")
+        datos['hla_a1'] = self.validaciones('antigeno-A1')
+        datos['hla_a2'] = self.validaciones('antigeno-A2')
+        datos['hla_b1'] = self.validaciones('antigeno-B1')
+        datos['hla_b2'] = self.validaciones('antigeno-B2')
+        datos['hla_dr1'] = self.validaciones('antigeno-DR1')
+        datos['hla_dr2'] = self.validaciones('antigeno-DR2')
+        
+        return datos
+    '''     
+    
     '''      
     def validaciones (self, validacion):
         if validacion=='nombre':
@@ -231,7 +372,7 @@ class Incucai:
         '''  
         
                 
-                
+    '''           
     def pedir_datos_basicos_paciente(self):
         datos = {}
         datos['nombre'] = self.validaciones('nombre')
@@ -251,7 +392,7 @@ class Incucai:
         datos['hla_dr2'] = self.validaciones('antigeno-DR2')
         
         return datos
-            
+        ''' 
         
     '''  
     def carga_manual_donante_nuevo(self):
@@ -291,353 +432,4 @@ class Incucai:
         #print ("\nSelecciono la carga manual de un nuevo centro de salud...") #--> opcion en el menu
         #print("\nCENTRO DE SALUD NUEVO:")
         
-        
-    def clasificar_paciente_ya_existente(self, que_es=None, paciente_exist=None):
-            if paciente_exist:
-            # Si ya se pasó un objeto paciente creado, reviso de que tipo es:
-            
-                if isinstance(paciente_exist, Donante):
-                    if any(p.DNI == paciente_exist.DNI for p in self.donantes + self.receptores): #reviso que no exista un paciente con ese dni ya cargado en mis arrays
-                        print(f"Ya existe un paciente del tipo donante o receptor con DNI {paciente_exist.DNI}.")
-                        return
-                    self.donantes.append(paciente_exist)  #agrego al donante a mi array de donantes de incucai
-                    
-                    #donacion  --> depende si es multiple o de todo
-                    #self.hacer_donacion(paciente_exist)
-                    return
-            
-                if isinstance(paciente_exist, Receptor):
-                    if any(p.DNI == paciente_exist.DNI for p in self.donantes + self.receptores):  #reviso que no exista un paciente con ese dni ya cargado en mis arrays
-                        print(f"Ya existe un paciente del tipo receptor o donante con DNI {paciente_exist.DNI}.")
-                        return
-                    self.receptores.append(paciente_exist)
-                    self.buscar_match_receptor(paciente_exist)
-                    return
-            
-        # Si es un paciente base, obtener el tipo
-                paciente_base = paciente_exist
-                que_es = paciente_base.que_es.lower()
-                
-            else:
-                paciente_base = Paciente.agregar(que_es)
 
-            dni_a_verificar = paciente_base.DNI
-            if any(p.DNI == dni_a_verificar for p in self.donantes + self.receptores):
-                print(f"Ya existe un paciente con DNI {dni_a_verificar} en el sistema. No se puede agregar.")
-                return
-
-            if que_es == "donante":
-                self.registrar_donante(paciente_base)
-            elif que_es == "receptor":
-                self.registrar_receptor(paciente_base)
-                
-
-    def registrar_donante(self, paciente_base):
-        """
-        Registra un donante y maneja la lógica de donación según su estado.
-        """
-        # Preguntar si está vivo o muerto
-        print("\n--- REGISTRO DE DONANTE ---")
-        while True:
-            donante_vivo = input("¿El donante está vivo? (si/no): ").lower().strip()
-            if donante_vivo in ['si', 'sí']:
-                esta_vivo = True
-                break
-            elif donante_vivo in ['no']:
-                esta_vivo = False
-                break
-            else:
-                print("❌ Responda con si o no.")
-
-        if esta_vivo==True:
-            # DONANTE VIVO - Un solo órgano
-            print("\n--- DONANTE VIVO ---")
-            organo_a_donar = input("Ingrese el órgano que va a donar: ").strip().upper()
-            
-            # Crear donante con un solo órgano
-            donante = Donante(
-                paciente_base.nombre,
-                paciente_base.DNI,
-                paciente_base.fecha_nac,
-                paciente_base.sexo,
-                paciente_base.telefono,
-                paciente_base.contacto,
-                paciente_base.tipo_sangre,
-                paciente_base.centro,
-                "donante",
-                None,  # fecha_fall
-                None,  # hora_fall
-                None,  # hora_ablacion - se definirá cuando se programe la cirugía
-                None,  # fecha_ablacion
-                [organo_a_donar]  # lista con un solo órgano
-            )
-            
-            self.donantes.append(donante)
-            print(f"✅ Donante vivo registrado. Órgano disponible: {organo_a_donar}")
-            
-            #receptor para un organo 
-            self.buscar_receptor_organo_especifico (donante, organo_a_donar)
-            
-        else:
-            # DONANTE MUERTO - Todos los órganos
-            print("\n--- DONANTE FALLECIDO ---")
-            
-            # Solicitar datos de fallecimiento
-            while True:
-                fecha_fall = input("Ingrese fecha de fallecimiento (dd/mm/yyyy): ")
-                try:
-                    datetime.strptime(fecha_fall, "%d/%m/%Y")
-                    break
-                except ValueError:
-                    print("❌ Fecha inválida. Use el formato dd/mm/yyyy.")
-
-            while True:
-                hora_fall = input("Ingrese hora de fallecimiento (HH:MM): ")
-                try:
-                    datetime.strptime(hora_fall, "%H:%M")
-                    break
-                except ValueError:
-                    print("❌ Hora inválida. Use el formato HH:MM (24 hs).")
-
-            while True:
-                fecha_ablacion = input("Ingrese fecha de ablación (dd/mm/yyyy): ")
-                try:
-                    datetime.strptime(fecha_ablacion, "%d/%m/%Y")
-                    break
-                except ValueError:
-                    print("❌ Fecha inválida. Use el formato dd/mm/yyyy.")
-
-            while True:
-                hora_ablacion = input("Ingrese hora de ablación (HH:MM): ")
-                try:
-                    datetime.strptime(hora_ablacion, "%H:%M")
-                    break
-                except ValueError:
-                    print("❌ Hora inválida. Use el formato HH:MM (24 hs).")
-
-            while True:
-                print("\n¿El paciente tiene algún órgano que NO sea apto para la donación?")
-                excepcion_organo_donar = input("Responda (sí/no): ").lower().strip()
-
-                if excepcion_organo_donar in ['si', 'sí']:
-                    print("\nIngrese órganos aptos para donación:")
-                    lista_organos_input = input("Órganos (separados por coma): ")
-                    lista_organos = [organo.strip().upper() for organo in lista_organos_input.split(',')]
-                    break
-
-                elif excepcion_organo_donar == 'no':
-                    lista_organos = ["corazon", "pulmon", "pulmon", "corneas", "pancreas", "higado", "riñon", "riñon", "piel", "huesos", "intestino"]
-                    print("\n10 órganos disponibles para donación:")
-                    print(lista_organos)
-                    break
-
-                else:
-                    print("\nResponda con si o no")
-            
-            
-            # Crear donante fallecido
-            donante = Donante(
-                paciente_base.nombre,
-                paciente_base.DNI,
-                paciente_base.fecha_nac,
-                paciente_base.sexo,
-                paciente_base.telefono,
-                paciente_base.contacto,
-                paciente_base.tipo_sangre,
-                paciente_base.centro,
-                "donante",
-                fecha_fall,
-                hora_fall,
-                hora_ablacion,
-                fecha_ablacion,
-                lista_organos
-            )
-            
-            self.donantes.append(donante)
-            print(f"✅ Donante fallecido registrado. Órganos disponibles: {', '.join(lista_organos)}")
-            self.procesar_donacion_multiple(donante)
-
-    def buscar_receptor_organo_especifico (self, donante, organo):
-        print(f"\n🔍 Buscando receptor para {organo} del donante {donante.nombre}...")
-        
-        receptores_compatibles = []
-        
-        for receptor in self.receptores:
-            if (receptor.organo_necesario.upper() == organo.upper() and 
-                receptor.tipo_sangre == donante.tipo_sangre):
-                receptores_compatibles.append(receptor)
-        
-        if receptores_compatibles:
-            # Ordenar por prioridad y fecha de lista
-            mejor_receptor = self.elegir_receptor(receptores_compatibles)
-            print(f"✅ Match encontrado: {mejor_receptor.nombre} recibirá {organo}")
-
-            self.procesar_asignacion(donante, mejor_receptor, organo)
-        else:
-            print(f"❌ No se encontró receptor compatible para {organo}")
-
-    def procesar_donacion_multiple(self, donante):
-        """
-        Busca receptores para todos los órganos de un donante fallecido.
-        """
-        print(f"\n🔍 Procesando donación múltiple de {donante.nombre}...")
-        
-        asignaciones_realizadas = []
-        
-        for organo in donante.lista_organos:
-            print(f"\n--- Buscando receptor para {organo} ---")
-            
-            receptores_compatibles = []
-            for receptor in self.receptores:
-                if (receptor.organo_necesario.upper() == organo.upper() and 
-                    receptor.tipo_sangre == donante.tipo_sangre):
-                    receptores_compatibles.append(receptor)
-            
-            if receptores_compatibles:
-                mejor_receptor = self.elegir_receptor(receptores_compatibles)
-                print(f"✅ Match: {mejor_receptor.nombre} recibirá {organo}")
-                asignaciones_realizadas.append((mejor_receptor, organo))
-                
-                # Procesar asignación
-                self.procesar_asignacion(donante, mejor_receptor, organo)
-            else:
-                print(f"❌ No hay receptor compatible para {organo}")
-        
-        # Resumen de asignaciones
-        if asignaciones_realizadas:
-            print(f"\n RESUMEN DE ASIGNACIONES:")
-            for receptor, organo in asignaciones_realizadas:
-                print(f"  • {organo} → {receptor.nombre}")
-        else:
-            print("\n❌ No se realizaron asignaciones para este donante")
-
-
-
-
-    def registrar_receptor(self, paciente_base):
-        """
-        Registra un receptor y busca matches con donantes existentes.
-        """
-        print("\n--- REGISTRO DE RECEPTOR ---")
-    
-        organo = input("Ingrese órgano que necesita: ").strip().upper()
-    
-        while True:
-            fecha_lista = input("Ingrese fecha de ingreso a lista de espera (dd/mm/yyyy): ")
-            try:
-                fecha_lista = datetime.strptime(fecha_lista, "%d/%m/%Y")
-                break
-            except ValueError:
-                print("❌ Formato de fecha inválido. Use dd/mm/yyyy.")
-    
-        patologia = input("Ingrese patología: ").strip()
-    
-        # Obtener estado del paciente
-        estado = self.estado_receptor()
-    
-        # Crear receptor
-        receptor = Receptor(
-            paciente_base.nombre,
-            paciente_base.DNI,
-            paciente_base.fecha_nac,
-            paciente_base.sexo,
-            paciente_base.telefono,
-            paciente_base.contacto,
-            paciente_base.tipo_sangre,
-            paciente_base.centro,
-            "receptor",
-            organo,
-            fecha_lista,
-            patologia,
-            estado
-        )
-    
-        self.receptores.append(receptor)
-        print(f"✅ Receptor registrado en lista de espera para {organo}")
-        
-        # Buscar match inmediato con donantes existentes
-        self.buscar_match_para_receptor(receptor)
-
-            
-    def estado_receptor():
-        estados_validos = ["ESTABLE", "INESTABLE"]
-        while True:
-            estado = input("Ingrese estado [ESTABLE/INESTABLE]: ").upper().strip()
-            if estado in estados_validos:
-                return estado
-            print("❌ Estado inválido. Ingrese 'ESTABLE' o 'INESTABLE' solamente.")
-
-
-    def buscar_match_para_receptor(self, receptor):
-        """
-        Busca matches para un receptor recién registrado.
-        """
-        print(f"\n🔍 Buscando donante compatible para {receptor.nombre}...")
-        
-        for donante in self.donantes:
-            # Verificar si el donante tiene el órgano necesario y tipo de sangre compatible
-            if (receptor.organo_necesario.upper() in [org.upper() for org in donante.lista_organos] and
-                receptor.tipo_sangre == donante.tipo_sangre):
-                
-                print(f"✅ Match encontrado: Donante {donante.nombre} puede donar {receptor.organo_necesario}")
-                self.procesar_asignacion(donante, receptor, receptor.organo_necesario)
-                return
-        
-        print(f"❌ No se encontró donante compatible para {receptor.nombre}")
-
-    def elegir_receptor(self, receptores_compatibles):
-        """
-        Elige el mejor receptor basado en prioridad y fecha de lista.
-        """
-        # Ordenar por estado (INESTABLE primero) y luego por fecha de lista
-        receptores_compatibles.sort(key=lambda r: (
-            r.estado != "INESTABLE",  # INESTABLE tiene prioridad (False viene antes que True)
-            r.fecha_lista  # Fecha más antigua primero
-        ))
-        
-        return receptores_compatibles[0]
-
-    def procesar_asignacion(self, donante, receptor, organo):
-        """
-        Procesa la asignación de un órgano a un receptor.
-        Aquí se implementaría la lógica de transporte, tiempos, etc.
-        """
-        print(f"\n PROCESANDO ASIGNACIÓN:")
-        print(f"   Donante: {donante.nombre}")
-        print(f"   Receptor: {receptor.nombre}")
-        print(f"   Órgano: {organo}")
-        print(f"   Centro destino: {receptor.centro}")
-        
-        # saco organo de la lista del donante
-        if organo.upper() in [org.upper() for org in donante.lista_organos]:
-            donante.lista_organos = [org for org in donante.lista_organos 
-                                    if org.upper() != organo.upper()]
-        
-        # Si el donante no tiene más órganos, removerlo de la lista
-        if not donante.lista_organos:
-            self.donantes.remove(donante)
-            print(f"   ℹ️  Donante {donante.nombre} removido (sin órganos disponibles)")
-        
-        #remover receptor de la lista (transplante exitoso)
-        if receptor in self.receptores:
-            self.receptores.remove(receptor)
-            print(f"   ✅ Receptor {receptor.nombre} removido (transplante programado)")
-        
-        
-        #si no es exitoso tengo que cambiar la prioridad del receptor
-        
-        # falta implementar transporte 
-        # self.transporte(donante, receptor, organo)
-        
-        
-        
-            
-    #incucai debe tener una validacion que ningun paciente se repite
-    #debo sacar de la lista a pacientes que no tiene mas organos para donar
-    #debo sacar a los receptores que tuvieron un transplante exitoso
-
-'''    
-- match (sangre,hla, edad) y prioridad
-- menu dar datos de estadisticas (impirmir centros de salud, cuantos cirjuanos de los centros, vehiculos disponibles)
-- restringir los datos pedidos extras
-'''
