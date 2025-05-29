@@ -1,4 +1,4 @@
-from Vehiculo.Vehiculo import Vehiculo
+from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 
 class Helicoptero(Vehiculo):
     def calculo_tiempo(self, dist, trafico=None):

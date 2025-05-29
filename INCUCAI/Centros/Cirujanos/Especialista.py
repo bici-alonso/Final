@@ -1,6 +1,6 @@
 import random
-from Cirujanos.Cirujano import *
-from Organos.Organo import *
+from INCUCAI.Centros.Cirujanos.Cirujano import *
+from INCUCAI.Organos.Organo import *
 
 class Especialista (Cirujano):
     def __init__(self, nombre, especialidad):

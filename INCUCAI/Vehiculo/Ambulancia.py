@@ -1,4 +1,4 @@
-from Vehiculo.Vehiculo import Vehiculo
+from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 
 class Ambulancia(Vehiculo):
     

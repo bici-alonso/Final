@@ -43,8 +43,8 @@ from geopy.distance import geodesic
 from geopy.exc import GeocoderTimedOut
 import time
 from datetime import datetime
-from Cirujanos.Especialista import *
-#from Vehiculo.Ambulancia import Ambulancia
+from INCUCAI.Centros.Cirujanos.Especialista import *
+#from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 
 
 class Centro_de_salud:
