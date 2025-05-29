@@ -96,7 +96,15 @@ class Incucai:
             Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600"), #tucuman               
         ]
         
-    def clasificar_paciente_ya_existente(self, paciente_existente=None):
+    def registrar_donante(self, donante):
+        if not  self.paciente_existente(donante.DNI):
+            self.donantes.append(donante)
+
+    def registrar_receptor(self, receptor):
+        if not self.paciente_existente(receptor.DNI):
+            self.receptores.append(receptor)
+
+    '''def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
                 if isinstance(paciente_existente, Donante):
                     if self.paciente_existente(paciente_existente.DNI): 
@@ -110,7 +118,7 @@ class Incucai:
                         return
                     self.receptores.append(paciente_existente)
                     self.buscar_match_para_receptor(paciente_existente)
-                    return
+                    return'''
     
     def paciente_existente(self, dni):
         if any(p.DNI == dni for p in self.donantes + self.receptores):
@@ -187,6 +195,97 @@ class Incucai:
                 return p 
         return None
     
+    def realizar_transplante(self, receptor, donante, organo):
+        print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo.upper()}")
+
+        centro_donante = next((c for c in self.centro if c.nombre_cs == donante.centro), None)
+        centro_receptor = next((c for c in self.centro if c.nombre_cs == receptor.centro), None)
+
+        if not centro_donante or not centro_receptor:
+            print("❌ No se encontraron los centros de salud correspondientes.")
+            return
+        
+        if centro_donante.coords is None:
+            centro_donante.geolocalizar_direccion(self.geolocator)
+        if centro_receptor.coords is None:
+            centro_receptor.geolocalizar_direccion(self.geolocator)
+        
+        if not centro_donante.realizar_ablacion(organo, donante):
+            print("❌ Error en la ablación. Operación cancelada.")
+            return
+        
+        vehiculo = centro_donante.seleccionar_vehiculo(centro_receptor)
+        if vehiculo is None:
+            print("❌ No hay vehículos disponibles para trasladar el órgano.")
+            return
+        
+        distancia = centro_donante.calcular_distancia_a(centro_receptor)
+        trafico = vehiculo.nivel_trafico()
+        tiempo_traslado = vehiculo.calculo_tiempo(distancia, trafico)
+        print(f"\n🚑 Vehículo seleccionado: {vehiculo}")
+        print(f"Distancia entre centros: {distancia:.2f} km | Tráfico: {trafico:.2f} | Tiempo estimado: {tiempo_traslado:.2f} h")
+
+        cirujano = centro_receptor.seleccionar_cirujano(organo.tipo)
+        if cirujano is None:
+            print("❌ No hay cirujano disponible para ese órgano.")
+            return
+        
+        print(f"🩺 Cirujano asignado: {cirujano}")
+
+        exito = centro_receptor.realizar_transplante(organo, receptor, cirujano)
+        if exito:
+            if receptor in self.receptores:
+                self.receptores.remove(receptor)
+                print(f"🧾 Receptor {receptor.nombre} eliminado de la lista tras trasplante exitoso.")
+            else:
+                receptor.estado = "Inestable"
+                print(f"⚠️ Receptor {receptor.nombre} ahora en estado INESTABLE tras fallo del trasplante.")
+
+        if organo in donante.lista_organos:
+            donante.lista_organos.remove(organo)
+            print(f"🗑️ Órgano {organo.tipo} eliminado del donante.")
+
+        if not donante.lista_organos:
+            if donante in self.donantes:
+                self.donantes.remove(donante)
+                print(f"📤 Donante {donante.nombre} eliminado (sin órganos restantes).")
+
+    def pedir_receptor_para_realizar_transplante(self):
+        try:
+            dni = int(input("Ingrese el DNI del receptor que desea trasplantar: "))
+        except ValueError:
+            print("❌ DNI inválido.")
+            return
+        
+        receptor = self.buscar_paciente_por_dni(dni)
+        if not receptor or not isinstance(receptor, Receptor):
+            print("❌ Receptor no encontrado.")
+            return
+        
+        organos_necesarios = receptor.org_recib
+        compatibles = []
+
+        for donante in self.donantes:
+            for organo in donante.lista_organos:
+                if organo.lower() in organos_necesarios and self.compatibilidad(donante, receptor):
+                    compatibles.append((donante, organo))
+
+        if not compatibles:
+            print("❌ No hay donantes compatibles para este receptor.")
+            return
+        
+        print(f"\n✅ Donantes compatibles encontrados para {receptor.nombre}:")
+        for i, (d, o) in enumerate(compatibles):
+            print(f"{i+1}. Donante: {d.nombre} (DNI: {d.DNI}) - Órgano: {o}")
+
+        try:
+            seleccion = int(input("\nSeleccione el numero del donnate con el que desea proceder: "))
+            donante, organo = compatibles[seleccion - 1]
+            self.realizar_transplante(receptor, donante, organo)
+        except (IndexError, ValueError):
+            print("❌ Selección inválida.")
+
+
     '''
     def pedir_datos_basicos_paciente(self):
         datos = {}

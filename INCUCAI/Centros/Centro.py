@@ -171,7 +171,7 @@ class Centro_de_salud:
             print(f"❌ Error durante la ablación: {e}")
             return False
 
-    def realizar_trasplante(self, organo, receptor, cirujano):
+    def realizar_transplante(self, organo, receptor, cirujano):
         """
         Realiza el trasplante de un órgano.
             organo: a trasplantar
