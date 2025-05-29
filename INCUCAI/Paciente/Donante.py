@@ -27,8 +27,8 @@ class Donante(Paciente):
         
         
     
-    def __str__ (self):
-        organos = ", ".join([org.tipo for org in self.lista_organos])
+    def __str__(self):
+        organos = ", ".join(self.lista_organos)
         return f"Donante: {self.nombre}, DNI: {self.DNI}, Órganos: {organos}, Sangre: {self.tipo_sangre}"
     
     @classmethod
