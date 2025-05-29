@@ -6,7 +6,7 @@
 #from INCUCAI.Paciente import Receptor
 #from INCUCAI.Vehiculo import Vehiculo
 from menu import *
-from menu_v import *
+#from menu_v import *
 
 
 def main():
@@ -16,7 +16,8 @@ def main():
     paciente.datos_pacientes() #metodo tipo getter
     paciente2.datos_paciente()'''
     menu()
-    menu_v()
+    #menu_v()
+
 
 
 if __name__ == "__main__":
