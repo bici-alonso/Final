@@ -65,7 +65,7 @@ def menu ():
             #    print(r)
         elif opcion == 5:
             dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["riñón", "corazón"])
-            #dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Favaloro", "Donante", "01", "03", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["hígado"])
+            dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Favaloro", "Donante", "01", "03", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["hígado"])
             #dpaciente3 = Donante("Luis Gomez", 42456789, date(1992, 2, 22), "M", "1145678901", "1198761234", "B+", "Hospital El Cruce", "Donante", "A11", "A26", "B14", "B18", "DR1", "DR16", date(2025, 5, 25), time(12, 0), time(14, 0), date(2025, 5, 26), ["corneas", "piel"])
             #dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "AB+", "Hospital Garrahan", "Donante", "A23", "A31", "B38", "B44", "DR15", "DR17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
             #dpaciente5 = Donante("Sofía Díaz", 47000001, date(1999, 8, 13), "F", "1167890123", "1193456789", "O+", "Hospital Zonal Alvear", "Donante", "A24", "A32", "B7", "B41", "DR9", "DR4", date(2025, 5, 23), time(9, 30), time(11, 30), date(2025, 5, 24), ["riñón", "corazón"])
@@ -87,8 +87,8 @@ def menu ():
             #rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "A26", "A33", "B37", "B40", "DR5", "DR12", ["hígado"], date(2024, 5, 9), "insuficiencia hepática", "estable")
 
             
-            #incucai.clasificar_paciente_ya_existente(dpaciente1)
-            #incucai.clasificar_paciente_ya_existente(dpaciente2)
+            incucai.clasificar_paciente_ya_existente(dpaciente1)
+            incucai.clasificar_paciente_ya_existente(dpaciente2)
             #incucai.clasificar_paciente_ya_existente(dpaciente3)
             #incucai.clasificar_paciente_ya_existente(dpaciente4)
             #incucai.clasificar_paciente_ya_existente(dpaciente5)
@@ -97,19 +97,20 @@ def menu ():
             #incucai.clasificar_paciente_ya_existente(dpaciente8)
             #incucai.clasificar_paciente_ya_existente(dpaciente9)
             #incucai.clasificar_paciente_ya_existente(dpaciente10)
-            #incucai.clasificar_paciente_ya_existente(rpaciente11)
+            incucai.clasificar_paciente_ya_existente(rpaciente11)
             #incucai.clasificar_paciente_ya_existente(rpaciente12)
             #incucai.clasificar_paciente_ya_existente(rpaciente13)
-            #incucai.clasificar_paciente_ya_existente(rpaciente14)
+            incucai.clasificar_paciente_ya_existente(rpaciente14)
             #incucai.clasificar_paciente_ya_existente(rpaciente15)
             #incucai.clasificar_paciente_ya_existente(rpaciente16)
             #incucai.clasificar_paciente_ya_existente(rpaciente17)
             #incucai.clasificar_paciente_ya_existente(rpaciente18)
             #incucai.clasificar_paciente_ya_existente(rpaciente19)
             #incucai.clasificar_paciente_ya_existente(rpaciente20)
-            Receptor.agregar(rpaciente11)
+            #Receptor.agregar(rpaciente11)
+            #Receptor.agregar(rpaciente14)
 
-            print("Pacientes de prueba agregados con éxito.")
+            #print("Pacientes de prueba agregados con éxito.")
 
         elif opcion == 6:
             print("\n-------Lista de receptores por fecha de ingreso a la lista de espera---------------\n")
