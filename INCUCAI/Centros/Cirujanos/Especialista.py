@@ -5,6 +5,8 @@ from Organos.Organo import *
 class Especialista (Cirujano):
     def __init__(self, nombre, especialidad):
         super().__init__(nombre)
+        
+        
         self.especialidad=especialidad.lower()
         self.organos={
             "cardiovascular": ["corazon"],
@@ -20,10 +22,24 @@ class Especialista (Cirujano):
         #organo = organo.lower()
         resultado = random.randint(1, 10)
         
-        if tipo in self.organos_especialidad.get(self.especialidad, []):
+        if tipo in self.organos.get(self.especialidad, []):
             return resultado >= 3
         else:
             return resultado > 5
+    
+    def tiene_especialidad_para(self, organo):
+        """
+        Verifica si el cirujano tiene especialidad para un órgano específico.
+        
+        Args:
+            organo: Órgano a verificar (objeto Organo o string)
+            
+        Returns:
+            bool: True si tiene especialidad para este órgano
+        """
+        tipo = organo.tipo.lower() if isinstance(organo, Organo) else organo.lower()
+        return tipo in self.organos.get(self.especialidad, [])
+    
     
     def __str__(self):
         return f"Cirujano especialista {self.nombre} ({self.especialidad.capitalize()})"

@@ -33,6 +33,10 @@ class Cirujano(ABC):
             raise Exception (f"\nCirujano/a {self.nombre} no disponible")
         self.ult_operacion=date.today()
         self.operaciones_del_dia.append(datetime.now())
+        print(f"{self.nombre} asignado a operación")
+            
+    def __len__(self):
+        return len(self.operaciones_del_dia)
     
     @abstractmethod
     def exito_operacion(self, organo):
