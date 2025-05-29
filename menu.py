@@ -7,10 +7,9 @@ from INCUCAI.Paciente.Receptor import Receptor
 #from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 from datetime import time, date
 
-
 def menu ():
-    incucai = Incucai()
     
+    incucai = Incucai()
     
     '''paciente= Paciente("Zoe", 46821489, "6/11/2005", "F", 1126485713, 1125365869, "0+", "Favaloro", "Donante") #esta carga deberia resolverse con la funcion agregar
     paciente2=Paciente("Vicky", 46821489, "25/03/2005", "F", 1135857168, 1158694552, "0+", "Favaloro", "Receptor" )
@@ -18,7 +17,7 @@ def menu ():
     incucai.clasificar_pac(paciente_exist=paciente2)'''
     
     #---------------------------------------------------------------- MENU ---------------------------------------------------------------------------
-    print("------------------------INICIO DEL PROGRAMA-----------------------------")
+    print("-------------------------------------INCUCAI-------------------------------------")
     pregunta = int(input("\nDesea incializar el programa? presione 1 para SI o 0 para cerrar:  "))
     
     while not (pregunta == 0 or pregunta == 1):
@@ -30,40 +29,26 @@ def menu ():
         return
 
     while (pregunta == 1):
-        print("\n-------------MENU PRINCIPAL-----------")
-        print("1- Agregar donante")
-        print("2- Agregar Receptor")
-        print("3- Ver lista de donantes")
-        print("4- Ver lista de receptores")
-        print("5- Agregar los pacientes ya cargados")
-        print("6- Ver lista de espera ordenada")
-        print("7- Lista centros de salud")
-        print("8- Cirujanos en cada centro de salud")
-        print("9- Buscar paciente por DNI")
-        print("10- Estadisticas de cirujanos")
-        print("11- Vehiculos (disponibles y viajes)")
-        print("12- Modificar datos") #buscar apciente mediante dni y meodificar dato 
-        print("13- ")
-        print("0- Cerrar programa")
+        print("\n---------------------------------------MENU PRINCIPAL-------------------------------------")
+        print("\n1- Inicializar pacientes anteriores de INCUCAI")
+        print("\n2- Agregar donante manualmente")
+        print("\n3- Agregar receptor manualmente")
+        print("\n4- Ver lista de donantes")
+        print("\n5- Ver lista de receptores")
+        print("\n6- Ver lista de centros de salud")
+        print("\n7- Ver lista de espera de receptores en orden")
+        print("\n8- Ver cirujanos en un centro de salud")
+        print("\n9- Ver vehiculos disponibles en un centro de salud")
+        print("\n10- Estadisticas de tasa de exito de un cirujano")
+        print ("\n11- Iniciar protocolo de transplante")
+        print("\n12- Buscar informacion de un paciente por DNI")
+        print("\n13- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
+        print ("\n14- Buscar receptor por DNI e informar posicion en la lista de espera")
+        print("\n15- Modificar datos de un paciente por DNI") #buscar apciente mediante dni y meodificar dato 
+        print("\n0- Cerrar programa")
+        
         opcion = int(input("Seleccione una opcion: "))
-
         if opcion == 1: 
-            print("no disponible.")
-            #incucai.clasificar_pac(que_es = "donante")
-        elif opcion == 2:
-            #incucai.clasificar_pac(que_es = "receptor")
-            print("no disponible.")
-        elif opcion == 3:
-            print("\n--------------------lista donantes---------------")
-            incucai.listar_donantes()
-            #for d in Donante.listar(): #ESTO PARA QUE IMPRIMA LISTAS Y VER Q ETSAN BIEN
-             #   print(d)
-        elif opcion == 4:
-            print("\n---------------------lista receptores------------------")
-            incucai.listar_receptores()
-            #for r in Receptor.listar():
-            #    print(r)
-        elif opcion == 5:
             dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["riñón", "corazón"])
             #dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Favaloro", "Donante", "01", "03", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["hígado"])
             dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "AB+", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
@@ -109,20 +94,59 @@ def menu ():
             #Receptor.agregar(rpaciente11)
             #Receptor.agregar(rpaciente14)
 
-            #print("Pacientes de prueba agregados con éxito.")
-
+            print("Pacientes de prueba agregados con éxito...")
+            
+        elif opcion == 2:
+            #incucai.clasificar_pac(que_es = "receptor")
+            print("no disponible.")
+            
+        elif opcion == 3:
+            print ("opcion no disponible.")
+            
+        elif opcion == 4:
+            print("\n--------------------DONANTES REGISTRADOS EN INCUCAI:---------------")
+            incucai.listar_donantes()
+            
+        elif opcion == 5:
+            print("\n---------------------RECEPTORES REGISTRADOS EN INCUCAI:------------------")
+            incucai.listar_receptores()
+            
         elif opcion == 6:
-            print("\n-------Lista de receptores por fecha de ingreso a la lista de espera---------------\n")
+            print("\n---------------------CENTROS DE SALUD REGISTRADOS EN INCUCAI:------------------")
+            for nombre_cs in incucai.centros():
+                print(f"- {nombre_cs}")
+        
+        elif opcion == 7:
+            print("\n-----------------------------Lista de receptores por fecha de ingreso a la lista de espera-----------------------------\n")
             for r in Receptor.lista_espera_ordenada():
                 print(r)
 
-        elif opcion == 7:
-            print("\n-------Los centros de salud disponibles-----------------------------\n")
-            for nombre_cs in incucai.centros():
-                print(f"- {nombre_cs}")
+        elif opcion == 8:
+            print("\n-----------------------------Ver cirujanos de un centro de salud-----------------------------\n")
+            print("\nIngrese centro de salud: \n")
 
         elif opcion == 9:
-            print("No disponible.")
+            print("\n-----------------------------Ver vehiculos disponibles de un centro de salud-----------------------------")
+            print("\nIngrese centro de salud: ")
+        
+        elif opcion == 10:
+            print("\n-----------------------------Estadisticas de Cirujano-----------------------------")
+            print("\nIngrese nombre del cirujano: ")
+        
+        elif opcion == 11:
+            print("\nIniciando protocolo de transplante....")
+        
+        elif opcion == 12:
+            print("\nIngrese DNI del paciente a buscar: ")
+        
+        elif opcion == 13:
+            print("\nIngrese centro de salud: ")
+        
+        elif opcion == 14:
+            print("\nIngrese DNI del receptor a buscar: ")
+        
+        elif opcion ==15:
+            print("\nIngrese DNI del paciente a modificar: ")
 
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")

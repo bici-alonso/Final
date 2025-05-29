@@ -4,7 +4,8 @@
 #from INCUCAI.Organos import Organo
 #from INCUCAI.Paciente import Paciente
 #from INCUCAI.Paciente import Receptor
-#from INCUCAI.Vehiculo import Vehiculo
+#from INCUCAI.Vehiculo import Vehiculo1
+
 from menu import *
 #from menu_v import *
 
