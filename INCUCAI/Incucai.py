@@ -142,7 +142,7 @@ class Incucai:
     def buscar_match_para_receptor(self, receptor):
         for donante in self.donantes:
             for organo in donante.lista_organos:
-                if organo.lower() in receptor.org_recib and self.validar_compatibilidad(donante, receptor):
+                if organo.lower() in receptor.org_recib and self.compatibilidad(donante, receptor):
                     self.procesar_asignacion(donante, receptor, organo)
                     return
         print(f"No hay donante compatible para {receptor.nombre}.")
@@ -154,7 +154,6 @@ class Incucai:
 
     def elegir_receptor(self, lista):
         return sorted(lista, key=lambda r: (r.prioridad_numerica(), r.fecha_list_esp))[0]
-
             
     def procesar_asignacion(self, donante, receptor, organo):
         print(f"\nAsignando {organo} de {donante.nombre} a {receptor.nombre} en {receptor.centro}")

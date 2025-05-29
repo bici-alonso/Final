@@ -17,10 +17,10 @@ receptor = Receptor("Ana Gomez", 87654321, date(1995, 10, 20), "F", "987654321",
 
 
 print("\n--- Registro de Donante ---")
-incucai.clasificar_paciente_ya_existente(paciente_existente=donante_vivo)
+incucai.clasificar_paciente_ya_existente(donante_vivo)
 
 print("\n--- Registro de Receptor ---")
-incucai.clasificar_paciente_ya_existente(paciente_existente=receptor)
+incucai.clasificar_paciente_ya_existente(receptor)
 
 print("\n--- Estado Final del Sistema ---")
 print("\nDonantes registrados:")
