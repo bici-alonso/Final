@@ -43,6 +43,7 @@ from geopy.distance import geodesic
 from geopy.exc import GeocoderTimedOut
 import time
 from datetime import datetime
+from Cirujanos.Especialista import *
 #from Vehiculo.Ambulancia import Ambulancia
 
 
@@ -142,8 +143,6 @@ class Centro_de_salud:
                 return c
         return disponibles[0] if disponibles else None
         
-    
-    
     def realizar_ablacion(self, organo, donante):
         """
         Realiza la ablación de un órgano.
