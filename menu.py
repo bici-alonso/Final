@@ -42,12 +42,12 @@ def menu ():
         print("\n0- Cerrar programa")
         
         opcion = int(input("Seleccione una opcion: "))
-        if opcion == 1: 
+        if opcion == 1: #funciona
             dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["riñón", "corazón"])
             dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Favaloro", "Donante", "01", "03", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["hígado"])
             dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "AB+", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
             dpaciente5 = Donante("Sofía Díaz", 47000001, date(1999, 8, 13), "F", "1167890123", "1193456789", "O+", "Hospital Zonal Alvear", "Donante", "24", "32", "07", "44", "11", "17", date(2025, 5, 23), time(9, 30), time(11, 30), date(2025, 5, 24), ["corneas", "corazón"])
-            dpaciente6 = Donante("Matías Herrera", 42234567, date(1988, 3, 30), "M", "1178901234", "1194567890", "A-", "Hospital de Urgencias", "Donante", "22", "30", "31", "54", "13", "17",  date(2025, 5, 21), time(11, 0), time(13, 0), date(2025, 5, 22), ["hígado"])
+            #dpaciente6 = Donante("Matías Herrera", 42234567, date(1988, 3, 30), "M", "1178901234", "1194567890", "A-", "Hospital de Urgencias", "Donante", "22", "30", "31", "54", "13", "17",  date(2025, 5, 21), time(11, 0), time(13, 0), date(2025, 5, 22), ["hígado"])
             dpaciente7 = Donante("Elena Ríos", 41023456, date(1978, 12, 19), "F", "1189012345", "1195678901", "AB-", "Hospital Papa Francisco", "Donante", "23", "33", "25", "40", "12", "17", date(2025, 5, 19), time(15, 0), time(17, 0), date(2025, 5, 20), ["corneas", "piel"])
             dpaciente8 = Donante("Diego Luna", 46543210, date(1996, 4, 8), "M", "1190123456", "1196789012", "B-", "Hospital Clemente Alvarez", "Donante", "23", "30", "32", "42", "10", "17", date(2025, 5, 27), time(13, 30), time(15, 30), date(2025, 5, 28), ["corazón", "riñón"])
             dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"])
@@ -69,7 +69,7 @@ def menu ():
             incucai.clasificar_paciente_ya_existente(dpaciente2)
             incucai.clasificar_paciente_ya_existente(dpaciente4)
             incucai.clasificar_paciente_ya_existente(dpaciente5)
-            incucai.clasificar_paciente_ya_existente(dpaciente6)
+            #incucai.clasificar_paciente_ya_existente(dpaciente6)
             incucai.clasificar_paciente_ya_existente(dpaciente7)
             incucai.clasificar_paciente_ya_existente(dpaciente8)
             incucai.clasificar_paciente_ya_existente(dpaciente9)
@@ -89,22 +89,25 @@ def menu ():
 
             print("Pacientes de prueba agregados con éxito...")
             
-        elif opcion == 2:
+            
+            
+        elif opcion == 2: #no desarrollada 
             #incucai.clasificar_pac(que_es = "receptor")
             print("no disponible.")
             
-        elif opcion == 3:
+        elif opcion == 3: #no desarrollada
             print ("opcion no disponible.")
             
-        elif opcion == 4:
+        elif opcion == 4: #funciona
             print("\n--------------------DONANTES REGISTRADOS EN INCUCAI:---------------")
             incucai.listar_donantes()
             
-        elif opcion == 5:
+            
+        elif opcion == 5: #funciona
             print("\n---------------------RECEPTORES REGISTRADOS EN INCUCAI:------------------")
             incucai.listar_receptores()
             
-        elif opcion == 6:
+        elif opcion == 6: #funciona
             print("\n---------------------CENTROS DE SALUD REGISTRADOS EN INCUCAI:------------------")
             for nombre_cs in incucai.centros():
                 print(f"- {nombre_cs}")
@@ -122,11 +125,11 @@ def menu ():
             print("\n-----------------------------Ver vehiculos disponibles de un centro de salud-----------------------------")
             print("\nIngrese centro de salud: ")
         
-        elif opcion == 10:
+        elif opcion == 10: #no aplica
             print("\n-----------------------------Estadisticas de Cirujano-----------------------------")
             print("\nIngrese nombre del cirujano: ")
         
-        elif opcion == 11:
+        elif opcion == 11: #Inicio transplante para un receptor especifico
             print("\nIniciando protocolo de transplante....")
         
         elif opcion == 12:
