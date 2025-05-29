@@ -16,7 +16,7 @@ class Receptor(Paciente):
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, org_recib, fecha_list_esp, patologia, estado):
         super().__init__(nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2)
         self.org_recib = [org.strip().lower() for org in org_recib] 
-        self.fecha_list_esp = datetime.strptime(fecha_list_esp, "%d/%m/%Y").date()
+        self.fecha_list_esp = fecha_list_esp
         self.patologia = patologia
         estado = estado.upper()
         if estado not in ["ESTABLE", "INESTABLE"]:
