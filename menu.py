@@ -121,6 +121,9 @@ def menu ():
             for nombre_cs in incucai.centros():
                 print(f"- {nombre_cs}")
 
+        elif opcion == 9:
+            print("No disponible.")
+
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")
             break
