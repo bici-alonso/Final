@@ -178,6 +178,14 @@ class Incucai:
         for r in self.receptores:
             print(r)
 
+    def proceso_transplante():
+        return
+    
+    def buscar_paciente_por_dni(self, dni):
+        for p in self.donantes + self.receptores:
+            if p.DNI == dni:
+                return p 
+        return None
     
     '''
     def pedir_datos_basicos_paciente(self):

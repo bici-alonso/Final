@@ -133,7 +133,13 @@ def menu ():
             print("\nIniciando protocolo de transplante....")
         
         elif opcion == 12:
-            print("\nIngrese DNI del paciente a buscar: ")
+            dni = int(input("\nIngrese DNI del paciente a buscar: "))
+            paciente = incucai.buscar_paciente_por_dni(dni)
+            if paciente:
+                print("\n Datos del paciente encontrados: \n")
+                print(paciente)
+            else:
+                print("❌ Paciente no encontrado.")
         
         elif opcion == 13:
             print("\nIngrese centro de salud: ")
