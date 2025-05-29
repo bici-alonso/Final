@@ -11,12 +11,6 @@ def menu ():
     
     incucai = Incucai()
     
-    '''paciente= Paciente("Zoe", 46821489, "6/11/2005", "F", 1126485713, 1125365869, "0+", "Favaloro", "Donante") #esta carga deberia resolverse con la funcion agregar
-    paciente2=Paciente("Vicky", 46821489, "25/03/2005", "F", 1135857168, 1158694552, "0+", "Favaloro", "Receptor" )
-    incucai.clasificar_pac(paciente_exist=paciente)
-    incucai.clasificar_pac(paciente_exist=paciente2)'''
-    
-    #---------------------------------------------------------------- MENU ---------------------------------------------------------------------------
     print("-------------------------------------INCUCAI-------------------------------------")
     pregunta = int(input("\nDesea incializar el programa? presione 1 para SI o 0 para cerrar:  "))
     
@@ -64,7 +58,7 @@ def menu ():
             rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "B+", "Hospital El Cruce", "Receptor", "A1", "A24", "B8", "B27", "DR3", "DR15", ["corazón"], date(2023, 9, 12), "miocardiopatía", "estable")
             rpaciente14 = Receptor("Bruno Castro", 47654321, date(2001, 10, 19), "M", "1145678901", "1156789012", "AB+", "Hospital Garrahan", "Receptor", "11", "23", "18", "35", "06", "13", ["riñón"], date(2024, 2, 18), "glomerulonefritis", "inestable")
             rpaciente15 = Receptor("Agustina Paz", 47543210, date(1995, 12, 1), "F", "1156789012", "1167890123", "O+", "Hospital Zonal Alvear", "Receptor", "07", "A68", "07", "44", "11", "17", ["corneas"], date(2024, 4, 25), "queratocono", "estable")
-            #^rpaciente16 = Receptor("Lucas Molina", 47432109, date(1993, 7, 7), "M", "1167890123", "1178901234", "A-", "Hospital de Urgencias", "Receptor", "03", "30", "13", "14", "09", "10", ["hígado"], date(2024, 1, 6), "hepatitis", "inestable")
+            #rpaciente16 = Receptor("Lucas Molina", 47432109, date(1993, 7, 7), "M", "1167890123", "1178901234", "A-", "Hospital de Urgencias", "Receptor", "03", "30", "13", "14", "09", "10", ["hígado"], date(2024, 1, 6), "hepatitis", "inestable")
             #rpaciente17 = Receptor("Camila Sosa", 47321098, date(2000, 3, 9), "F", "1178901234", "1189012345", "AB-", "Hospital Papa Francisco", "Receptor", "A25", "A66", "B62", "B65", "DR14", "DR16", ["piel"], date(2023, 10, 20), "quemaduras", "inestable")
             #rpaciente18 = Receptor("Tomás Aguirre", 47210987, date(1999, 11, 30), "M", "1189012345", "1190123456", "B-", "Hospital Clemente Alvarez", "Receptor", "A1", "A11", "B27", "B38", "DR1", "DR4", ["corazón"], date(2024, 3, 3), "cardiopatía", "inestable")
             #rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "A29", "A32", "B35", "B52", "DR2", "DR7", ["riñón"], date(2023, 12, 11), "nefropatía", "estable")
@@ -73,7 +67,6 @@ def menu ():
             
             incucai.clasificar_paciente_ya_existente(dpaciente1)
             incucai.clasificar_paciente_ya_existente(dpaciente2)
-            #incucai.clasificar_paciente_ya_existente(dpaciente3)
             incucai.clasificar_paciente_ya_existente(dpaciente4)
             incucai.clasificar_paciente_ya_existente(dpaciente5)
             incucai.clasificar_paciente_ya_existente(dpaciente6)
