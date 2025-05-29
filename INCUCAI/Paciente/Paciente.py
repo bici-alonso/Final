@@ -68,6 +68,8 @@ class Paciente (ABC):
         hoy=date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
     
+    def es_menor_de_edad(self):
+        return self.calculo_edad() < 18
     
     def compatibilidad_hla(self, otro_paciente: 'Paciente') -> tuple [int, int]:
         matchs = 0
@@ -128,8 +130,6 @@ class Paciente (ABC):
         
         return tipo_receptor in compatibilidades.get(tipo_donante, [])
     
-    def es_menor_de_edad(self):
-        return self.calculo_edad() < 18
     
     def __str__(self):
         return f"{self.que_es.capitalize()} - {self.nombre} (DNI: {self.DNI})"

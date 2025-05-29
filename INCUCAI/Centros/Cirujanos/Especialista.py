@@ -10,7 +10,7 @@ class Especialista (Cirujano):
         self.especialidad=especialidad.lower()
         self.organos={
             "cardiovascular": ["corazon"],
-            "gastroenterologo": ["intestino", "higado", "pancreas", "riñon"],
+            "gastroenterologo": ["intestino", "higado", "pancreas", "riñon", "rinion", "rinon"],
             "plastico": ["corneas", "piel"],
             "traumatologo": ["huesos"],
             "pulmonar": ["pulmones"]

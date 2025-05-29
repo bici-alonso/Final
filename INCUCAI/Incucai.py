@@ -72,7 +72,7 @@ class Incucai:
         #Constructor de INCUCAI
         self.receptores = []
         self.donantes = []
-        self.centros = self.centros()
+        self.centro = self.centros()
         
     def centros(self):
         return [
@@ -155,12 +155,6 @@ class Incucai:
     def elegir_receptor(self, lista):
         return sorted(lista, key=lambda r: (r.prioridad_numerica(), r.fecha_list_esp))[0]
 
-    def procesar_asignacion(self, donante, receptor, organo):
-        print(f"\nAsignación: {organo} de {donante.nombre} a {receptor.nombre}")
-        donante.lista_organos = [o for o in donante.lista_organos if o.lower() != organo.lower()]
-        if not donante.lista_organos:
-            self.donantes.remove(donante)
-        self.receptores.remove(receptor)
             
     def procesar_asignacion(self, donante, receptor, organo):
         print(f"\nAsignando {organo} de {donante.nombre} a {receptor.nombre} en {receptor.centro}")
