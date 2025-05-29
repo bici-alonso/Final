@@ -80,7 +80,7 @@ def menu ():
                 print(r)
 
         elif opcion == 7:
-            nombres = nombrar_centros(centros)
+            nombres = incucai.centros()
             print("\n-------Los centros de salud disponibles-----------------------------\n")
             for nombre in nombres:
                 print(f"- {nombre}")
