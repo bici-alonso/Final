@@ -73,7 +73,8 @@ class Incucai:
         #Constructor de INCUCAI
         self.receptores = []
         self.donantes = []
-        self.centro = self.centros()
+        aux_centro=self.centros()
+        self.centro = aux_centro
         
     def centros(self):
         return [
@@ -204,7 +205,7 @@ class Incucai:
 
     def mostrar_centros_salud(self):
         print("\nCentros de salud habilitados:")
-        for cs in self.centros:
+        for cs in self.centro:
             print(f"- {cs}")
 
     def listar_donantes(self):

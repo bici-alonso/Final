@@ -107,8 +107,7 @@ def menu ():
             
         elif opcion == 6: #funciona
             print("\n---------------------CENTROS DE SALUD REGISTRADOS EN INCUCAI:------------------")
-            for nombre_cs in incucai.centros():
-                print(f"- {nombre_cs}")
+            incucai.mostrar_centros_salud()
         
         elif opcion == 7:
             print("\n-----------------------------Lista de receptores por fecha de ingreso a la lista de espera-----------------------------\n")
