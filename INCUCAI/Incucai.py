@@ -23,6 +23,7 @@ from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Centros.Centro import Centro_de_salud 
 from geopy.geocoders import Nominatim
 from datetime import datetime
+import unicodedata
 
 class Incucai:
     
@@ -104,7 +105,7 @@ class Incucai:
         if not self.paciente_existente(receptor.DNI):
             self.receptores.append(receptor)
 
-    '''def clasificar_paciente_ya_existente(self, paciente_existente=None):
+    def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
                 if isinstance(paciente_existente, Donante):
                     if self.paciente_existente(paciente_existente.DNI): 
@@ -118,7 +119,7 @@ class Incucai:
                         return
                     self.receptores.append(paciente_existente)
                     self.buscar_match_para_receptor(paciente_existente)
-                    return'''
+                    return
     
     def paciente_existente(self, dni):
         if any(p.DNI == dni for p in self.donantes + self.receptores):
@@ -195,19 +196,34 @@ class Incucai:
                 return p 
         return None
     
-    def buscar_centro_por_nombre(self,nombre_centro):
-        nombre_centro = nombre_centro.strip().lower()
+    def buscar_centro_por_nombre(self, nombre_centro):
+        def normalizar(texto):
+            return ''.join(
+                c for c in unicodedata.normalize('NFD', texto.strip().lower())
+                if unicodedata.category(c) != 'Mn'
+            )
+
+        nombre_centro_normalizado = normalizar(nombre_centro)
+
         for centro in self.centro:
-            if nombre_centro in centro.nombre_cs.strip().lower():
+            if normalizar(centro.nombre_cs) == nombre_centro_normalizado:
                 return centro
+
+        print(f"❌ No se encontró el centro: '{nombre_centro}'")
         return None
+
+
     
     def realizar_transplante(self, receptor, donante, organo):
+        print(f"Centros cargados en INCUCAI: {[c.nombre_cs for c in self.centro]}")
+
         print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.upper()}")
 
         centro_donante = self.buscar_centro_por_nombre(donante.centro)
         centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
 
+        print(f"Donante centro: '{donante.centro}'")
+        print(f"Receptor centro: '{receptor.centro}'")
 
 
         if not centro_donante or not centro_receptor:
