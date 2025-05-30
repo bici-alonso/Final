@@ -226,6 +226,32 @@ class Incucai:
         print("\nCentros de salud habilitados:")
         for cs in self.centro:
             print(f"- {cs}")
+            
+    def receptores_por_centro_salud(self, nombre_centro):
+        # Usamos el atributo correcto: nombre_cs
+        nombres_validos = [c.nombre_cs.lower() for c in self.centro]
+
+        if nombre_centro.lower() not in nombres_validos:
+            print("❌ Centro de salud no registrado. Intente nuevamente con un nombre válido.")
+            print("\n📋 Centros disponibles:")
+            for c in self.centro:
+                print(f"- {c.nombre_cs}")
+            return
+
+        # Filtrar receptores según centro
+        receptores_centro = [r for r in self.receptores if r.centro.lower() == nombre_centro.lower()]
+        
+        if not receptores_centro:
+            print("⚠️ No hay receptores en lista de espera en ese centro.")
+            return
+
+        print(f"\n📋 Receptores en el centro '{nombre_centro}':\n")
+        for r in sorted(receptores_centro, key=lambda r: r.fecha_list_esp):
+            print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, Estado: {r.estado}, Órganos: {', '.join(r.org_recib)})")
+
+    def centro_valido(self, nombre_centro):
+        nombres_validos = [c.nombre_cs.lower() for c in self.centro]
+        return nombre_centro.lower() in nombres_validos
 
     def listar_donantes(self):
         for d in self.donantes:

@@ -12,12 +12,18 @@ def menu ():
     incucai = Incucai()
     
     print("-------------------------------------INCUCAI-------------------------------------")
-    pregunta = int(input("\nDesea incializar el programa? presione 1 para SI o 0 para cerrar:  "))
     
-    while not (pregunta == 0 or pregunta == 1):
-        print("\nEl numero ingresado debe ser 0 o 1")
-        pregunta = int(input("\n¿Desea inicializar el programa? Presione 1 para iniciar, y 0 para cerrar:  "))
     
+    pregunta = None
+
+    while pregunta not in [0, 1]:
+        try:
+            pregunta = int(input("\n¿Desea inicializar el programa? Presione 1 para INICIAR  o 0 para CERRAR: "))
+            if pregunta not in [0, 1]:
+                print("❌ El número ingresado debe ser 0 o 1.")
+        except ValueError:
+            print("❌ Entrada inválida. Solo puede ingresar 0 o 1.")
+        
     if pregunta == 0:
         print("\nMuchas gracias por utilizar el programa!")
         return
@@ -137,8 +143,17 @@ def menu ():
             else:
                 print("❌ Paciente no encontrado.")
         
-        elif opcion == 13:
-            print("\nIngrese centro de salud: ")
+        
+        elif opcion == 13: #funciona
+            print("\n📍 Centros de salud disponibles:")
+            incucai.mostrar_centros_salud()
+            
+            nombre_centro = input("\n▶ Ingrese exactamente el nombre del centro de salud: ").strip()
+
+            if incucai.centro_valido(nombre_centro):
+                incucai.receptores_por_centro_salud(nombre_centro)
+            else:
+                print("❌ El centro ingresado no está registrado. Verifique el nombre exacto.")
         
         elif opcion == 14: #funciona
             dni_receptor = input("\nIngrese DNI del receptor a buscar: ").strip()
