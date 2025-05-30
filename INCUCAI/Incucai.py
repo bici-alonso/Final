@@ -169,6 +169,20 @@ class Incucai:
         return None
     
     
+    def lista_espera_ordenada(self):
+        if not self.receptores:
+            print("No hay receptores en la lista de espera.")
+            return []
+        receptores_ordenados = sorted(self.receptores, key=lambda r: r.fecha_list_esp)
+    
+        print("\n📋 Lista de espera ordenada por fecha de ingreso:")
+        for idx, receptor in enumerate(receptores_ordenados, 1):
+            print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - "
+                f"Fecha ingreso: {receptor.fecha_list_esp.strftime('%d/%m/%Y')} - "
+                f"Estado: {receptor.estado} - Prioridad: {receptor.prioridad_numerica()}")
+        return receptores_ordenados
+    
+    
     def buscar_centro_por_nombre(self, nombre_centro):
         for centro in self.centro:
             if nombre_centro.strip().lower() == centro.nombre_cs.strip().lower():
