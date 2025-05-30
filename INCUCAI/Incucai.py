@@ -23,6 +23,7 @@ from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Centros.Centro import Centro_de_salud 
 from geopy.geocoders import Nominatim
 from datetime import datetime
+import unicodedata
 
 class Incucai:
     
@@ -96,6 +97,14 @@ class Incucai:
             Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600"), #tucuman               
         ]
         
+    def registrar_donante(self, donante):
+        if not  self.paciente_existente(donante.DNI):
+            self.donantes.append(donante)
+
+    def registrar_receptor(self, receptor):
+        if not self.paciente_existente(receptor.DNI):
+            self.receptores.append(receptor)
+    
     def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
                 if isinstance(paciente_existente, Donante):
@@ -130,6 +139,33 @@ class Incucai:
         if edad_receptor < 18 and abs(edad_receptor - edad_donante) > 3:
             return False
         return True
+    
+    def proceso_transplante():
+        return
+    
+    def buscar_paciente_por_dni(self, dni):
+        for p in self.donantes + self.receptores:
+            if p.DNI == dni:
+                return p 
+        return None
+    
+    def buscar_centro_por_nombre(self, nombre_centro):
+        def normalizar(texto):
+            return ''.join(
+                c for c in unicodedata.normalize('NFD', texto.strip().lower())
+                if unicodedata.category(c) != 'Mn'
+            )
+
+        nombre_centro_normalizado = normalizar(nombre_centro)
+
+        for centro in self.centro:
+            if normalizar(centro.nombre_cs) == nombre_centro_normalizado:
+                return centro
+
+        print(f"❌ No se encontró el centro: '{nombre_centro}'")
+        return None
+    
+    
 
     def buscar_receptor_organo_especifico(self, donante, organo):
         print(f"\nBuscando receptor para {organo} del donante {donante.nombre}...")
@@ -186,7 +222,6 @@ class Incucai:
             print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - Fecha de ingreso: {receptor.fecha_list_esp.strftime('%Y-%m-%d')} - Prioridad: {receptor.prioridad}")
         return receptores_ordenados
         
-    
         
 
     
