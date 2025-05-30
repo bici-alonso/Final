@@ -91,14 +91,10 @@ class Centro_de_salud:
             self.cirujanos.append(cirujano)
             
     def agregar_vehiculo(self, vehiculo):
-        print(vehiculo.patente)
         if vehiculo not in self.vehiculos:
-            print("entre al if de vehiulo")
             self.vehiculos.append(vehiculo)
-            print(self.vehiculos[0].patente)
             
     def seleccionar_vehiculo(self, centro_destino):
-        print(self.vehiculos[0].centro_vehiculo.nombre)
         if not self.vehiculos:
             raise ValueError("No hay vehículos disponibles en este centro")
             

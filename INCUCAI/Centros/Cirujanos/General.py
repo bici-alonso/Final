@@ -4,6 +4,8 @@ from INCUCAI.Organos.Organo import Organo
 
 
 class General (Cirujano):
+    def __init__(self, nombre, centro):
+        super().__init__(nombre, centro)
 
     def exito_operacion(self, organo):
         self.dar_operacion()

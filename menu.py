@@ -7,6 +7,7 @@ from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from datetime import time, date
 from INCUCAI.Centros.Centro import Centro_de_salud
+from INCUCAI.Centros.Cirujanos.General import General
 
 def menu ():
     
@@ -72,9 +73,12 @@ def menu ():
             #rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "A26", "A33", "B37", "B40", "DR5", "DR12", ["hígado"], date(2024, 5, 9), "insuficiencia hepática", "estable")
 
             helicoptero = Helicoptero(150, "AA150AA", "Hospital Garrahan")
+            cirujano = General("Juana", "Hospital Garrahan")
+
             incucai.registrar_vehiculos(helicoptero)
             incucai.registrar_donante(dpaciente1)
             incucai.registrar_donante(dpaciente2)
+            incucai.registrar_cirujano(cirujano)
             #incucai.registrar_donante(dpaciente4)
             #incucai.registrar_donante(dpaciente5)
             #incucai.registrar_donante(dpaciente6)

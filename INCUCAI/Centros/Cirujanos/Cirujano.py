@@ -19,8 +19,9 @@ from datetime import date, datetime
 
 
 class Cirujano(ABC):
-    def __init__(self, nombre):
+    def __init__(self, nombre, centro):
         self.nombre=nombre
+        self.centro = centro
         self.operaciones_del_dia=[]
         self.ult_operacion= None #date
     

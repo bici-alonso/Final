@@ -75,6 +75,7 @@ class Incucai:
         self.donantes = []
         aux_centro=self.centros()
         self.vehiculos = []
+        self.cirujano = []
         self.centro = aux_centro
         
     def centros(self):
@@ -110,7 +111,14 @@ class Incucai:
     def registrar_vehiculos(self, vehiculo):
         self.vehiculos.append(vehiculo)
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
+        print(centro.nombre_cs)
+        print(vehiculo.centro_vehiculo)
         centro.agregar_vehiculo(vehiculo)
+
+    def registrar_cirujano(self, cirujano):
+        self.cirujano.append(cirujano)
+        centro = self.buscar_centro_por_nombre(cirujano.centro)
+        centro.agregar_cirujano(cirujano)
     
     def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
@@ -284,9 +292,9 @@ class Incucai:
         if not centro_donante.realizar_ablacion(organo, donante):
             print("❌ Error en la ablación. Operación cancelada.")
             return False
-
-        vehiculo = centro_donante.seleccionar_vehiculo(centro_receptor)
-        print(vehiculo.patente)
+        
+        vehiculo = centro_receptor.seleccionar_vehiculo(centro_receptor)
+        
         if vehiculo is None:
             print("❌ No hay vehículos disponibles para trasladar el órgano.")
             return False
