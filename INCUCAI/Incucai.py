@@ -216,10 +216,16 @@ class Incucai:
             print(r)
     
     def lista_espera_ordenada(self):
+        if not self.receptores:
+            print("No hay receptores en la lista de espera.")
+            return []
         receptores_ordenados = sorted(self.receptores, key=lambda r: r.fecha_list_esp)
-        print("\nLista de espera ordenada por fecha de ingreso:")
+    
+        print("\n📋 Lista de espera ordenada por fecha de ingreso:")
         for idx, receptor in enumerate(receptores_ordenados, 1):
-            print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - Fecha de ingreso: {receptor.fecha_list_esp.strftime('%Y-%m-%d')} - Prioridad: {receptor.prioridad}")
+            print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - "
+                f"Fecha ingreso: {receptor.fecha_list_esp.strftime('%d/%m/%Y')} - "
+                f"Estado: {receptor.estado} - Prioridad: {receptor.prioridad_numerica()}")
         return receptores_ordenados
         
     def realizar_transplante(self, receptor, donante, organo):
