@@ -280,9 +280,9 @@ class Incucai:
         print(f"Receptor centro: '{receptor.centro}'")
 
 
-        #if not centro_donante or not centro_receptor:
-         #   print("❌ No se encontraron los centros de salud correspondientes.")
-         #   return
+        if self.centro is None:#not centro_donante or not centro_receptor:
+            print("❌ No se encontraron los centros de salud correspondientes.")
+            return
         
         if centro_donante.coords is None:
             centro_donante.geolocalizar_direccion(self.geolocator)
