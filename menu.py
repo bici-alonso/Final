@@ -93,12 +93,13 @@ def menu ():
             print("Pacientes de prueba agregados con éxito...")
             
             
-        elif opcion == 2: #no desarrollada 
-            #incucai.clasificar_pac(que_es = "receptor")
-            print("no disponible.")
+        elif opcion == 2: #funciona
+            incucai.carga_manual_receptor_nuevo()
             
-        elif opcion == 3: #no desarrollada
-            print ("opcion no disponible.")
+            
+        elif opcion == 3: #funciona
+            incucai.carga_manual_donante_nuevo()
+            
             
         elif opcion == 4: #funciona
             print("\n--------------------DONANTES REGISTRADOS EN INCUCAI:---------------")
