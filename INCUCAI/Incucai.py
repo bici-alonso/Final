@@ -159,7 +159,6 @@ class Incucai:
         print(f"❌ No se encontró el centro: '{nombre_centro}'")
         return None
 
-
     
     def buscar_receptor_por_dni(self, dni):
         try:
