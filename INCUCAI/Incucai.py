@@ -150,21 +150,16 @@ class Incucai:
                 return p 
         return None
     
+    
     def buscar_centro_por_nombre(self, nombre_centro):
-        def normalizar(texto):
-            return ''.join(
-                c for c in unicodedata.normalize('NFD', texto.strip().lower())
-                if unicodedata.category(c) != 'Mn'
-            )
-
-        nombre_centro_normalizado = normalizar(nombre_centro)
-
         for centro in self.centro:
-            if normalizar(centro.nombre_cs) == nombre_centro_normalizado:
+            if nombre_centro.strip().lower() == centro.nombre_cs.strip().lower():
                 return centro
 
         print(f"❌ No se encontró el centro: '{nombre_centro}'")
         return None
+
+
     
     def buscar_receptor_por_dni(self, dni):
         try:
