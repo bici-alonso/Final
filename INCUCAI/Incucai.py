@@ -186,6 +186,7 @@ class Incucai:
             print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - Fecha de ingreso: {receptor.fecha_list_esp.strftime('%Y-%m-%d')} - Prioridad: {receptor.prioridad}")
         return receptores_ordenados
         
+    
         
 
     
