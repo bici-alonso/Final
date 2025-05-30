@@ -195,11 +195,20 @@ class Incucai:
                 return p 
         return None
     
+    def buscar_centro_por_nombre(self,nombre_centro):
+        nombre_centro = nombre_centro.strip().lower()
+        for centro in self.centro:
+            if nombre_centro in centro.nombre_cs.strip().lower():
+                return centro
+        return None
+    
     def realizar_transplante(self, receptor, donante, organo):
-        print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo.upper()}")
+        print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.upper()}")
 
-        centro_donante = next((c for c in self.centro if c.nombre_cs == donante.centro), None)
-        centro_receptor = next((c for c in self.centro if c.nombre_cs == receptor.centro), None)
+        centro_donante = self.buscar_centro_por_nombre(donante.centro)
+        centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
+
+
 
         if not centro_donante or not centro_receptor:
             print("❌ No se encontraron los centros de salud correspondientes.")
