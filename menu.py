@@ -112,8 +112,8 @@ def menu ():
         
         elif opcion == 7:
             print("\n-----------------------------Lista de receptores por fecha de ingreso a la lista de espera-----------------------------\n")
-            for r in Receptor.lista_espera_ordenada():
-                print(r)
+            incucai.lista_espera_ordenada()
+            
 
         elif opcion == 8:
             print("\n-----------------------------Ver cirujanos de un centro de salud-----------------------------\n")
