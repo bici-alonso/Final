@@ -581,7 +581,7 @@ class Incucai:
                 print("Patología inválida.")
 
         elif validacion == 'organos_a_recibir':
-            print("   Ingrese los órganos que necesita (separados por coma):")
+            print("Ingrese los órganos que necesita (separados por coma):")
             while True:
                 entrada = input("   Ej: riñón, hígado: ").strip()
                 organos = [o.strip().lower() for o in entrada.split(',') if o.strip()]
@@ -640,8 +640,6 @@ class Incucai:
         datos_donante['organos_a_donar'] = self.validaciones('organos_a_donar')
         
         datos_completos = {**paciente_nuevo_base, **datos_donante}
-        
-        # Crear instancia del Donante (asegúrate de que esta clase exista)
         donante_nuevo = Donante(**datos_completos)
         
         self.donantes.append(donante_nuevo)
