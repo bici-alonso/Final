@@ -38,7 +38,6 @@ def menu ():
         print("\n12- Buscar informacion de un paciente por DNI")
         print("\n13- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
         print ("\n14- Buscar receptor por DNI e informar posicion en la lista de espera")
-        print("\n15- Modificar datos de un paciente por DNI") #buscar apciente mediante dni y meodificar dato 
         print("\n0- Cerrar programa")
         
         opcion = int(input("Seleccione una opcion: "))
@@ -88,7 +87,6 @@ def menu ():
             print("Pacientes de prueba agregados con éxito...")
             
             
-            
         elif opcion == 2: #no desarrollada 
             #incucai.clasificar_pac(que_es = "receptor")
             print("no disponible.")
@@ -109,28 +107,28 @@ def menu ():
             print("\n---------------------CENTROS DE SALUD REGISTRADOS EN INCUCAI:------------------")
             incucai.mostrar_centros_salud()
         
-        elif opcion == 7:
+        elif opcion == 7: #funciona
             print("\n-----------------------------Lista de receptores por fecha de ingreso a la lista de espera-----------------------------\n")
             incucai.lista_espera_ordenada()
             
 
-        elif opcion == 8:
+        elif opcion == 8: #problemas con centro
             print("\n-----------------------------Ver cirujanos de un centro de salud-----------------------------\n")
             print("\nIngrese centro de salud: \n")
 
-        elif opcion == 9:
+        elif opcion == 9: #problemas con centro
             print("\n-----------------------------Ver vehiculos disponibles de un centro de salud-----------------------------")
             print("\nIngrese centro de salud: ")
         
-        elif opcion == 10: #no aplica
+        elif opcion == 10: #no funciona
             print("\n-----------------------------Estadisticas de Cirujano-----------------------------")
-            print("\nIngrese nombre del cirujano: ")
+            cirujano =input("\nIngrese nombre del cirujano: ")
         
         elif opcion == 11: #Inicio transplante para un receptor especifico
             print("\nIniciando protocolo de transplante....")
             incucai.pedir_receptor_para_realizar_transplante()
 
-        elif opcion == 12:
+        elif opcion == 12: #funciona
             dni = int(input("\nIngrese DNI del paciente a buscar: "))
             paciente = incucai.buscar_paciente_por_dni(dni)
             if paciente:
@@ -142,11 +140,14 @@ def menu ():
         elif opcion == 13:
             print("\nIngrese centro de salud: ")
         
-        elif opcion == 14:
-            print("\nIngrese DNI del receptor a buscar: ")
-        
-        elif opcion ==15:
-            print("\nIngrese DNI del paciente a modificar: ")
+        elif opcion == 14: #funciona
+            dni_receptor = input("\nIngrese DNI del receptor a buscar: ").strip()
+            receptor = incucai.buscar_receptor_por_dni(dni_receptor)
+            if receptor:
+                print("\n✅ Datos del paciente encontrados:\n")
+                print(receptor)
+            else:
+                print("❌ Paciente no encontrado.")
 
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")

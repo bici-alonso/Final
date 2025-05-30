@@ -166,6 +166,25 @@ class Incucai:
         print(f"❌ No se encontró el centro: '{nombre_centro}'")
         return None
     
+    def buscar_receptor_por_dni(self, dni):
+        try:
+            dni = int(dni)
+        except ValueError:
+            print("❌ El DNI ingresado no es válido.")
+            return None
+
+        # Ordenar por fecha de ingreso a la lista de espera
+        lista_ordenada = sorted(self.receptores, key=lambda r: r.fecha_list_esp)
+
+        for idx, receptor in enumerate(lista_ordenada):
+            if int(receptor.DNI) == dni:
+                print(f"\n🔍 El paciente '{receptor.nombre}' (DNI: {dni}) está en la posición {idx + 1} de la lista de espera.")
+                print(f"📋 Hay {idx} paciente(s) antes en la lista.")
+                return receptor
+
+        print(f"❌ No se encontró ningún receptor con el DNI {dni} en la lista de espera.")
+        return None
+    
     
 
     def buscar_receptor_organo_especifico(self, donante, organo):
