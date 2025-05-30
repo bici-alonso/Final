@@ -5,9 +5,12 @@ from INCUCAI.Organos.Organo import Organo
 from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
+from INCUCAI.Vehiculo.Avion import Avion
+from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from datetime import time, date
 from INCUCAI.Centros.Centro import Centro_de_salud
 from INCUCAI.Centros.Cirujanos.General import General
+from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
 def menu ():
     
@@ -52,8 +55,8 @@ def menu ():
         if opcion == 1: #funciona
 
             dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["rinon"])
-            dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Fundacion Favaloro", "Donante", "03", "30", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["rinon"])
-            #dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "AB+", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
+            dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Fundacion Favaloro", "Donante", "03", "30", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["rinon", "corazon"])
+            dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "B+", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
             #dpaciente5 = Donante("Sofía Díaz", 47000001, date(1999, 8, 13), "F", "1167890123", "1193456789", "O+", "Hospital Zonal Alvear", "Donante", "24", "32", "07", "44", "11", "17", date(2025, 5, 23), time(9, 30), time(11, 30), date(2025, 5, 24), ["corneas", "corazón"])
             #dpaciente6 = Donante("Matías Herrera", 42234567, date(1988, 3, 30), "M", "1178901234", "1194567890", "A-", "Hospital de Urgencias", "Donante", "22", "30", "31", "54", "13", "17",  date(2025, 5, 21), time(11, 0), time(13, 0), date(2025, 5, 22), ["hígado"])
             #dpaciente7 = Donante("Elena Ríos", 41023456, date(1978, 12, 19), "F", "1189012345", "1195678901", "AB-", "Hospital Papa Francisco", "Donante", "23", "33", "25", "40", "12", "17", date(2025, 5, 19), time(15, 0), time(17, 0), date(2025, 5, 20), ["corneas", "piel"])
@@ -62,8 +65,8 @@ def menu ():
             #dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado"])
 
             rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Hospital Garrahan", "Receptor", "02", "24", "07", "44", "11", "15", "rinon", date(2024, 6, 1), "insuficiencia renal", "inestable")
-            rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Hospital El Cruce", "Receptor", "03", "30", "05", "15", "13", "07", "rinon", date(2023, 11, 3), "cirrosis", "estable")
-            #rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "B+", "Hospital El Cruce", "Receptor", "A1", "A24", "B8", "B27", "DR3", "DR15", ["corazón"], date(2023, 9, 12), "miocardiopatía", "estable")
+            rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Clinica Mayo SRL", "Receptor", "03", "30", "05", "15", "13", "07", "rinon", date(2023, 11, 3), "cirrosis", "estable")
+            rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "AB+", "Fundacion Favaloro", "Receptor", "21", "31", "35", "27", "13", "15", "corazón", date(2023, 9, 12), "miocardiopatía", "estable")
             #rpaciente14 = Receptor("Bruno Castro", 47654321, date(2001, 10, 19), "M", "1145678901", "1156789012", "AB+", "Hospital Garrahan", "Receptor", "11", "23", "18", "35", "06", "13", ["riñón"], date(2024, 2, 18), "glomerulonefritis", "inestable")
             #rpaciente15 = Receptor("Agustina Paz", 47543210, date(1995, 12, 1), "F", "1156789012", "1167890123", "O+", "Hospital Zonal Alvear", "Receptor", "07", "A68", "07", "44", "11", "17", ["corneas"], date(2024, 4, 25), "queratocono", "estable")
             #rpaciente16 = Receptor("Lucas Molina", 47432109, date(1993, 7, 7), "M", "1167890123", "1178901234", "A-", "Hospital de Urgencias", "Receptor", "03", "30", "13", "14", "09", "10", ["hígado"], date(2024, 1, 6), "hepatitis", "inestable")
@@ -73,13 +76,32 @@ def menu ():
             #rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "A26", "A33", "B37", "B40", "DR5", "DR12", ["hígado"], date(2024, 5, 9), "insuficiencia hepática", "estable")
 
             helicoptero = Helicoptero(150, "AA150AA", "Hospital Garrahan")
-            cirujano = General("Juana", "Hospital Garrahan")
+            avion = Avion(280, "AB456AP", "Clinica Mayo SRL")
+            ambulancia = Ambulancia(80, "CPP189", "Fundacion Favaloro")
+
+            general = General("Juana", "Hospital Garrahan")
+            especialista = Especialista("Paloma", "Hospital Garrahan", "gastroenterologo")
+
+            general1 = General("Juana", "Clinica Mayo SRL")
+            especialista1 = Especialista("Paloma", "Clinica Mayo SRL", "gastroenterologo")
+
+            general2 = General("Juana", "Fundacion Favaloro")
+            especialista2 = Especialista("Paloma", "Fundacion Favaloro", "cardiovascular")
 
             incucai.registrar_vehiculos(helicoptero)
+            incucai.registrar_vehiculos(avion)
+            incucai.registrar_vehiculos(ambulancia)
+
+            incucai.registrar_cirujano(general)
+            incucai.registrar_cirujano(especialista)
+            incucai.registrar_cirujano(general1)
+            incucai.registrar_cirujano(especialista1)
+            incucai.registrar_cirujano(general2)
+            incucai.registrar_cirujano(especialista2)
+
             incucai.registrar_donante(dpaciente1)
             incucai.registrar_donante(dpaciente2)
-            incucai.registrar_cirujano(cirujano)
-            #incucai.registrar_donante(dpaciente4)
+            incucai.registrar_donante(dpaciente4)
             #incucai.registrar_donante(dpaciente5)
             #incucai.registrar_donante(dpaciente6)
             #incucai.registrar_donante(dpaciente7)
@@ -88,7 +110,7 @@ def menu ():
             #incucai.registrar_donante(dpaciente10)
             incucai.registrar_receptor(rpaciente11)
             incucai.registrar_receptor(rpaciente12)
-            #incucai.registrar_receptor(rpaciente13)
+            incucai.registrar_receptor(rpaciente13)
             #incucai.registrar_receptor(rpaciente14)
             #incucai.registrar_receptor(rpaciente15)
             #incucai.registra_receptor(rpaciente16)

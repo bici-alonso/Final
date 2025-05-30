@@ -3,8 +3,8 @@ from INCUCAI.Centros.Cirujanos.Cirujano import *
 from INCUCAI.Organos.Organo import *
 
 class Especialista (Cirujano):
-    def __init__(self, nombre, especialidad):
-        super().__init__(nombre)
+    def __init__(self, nombre, centro, especialidad):
+        super().__init__(nombre, centro)
         
         
         self.especialidad=especialidad.lower()
