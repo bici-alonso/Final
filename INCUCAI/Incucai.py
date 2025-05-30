@@ -74,6 +74,7 @@ class Incucai:
         self.receptores = []
         self.donantes = []
         aux_centro=self.centros()
+        self.vehiculos = []
         self.centro = aux_centro
         
     def centros(self):
@@ -105,6 +106,11 @@ class Incucai:
     def registrar_receptor(self, receptor):
         if not self.paciente_existente(receptor.DNI):
             self.receptores.append(receptor)
+
+    def registrar_vehiculos(self, vehiculo):
+        self.vehiculos.append(vehiculo)
+        centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
+        centro.agregar_vehiculo(vehiculo)
     
     def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
@@ -130,14 +136,18 @@ class Incucai:
         return False
     
     def compatibilidad(self, donante, receptor):
+        print("entre a compatibilidad")
         if not donante.es_compatible_sangre(receptor):
+            print("no funciono sangre")
             return False
         hla_match, _ = donante.compatibilidad_hla(receptor)
         if hla_match < 3:
+            print("no funciono hla")
             return False
         edad_donante = donante.calculo_edad()
         edad_receptor = receptor.calculo_edad()
         if edad_receptor < 18 and abs(edad_receptor - edad_donante) > 3:
+            print("no funciono edad")
             return False
         return True
     
@@ -255,49 +265,32 @@ class Incucai:
         for r in self.receptores:
             print(r)
     
-    def lista_espera_ordenada(self):
-        if not self.receptores:
-            print("No hay receptores en la lista de espera.")
-            return []
-        receptores_ordenados = sorted(self.receptores, key=lambda r: r.fecha_list_esp)
-    
-        print("\n📋 Lista de espera ordenada por fecha de ingreso:")
-        for idx, receptor in enumerate(receptores_ordenados, 1):
-            print(f"{idx}. {receptor.nombre} (DNI: {receptor.DNI}) - "
-                f"Fecha ingreso: {receptor.fecha_list_esp.strftime('%d/%m/%Y')} - "
-                f"Estado: {receptor.estado} - Prioridad: {receptor.prioridad_numerica()}")
-        return receptores_ordenados
-        
     def realizar_transplante(self, receptor, donante, organo):
-        print(f"Centros cargados en INCUCAI: {[c.nombre_cs for c in self.centro]}")
 
-        print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.upper()}")
+        print(f"\n➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo}")
 
         centro_donante = self.buscar_centro_por_nombre(donante.centro)
         centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
 
-        print(f"Donante centro: '{donante.centro}'")
-        print(f"Receptor centro: '{receptor.centro}'")
+        #if not centro_donante or not centro_receptor:
+        #    print("❌ No se encontraron los centros de salud correspondientes.")
+        #    return
 
-
-        if self.centro is None:#not centro_donante or not centro_receptor:
-            print("❌ No se encontraron los centros de salud correspondientes.")
-            return
-        
         if centro_donante.coords is None:
             centro_donante.geolocalizar_direccion(self.geolocator)
         if centro_receptor.coords is None:
             centro_receptor.geolocalizar_direccion(self.geolocator)
-        
+
         if not centro_donante.realizar_ablacion(organo, donante):
             print("❌ Error en la ablación. Operación cancelada.")
-            return
-        
+            return False
+
         vehiculo = centro_donante.seleccionar_vehiculo(centro_receptor)
+        print(vehiculo.patente)
         if vehiculo is None:
             print("❌ No hay vehículos disponibles para trasladar el órgano.")
-            return
-        
+            return False
+
         distancia = centro_donante.calcular_distancia_a(centro_receptor)
         trafico = vehiculo.nivel_trafico()
         tiempo_traslado = vehiculo.calculo_tiempo(distancia, trafico)
@@ -307,8 +300,8 @@ class Incucai:
         cirujano = centro_receptor.seleccionar_cirujano(organo.tipo)
         if cirujano is None:
             print("❌ No hay cirujano disponible para ese órgano.")
-            return
-        
+            return False
+
         print(f"🩺 Cirujano asignado: {cirujano}")
 
         exito = centro_receptor.realizar_transplante(organo, receptor, cirujano)
@@ -329,42 +322,53 @@ class Incucai:
                 self.donantes.remove(donante)
                 print(f"📤 Donante {donante.nombre} eliminado (sin órganos restantes).")
 
+        return True
+
     def pedir_receptor_para_realizar_transplante(self):
         try:
             dni = int(input("Ingrese el DNI del receptor que desea trasplantar: "))
         except ValueError:
             print("❌ DNI inválido.")
             return
-        
+
         receptor = self.buscar_paciente_por_dni(dni)
         if not receptor or not isinstance(receptor, Receptor):
             print("❌ Receptor no encontrado.")
             return
-        
+
         organos_necesarios = receptor.org_recib
         compatibles = []
 
         for donante in self.donantes:
             for organo in donante.lista_organos:
-                if organo.lower() in organos_necesarios and self.compatibilidad(donante, receptor):
-                    compatibles.append((donante, organo))
+                print(organo.tipo)
+                print(organos_necesarios)
+                if organo.tipo == organos_necesarios:
+                    print("hay organo en comun")
+                    if self.compatibilidad(donante, receptor):
+                        compatibles.append((donante, organo))
+                        print("se encontro")
 
         if not compatibles:
             print("❌ No hay donantes compatibles para este receptor.")
             return
-        
+
         print(f"\n✅ Donantes compatibles encontrados para {receptor.nombre}:")
         for i, (d, o) in enumerate(compatibles):
-            print(f"{i+1}. Donante: {d.nombre} (DNI: {d.DNI}) - Órgano: {o}")
+            print(f"{i+1}. Donante: {d.nombre} (DNI: {d.DNI}) - Órgano: {o.tipo}")
 
-        try:
-            seleccion = int(input("\nSeleccione el numero del donnate con el que desea proceder: "))
+        
+        seleccion = int(input("\nSeleccione el numero del donante con el que desea proceder: "))
+        if seleccion <= len(compatibles):
             donante, organo = compatibles[seleccion - 1]
-            self.realizar_transplante(receptor, donante, organo)
-        except (IndexError, ValueError):
-            print("❌ Selección inválida.")
+            funcionotrasplante = self.realizar_transplante(receptor, donante, organo)
+            if not funcionotrasplante:
+                print("Algo fallo.") 
+        else:
+            print("Seleccione un numero dentro de las opciones.")
+        
 
-    def pedir_datos_basicos_paciente(self):
+    '''def pedir_datos_basicos_paciente(self):
         datos = {}
         datos['nombre'] = self.validaciones('nombre')
         datos['DNI'] = self.validaciones('dni')
@@ -656,7 +660,7 @@ class Incucai:
         receptor_nuevo = Receptor(**datos_completos)
     
         self.receptores.append(receptor_nuevo)
-        print(f"\nReceptor {receptor_nuevo.nombre} cargado exitosamente.")
+        print(f"\nReceptor {receptor_nuevo.nombre} cargado exitosamente.")'''
     
     
         

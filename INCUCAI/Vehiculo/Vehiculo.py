@@ -43,7 +43,7 @@ import random
 #vehiculo es clase abstracta:
 class Vehiculo(ABC):
 
-    def __init__(self, velocidad, patente):
+    def __init__(self, velocidad, patente, centro_vehiculo):
         if velocidad <= 0:
             raise ValueError("La velocidad debe ser mayor a 0")
         if not patente or not patente.strip():
@@ -53,6 +53,7 @@ class Vehiculo(ABC):
         self.patente = patente.strip().upper()
         self.viajes = []
         self.disponible=True
+        self.centro_vehiculo = centro_vehiculo
 
     def nivel_trafico(self):
         return round(random.uniform(0.1, 2.0), 2)

@@ -94,7 +94,7 @@ class Organo:
         #establece la fecha y hora de ablación en automatico
         self.fecha_ablacion = fecha_ablacion
         self.hora_ablacion = hora_ablacion
-        print("Ablación establecida")
+        print(f"Ablación establecida a las {self.hora_ablacion}")
         
     def calcular_tiempo_transcurrido(self):
         #calcula el tiempo transcurrido desde la ablación en horas

@@ -91,10 +91,14 @@ class Centro_de_salud:
             self.cirujanos.append(cirujano)
             
     def agregar_vehiculo(self, vehiculo):
+        print(vehiculo.patente)
         if vehiculo not in self.vehiculos:
+            print("entre al if de vehiulo")
             self.vehiculos.append(vehiculo)
+            print(self.vehiculos[0].patente)
             
     def seleccionar_vehiculo(self, centro_destino):
+        print(self.vehiculos[0].centro_vehiculo.nombre)
         if not self.vehiculos:
             raise ValueError("No hay vehículos disponibles en este centro")
             
@@ -151,7 +155,6 @@ class Centro_de_salud:
             
             retorna bool: True si la ablación fue exitosa
         """
-        
         try:
             # Setear fecha y hora de ablación usando el método de la clase Organo
             ahora = datetime.now()
@@ -168,6 +171,7 @@ class Centro_de_salud:
             return False
             
         except Exception as e:
+            print("hola5")
             print(f"❌ Error durante la ablación: {e}")
             return False
 

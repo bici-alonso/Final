@@ -21,15 +21,15 @@ class Donante(Paciente):
         ]
         
         self.hora_fall = hora_fall
-        self.lista_organos = lista_organos
         self.fecha_creacion = date.today()
         self.hora_creacion = datetime.now().time()
+
         
         
     
     def __str__(self):
-        organos = ", ".join(self.lista_organos)
-        return f"Donante: {self.nombre}, DNI: {self.DNI}, Órganos: {organos}, Sangre: {self.tipo_sangre}"
+        organos = [organo.tipo for organo in self.lista_organos]
+        return f"Donante: {self.nombre}, DNI: {self.DNI}, Órganos: {','.join(organos)}, Sangre: {self.tipo_sangre}"
     
     @classmethod
     def agregar(cls, donante):
