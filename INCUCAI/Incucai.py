@@ -390,7 +390,7 @@ class Incucai:
             print("Seleccione un numero dentro de las opciones.")
         
 
-    '''def pedir_datos_basicos_paciente(self):
+    def pedir_datos_basicos_paciente(self):
         datos = {}
         datos['nombre'] = self.validaciones('nombre')
         datos['DNI'] = self.validaciones('dni')
@@ -462,9 +462,28 @@ class Incucai:
             tipos_sangre_validos = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
             while True:
                 tipo = input(f"\nTipo de sangre {tipos_sangre_validos}: ").strip().upper()
+                
                 if tipo in tipos_sangre_validos:
                     return tipo
                 print(f"Tipo de sangre inválido. Opciones validas: A+, A-, B+, B-, AB+, AB-, O+, O-")
+                
+                
+                
+        elif validacion == 'centro_salud':
+            # Lista de nombres válidos (tal como están cargados)
+            print("Centros de salud elegibles para carga:")
+            self.mostrar_centros_salud()
+            while True:
+                nombre_ingresado = input("\nIngrese el nombre del centro de salud: ").strip()
+                print("cool2")
+                for centro in self.centro:
+                    print("cool3")
+                    if self.nombre_cs() == nombre_ingresado:
+                        print("cool")
+                        return centro
+                print("Centro de salud no reconocido. Ingrese uno válido.")
+                print("Centros disponibles:")
+                self.mostrar_centros_salud()
                 
         elif validacion == 'antigeno-A1':
             while True:
@@ -546,19 +565,6 @@ class Incucai:
                     return fecha
                 except ValueError:
                     print("Formato  de fecha invalido. Use dd/mm/yyyy.")
-            
-        elif validacion == 'centro_salud':
-            # Lista de nombres válidos (tal como están cargados)
-            nombres_centros_validos = [centro.nombre_cs for centro in self.centros]
-            while True:
-                nombre_ingresado = input("\nIngrese el nombre del centro de salud: ").strip()
-                for centro in self.centros:
-                    if centro.nombre_cs.lower() == nombre_ingresado.lower():
-                        return centro
-                print("Centro de salud no reconocido. Ingrese uno válido.")
-                print("Centros disponibles:")
-                for nombre in nombres_centros_validos:
-                    print(f"   - {nombre}")
         
         elif validacion=='estado_donante':
             estados_donante_validos=["vivo", "muerto"]
@@ -682,8 +688,4 @@ class Incucai:
         receptor_nuevo = Receptor(**datos_completos)
     
         self.receptores.append(receptor_nuevo)
-        print(f"\nReceptor {receptor_nuevo.nombre} cargado exitosamente.")'''
-    
-    
-        
-
+        print(f"\nReceptor {receptor_nuevo.nombre} cargado exitosamente.")

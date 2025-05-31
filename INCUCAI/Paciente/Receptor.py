@@ -1,12 +1,9 @@
 from INCUCAI.Paciente.Paciente import Paciente
 from datetime import datetime, date
 
-
 '''
 El receptor contiene órgano que va a recibir, fecha que fue agregado a la lista de espera, 
 prioridad, patología y estado (Estable o Inestable).
-
-
 '''
 
 class Receptor(Paciente):
@@ -39,11 +36,12 @@ class Receptor(Paciente):
         return cls.lista_receptor_temporal
     
     def __str__(self):
-        orgs = ", ".join(self.org_recib)
-        return f"Receptor: {self.nombre}, DNI: {self.DNI}, Órganos a recibir: {orgs}, Sangre: {self.tipo_sangre}"
+        return f"Receptor: {self.nombre}, DNI: {self.DNI}, Órganos a recibir: {self.org_recib}, Sangre: {self.tipo_sangre}"
     
     @classmethod
     def lista_espera_ordenada(cls):
         '''para ordenar la lista de pacientes y que me los de por orden de agregado a la lista, mas cerca a mas lejos'''
         return sorted(cls.lista_receptor_temporal, key=lambda r: r.fecha_list_esp)
+    
+
     

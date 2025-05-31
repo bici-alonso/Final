@@ -64,8 +64,8 @@ def menu ():
             #dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"])
             #dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado"])
 
-            rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Hospital Garrahan", "Receptor", "02", "24", "07", "44", "11", "15", "rinon", date(2024, 6, 1), "insuficiencia renal", "inestable")
-            rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Clinica Mayo SRL", "Receptor", "03", "30", "05", "15", "13", "07", "rinon", date(2023, 11, 3), "cirrosis", "estable")
+            rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Fundacion Favaloro", "Receptor", "02", "24", "07", "44", "11", "15", "rinon", date(2024, 6, 1), "insuficiencia renal", "inestable")
+            rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Fundacion Favaloro", "Receptor", "03", "30", "05", "15", "13", "07", "rinon", date(2023, 11, 3), "cirrosis", "estable")
             rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "AB+", "Fundacion Favaloro", "Receptor", "21", "31", "35", "27", "13", "15", "corazón", date(2023, 9, 12), "miocardiopatía", "estable")
             #rpaciente14 = Receptor("Bruno Castro", 47654321, date(2001, 10, 19), "M", "1145678901", "1156789012", "AB+", "Hospital Garrahan", "Receptor", "11", "23", "18", "35", "06", "13", ["riñón"], date(2024, 2, 18), "glomerulonefritis", "inestable")
             #rpaciente15 = Receptor("Agustina Paz", 47543210, date(1995, 12, 1), "F", "1156789012", "1167890123", "O+", "Hospital Zonal Alvear", "Receptor", "07", "A68", "07", "44", "11", "17", ["corneas"], date(2024, 4, 25), "queratocono", "estable")
@@ -124,12 +124,12 @@ def menu ():
             
         elif opcion == 2: #funciona
             print("NO dispo")
-            #incucai.carga_manual_receptor_nuevo()
+            incucai.carga_manual_receptor_nuevo()
             
             
         elif opcion == 3: #funciona
             print("NO dispo")
-            #incucai.carga_manual_donante_nuevo()
+            incucai.carga_manual_donante_nuevo()
             
             
         elif opcion == 4: #funciona

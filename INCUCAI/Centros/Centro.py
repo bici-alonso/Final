@@ -82,7 +82,7 @@ class Centro_de_salud:
 
     def calcular_distancia_a(self, otro_centro):
         if self.coords is None or otro_centro.coords is None:
-            raise ValueError("Uno o ambos centros no tienen coordenadas geográficas.")
+            print("\nUno o ambos centros no tienen coordenadas geográficas.")
         return geodesic(self.coords, otro_centro.coords).kilometers
     
     
