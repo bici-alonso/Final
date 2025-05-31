@@ -434,11 +434,12 @@ class Incucai:
                 'M': 'MASCULINO',
                 'F': 'FEMENINO'
             }
-            while True:
-                sexo = input("\nSexo [F/M]: ").strip().upper()
-                if sexo in sexos_validos:
-                    return sexos_validos[sexo]
+            
+            sexo = input("\nSexo [F/M]: ").strip().upper()
+            if sexo not in sexos_validos:
+                
                 print("\nIngrese 'M' para masculino o 'F' para femenino.")
+            return sexos_validos[sexo]
                 
         elif validacion == 'telefono':
             while True:
@@ -543,7 +544,7 @@ class Incucai:
                             return hla_DR2
                     print("Formato HLA DR2 inválido.")
         
-        elif validacion=='fecha_nac':
+        elif validacion=='fecha_nacimiento':
             while True:
                 fecha = input("\nFecha de nacimiento (yyyy/mm/dd): ").strip()
                 try:
@@ -584,7 +585,7 @@ class Incucai:
 
         elif validacion == 'hora_fall':
             while True:
-                hora = input("   Hora de fallecimiento (HH:MM): ").strip()
+                hora = input("Hora de fallecimiento (HH:MM): ").strip()
                 try:
                     return datetime.strptime(hora, "%H:%M").time()
                 except ValueError:
@@ -642,6 +643,7 @@ class Incucai:
         datos['contacto'] = self.validaciones('contacto_emergencia')
         datos['tipo_sangre'] = self.validaciones('tipo_sangre')
         datos['centro'] = self.validaciones('centro_salud')
+        datos['que_es']=('receptor')
         print("\n--- ANTÍGENOS HLA ---")
         datos['hla_a1'] = self.validaciones('antigeno-A1')
         datos['hla_a2'] = self.validaciones('antigeno-A2')
@@ -680,12 +682,15 @@ class Incucai:
         print("\nDatos extra de receptor:")
         
         datos_receptor={}
+        datos_receptor['org_recib']=self.validaciones('organos_a_recibir')
+        datos_receptor['fecha_list_esp']=self.validaciones('lista_espera')   
         datos_receptor['patologia']=self.validaciones('patologia')
-        datos_receptor['organos_a_recibir']=self.validaciones('organos_a_recibir')
-        datos_receptor['estado'] = self.validaciones('estado')
-        datos_receptor['fecha_lista_espera']=self.validaciones('lista_espera')    
+        datos_receptor['estado'] = self.validaciones('estado') 
+
+        
 
         datos_completos = {**paciente_nuevo_base, **datos_receptor}
+        print(datos_completos)
         receptor_nuevo = Receptor(**datos_completos)
     
         self.receptores.append(receptor_nuevo)
