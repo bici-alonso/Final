@@ -468,18 +468,16 @@ class Incucai:
                 print(f"Tipo de sangre inválido. Opciones validas: A+, A-, B+, B-, AB+, AB-, O+, O-")
                 
                 
-                
         elif validacion == 'centro_salud':
             # Lista de nombres válidos (tal como están cargados)
             print("Centros de salud elegibles para carga:")
             self.mostrar_centros_salud()
             while True:
-                nombre_ingresado = input("\nIngrese el nombre del centro de salud: ").strip()
-                print("cool2")
+                nombre_ingresado = input("\nIngrese el nombre del centro de salud: ").strip().lower()
                 for centro in self.centro:
-                    print("cool3")
-                    if self.nombre_cs() == nombre_ingresado:
-                        print("cool")
+                    
+                    if nombre_ingresado in centro.nombre_cs.strip().lower():
+                        print(centro.nombre_cs)
                         return centro
                 print("Centro de salud no reconocido. Ingrese uno válido.")
                 print("Centros disponibles:")
@@ -489,7 +487,7 @@ class Incucai:
             while True:
                 hla_A1 = input("\nIngrese Antígeno A1 para HLA: ").strip().upper()
                 if 2 <= len(hla_A1) <= 6:
-                    if any(c.isalpha() for c in hla_A1) and any(c.isdigit() for c in hla_A1):
+                    if any(c.isdigit() for c in hla_A1):
                         return hla_A1
                     elif hla_A1.isdigit() and len(hla_A1) <= 3:
                         return hla_A1
@@ -499,7 +497,7 @@ class Incucai:
             while True:
                 hla_A2 = input("\nIngrese Antígeno A2 para HLA: ").strip().upper()
                 if 2 <= len(hla_A2) <= 6:
-                    if any(c.isalpha() for c in hla_A2) and any(c.isdigit() for c in hla_A2):
+                    if any(c.isdigit() for c in hla_A2):
                         return hla_A2
                     elif hla_A2.isdigit() and len(hla_A2) <= 3:
                         return hla_A2
@@ -509,7 +507,7 @@ class Incucai:
             while True:
                 hla_B1 = input("\nIngrese Antígeno B1 para HLA: ").strip().upper()
                 if 2 <= len(hla_B1) <= 6:
-                    if any(c.isalpha() for c in hla_B1) and any(c.isdigit() for c in hla_B1):
+                    if any(c.isdigit() for c in hla_B1):
                         return hla_B1
                     elif hla_B1.isdigit() and len(hla_B1) <= 3:
                         return hla_B1
@@ -519,7 +517,7 @@ class Incucai:
             while True:
                     hla_B2 = input("   Ingrese Antígeno A2 para HLA: ").strip().upper()
                     if 2 <= len(hla_B2) <= 6:
-                        if any(c.isalpha() for c in hla_B2) and any(c.isdigit() for c in hla_B2):
+                        if any(c.isdigit() for c in hla_B2):
                             return hla_B2
                         elif hla_B2.isdigit() and len(hla_B2) <= 3:
                             return hla_B2
@@ -529,7 +527,7 @@ class Incucai:
             while True:
                     hla_DR1 = input("   Ingrese Antígeno DR1 para HLA: ").strip().upper()
                     if 2 <= len(hla_DR1) <= 6:
-                        if any(c.isalpha() for c in hla_DR1) and any(c.isdigit() for c in hla_DR1):
+                        if any(c.isdigit() for c in hla_DR1):
                             return hla_DR1
                         elif hla_DR1.isdigit() and len(hla_DR1) <= 3:
                             return hla_DR1
@@ -539,7 +537,7 @@ class Incucai:
             while True:
                     hla_DR2 = input("   Ingrese Antígeno DR2 para HLA: ").strip().upper()
                     if 2 <= len(hla_DR2) <= 6:
-                        if any(c.isalpha() for c in hla_DR2) and any(c.isdigit() for c in hla_DR2):
+                        if any(c.isdigit() for c in hla_DR2):
                             return hla_DR2
                         elif hla_DR2.isdigit() and len(hla_DR2) <= 3:
                             return hla_DR2
@@ -547,9 +545,9 @@ class Incucai:
         
         elif validacion=='fecha_nac':
             while True:
-                fecha = input("\nFecha de nacimiento (dd/mm/yyyy): ").strip()
+                fecha = input("\nFecha de nacimiento (yyyy/mm/dd): ").strip()
                 try:
-                    fecha = datetime.strptime(fecha, "%d/%m/%Y")
+                    fecha = datetime.strptime(fecha, "%Y/%m/%d")
                     hoy = datetime.now()
                     edad = (hoy - fecha).days // 365
                     
@@ -566,6 +564,7 @@ class Incucai:
                 except ValueError:
                     print("Formato  de fecha invalido. Use dd/mm/yyyy.")
         
+        
         elif validacion=='estado_donante':
             estados_donante_validos=["vivo", "muerto"]
             while True:
@@ -574,13 +573,14 @@ class Incucai:
                     return estado
                 print("Estado inválido. Debe ingresar 'vivo' o 'muerto'.")
         
+        
         elif validacion=='fecha_fall':
             while True:
-                fecha = input("   Fecha de fallecimiento (dd/mm/yyyy): ").strip()
+                fecha = input("   Fecha de fallecimiento (yyyy/mm/dd): ").strip()
                 try:
-                    return datetime.strptime(fecha, "%d/%m/%Y")
+                    return datetime.strptime(fecha, "%Y/%m/%d")
                 except ValueError:
-                    print("Fecha inválida. Use formato dd/mm/yyyy.")
+                    print("Fecha inválida. Use formato yyyy/mm/dd.")
 
         elif validacion == 'hora_fall':
             while True:
@@ -616,20 +616,20 @@ class Incucai:
                 print("Debe ingresar al menos un órgano.")
 
         elif validacion == 'estado':
-            opciones = ["activo", "inactivo", "urgente"]
+            opciones = ["ESTABLE", "INESTABLE", "estable", "inestable", "Estable", "Inestable"]
             while True:
-                estado = input("   Estado del receptor (activo/inactivo/urgente): ").strip().lower()
+                estado = input("   Estado del receptor (estable/inestable): ").strip().lower()
                 if estado in opciones:
                     return estado
-                print("Estado inválido. Opciones: activo, inactivo, urgente.")
+                print("Estado inválido. Opciones: estable/inestable.")
 
         elif validacion == 'lista_espera':
             while True:
-                fecha = input("   Fecha de ingreso a lista de espera (dd/mm/yyyy): ").strip()
+                fecha = input("   Fecha de ingreso a lista de espera (yyyy/mm/dd): ").strip()
                 try:
-                    return datetime.strptime(fecha, "%d/%m/%Y")
+                    return datetime.strptime(fecha, "%Y/%m/%d")
                 except ValueError:
-                    print("Fecha inválida. Use formato dd/mm/yyyy.")
+                    print("Fecha inválida. Use formato yyyy/mm/dd.")
                     
         
     def pedir_datos_basicos_paciente(self):
@@ -678,6 +678,7 @@ class Incucai:
         print("\nRECEPTOR NUEVO:")
         paciente_nuevo_base=self.pedir_datos_basicos_paciente()
         print("\nDatos extra de receptor:")
+        
         datos_receptor={}
         datos_receptor['patologia']=self.validaciones('patologia')
         datos_receptor['organos_a_recibir']=self.validaciones('organos_a_recibir')
