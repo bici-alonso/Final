@@ -1,19 +1,10 @@
 '''
-TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. SIMULACION SIST. DONACION DE ORGANOS - INCUCAI
-El INCUCAI se encarga de la coordinación y logística de la donación de tejidos y órganos. 
-Este consta de una lista de receptores, una lista de donantes y una lista de centros de salud habilitados.
+Alonso Victoria
+Pfeifer Zoe
 
-El Sistema tiene que permitir:
-Expandir
-message.txt
-34 KB
-﻿
-bici
-alonsovictoria
-
-TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. SIMULACION SIST. DONACION DE ORGANOS - INCUCAI
-El INCUCAI se encarga de la coordinación y logística de la donación de tejidos y órganos. 
-Este consta de una lista de receptores, una lista de donantes y una lista de centros de salud habilitados.
+TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. SIMULACION SIST. DONACION DE ORGANOS
+El INCUCAI se encarga de la coordinación y logística de la donación de tejidos y órganos: Consta de una lista de receptores, 
+una lista de donantes y una lista de centros de salud habilitados.
 
 El Sistema tiene que permitir:
     -Registrar pacientes nuevos (Validando que no se encuentre en otra lista ni se repita).
@@ -23,24 +14,9 @@ El Sistema tiene que permitir:
     -Buscar un receptor e informar qué prioridad tiene en la lista de espera.
     -Imprimir listado de pacientes donantes y receptores.
     -Realizar correctamente todo el proceso de asignación y derivación de un organo a un receptor,
-    contemplando el viaje, la disponibilidad en ese horario de los vehiculos de un centro medico y el tiempo de viaje.'''
+    contemplando el viaje, la disponibilidad en ese horario de los vehiculos de un centro medico y el tiempo de viaje.
 
-
-
-#La clase INCUCAI la uso como manager de mis demas clases --> Permite manejar/linkear mis clases y listas
-
-from INCUCAI.Paciente.Paciente import Paciente
-from INCUCAI.Paciente.Donante import Donante 
-from INCUCAI.Paciente.Receptor import Receptor
-from INCUCAI.Centros.Centro import Centro_de_salud 
-from geopy.geocoders import Nominatim
-from datetime import datetime
-import unicodedata
-
-class Incucai:
-    
-    '''
-    El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa.
+El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa.
     Si el paciente es donante, al ser ingresado se lo agrega a la lista de pacientes donantes.
     Luego se busca los posibles receptores para cada órgano que el donante puede donar, 
     para esto se busca en su lista de pacientes receptores todos los pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. 
@@ -51,13 +27,28 @@ class Incucai:
     la lista de donantes. De haberlo se despacha el organo para el receptor, actualizando de igual manera la lista
     de donantes.
     
-    #incucai debe tener una validacion que ningun paciente se repite
-    #debo sacar de la lista a pacientes que no tiene mas organos para donar
-    #debo sacar a los receptores que tuvieron un transplante exitoso
-    
-    
-    METODOS DE INCUCAI:
-    
+'''
+#Importaciones de librerias estandar:
+from geopy.geocoders import Nominatim
+from datetime import datetime
+import unicodedata
+#Importaciones de clases creadas: Notese que no importamos clases abstractas porque no pueden instanciarse
+from INCUCAI.Paciente.Donante import Donante 
+from INCUCAI.Paciente.Receptor import Receptor
+from INCUCAI.Centros.Centro import Centro_de_salud 
+from INCUCAI.Centros.Cirujanos.Especialista import Especialista
+from INCUCAI.Centros.Cirujanos.General import General
+from INCUCAI.Vehiculo.Avion import Avion
+from INCUCAI.Vehiculo.Helicoptero import Helicoptero
+from INCUCAI.Vehiculo.Ambulancia import Ambulancia
+
+
+
+
+class Incucai:
+    '''    
+    Metodos de Incucai:
+    centros()
     clasificar_paciente_ya_existente(paciente_exist=None, que_es=None)
     registrar_donante(paciente_base)
     registrar_receptor(paciente_base)
@@ -73,24 +64,36 @@ class Incucai:
     mostrar_centros_salud()
     estadisticas_transplantes_realizados() (opcional si llevás registro)
     vehiculos_disponibles_por_centro()
-    
-    
-    
-
     '''
-    
-    geolocator = Nominatim(user_agent="incucai_test")
+    geolocator = Nominatim(user_agent="incucai_test") #Instancia de Nominatim [necesaria para coordenadas]
     
     def __init__(self):
-        #Constructor de INCUCAI
+        """
+        Permite instanciar Incucai
+            - receptores: Un array para la carga de receptores de INCUCAI
+            - donantes: Un array para la carga de donantes de INCUCAI
+            - vehiculos: Un array para la carga de vehiculos de INCUCAI
+            - cirujano: Un array para la carga de cirujanos de INCUCAI
+            - centros: Un array para la carga de los centros habilitados de INCUCAI
+
+        returns:
+            - 
+        """
         self.receptores = []
         self.donantes = []
         aux_centro=self.centros()
+        self.centro = aux_centro
         self.vehiculos = []
         self.cirujano = []
-        self.centro = aux_centro
+        
         
     def centros(self):
+        """
+        Crea distintas instancias de Centro_de_salud como centros habilitados del INCUCAI
+
+        returns: 
+            -Array de Centro_de_salud. Representativo un centro por provincia.  
+        """
         return [
             Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678"),
             Centro_de_salud("Hospital El Cruce", "Av. Calchaquí 5401", "Florencio Varela", "Buenos Aires", "011-98765432"),
@@ -112,26 +115,104 @@ class Incucai:
             Centro_de_salud ("Clinica Mayo SRL", "9 de Julio 279", "San Miguel de Tucumán", "Tucuman", "038 1450-2600"), #tucuman               
         ]
         
-    def registrar_donante(self, donante):
-        if not  self.paciente_existente(donante.DNI):
-            self.donantes.append(donante)
+        
+    def registrar_donante(self, donante:Donante):
+        """
+        Agrega un nuevo array a la lista de donantes de INCUCAI
+        
+        atributos:
+            -donante (a agregar)
 
-    def registrar_receptor(self, receptor):
-        if not self.paciente_existente(receptor.DNI):
+        returns:
+            - 
+        """
+        if not  self.paciente_existente(donante.DNI): #Invoca a funcion .paciente_existente para revisar que no exista ya un donante del mismo DNI
+            self.donantes.append(donante)
+            
+
+    def registrar_receptor(self, receptor: Receptor):
+        """
+        Agrega un nuevo array a la lista de receptores de INCUCAI
+        
+        atributos:
+            -receptor (a agregar)
+
+        returns:
+            - 
+        """
+        if not self.paciente_existente(receptor.DNI): #Invoca a funcion .paciente_existente para revisar que no exista ya un receptor del mismo DNI
             self.receptores.append(receptor)
 
-    def registrar_vehiculos(self, vehiculo):
-        self.vehiculos.append(vehiculo)
-        centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
-        print(centro.nombre_cs)
-        print(vehiculo.centro_vehiculo)
-        centro.agregar_vehiculo(vehiculo)
 
-    def registrar_cirujano(self, cirujano):
+    def registrar_ambulancia(self, vehiculo: Ambulancia):
+        """
+        Agrega un nuevo vehiculo a la lista de vehiculos de INCUCAI
+        
+        atributos:
+            -vehiculo a agregar
+
+        returns:
+            - 
+        """
+        
+        self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
+        centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
+        print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
+        print(vehiculo.centro_vehiculo) #???
+        centro.agregar_vehiculo(vehiculo)
+        
+    def registrar_avion(self, vehiculo: Avion):
+        """
+        Agrega un nuevo vehiculo a la lista de vehiculos de INCUCAI
+        
+        atributos:
+            -vehiculo a agregar
+
+        returns:
+            - 
+        """
+        
+        self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
+        centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
+        print(f"Avion agregado al centro: {centro.nombre_cs}")
+        print(vehiculo.centro_vehiculo) #???
+        centro.agregar_vehiculo(vehiculo)
+    
+    def registrar_helicoptero(self, vehiculo: Helicoptero):
+        """
+        Agrega un nuevo vehiculo a la lista de vehiculos de INCUCAI
+        
+        atributos:
+            -vehiculo a agregar
+
+        returns:
+            - 
+        """
+        
+        self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
+        centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
+        print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
+        print(vehiculo.centro_vehiculo) #???
+        centro.agregar_vehiculo(vehiculo)
+    
+    
+
+    def registrar_cirujano_general(self, cirujano: General):
+        
         self.cirujano.append(cirujano)
         centro = self.buscar_centro_por_nombre(cirujano.centro)
         centro.agregar_cirujano(cirujano)
     
+    def registrar_cirujano_especialista(self, cirujano: Especialista):
+        
+        self.cirujano.append(cirujano)
+        centro = self.buscar_centro_por_nombre(cirujano.centro)
+        centro.agregar_cirujano(cirujano)
+        
+#-------------------------------------------------------------------FIN DE REGISTROS----------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------INICIO DE LOGICA DE DONACION-----------------------------------------------------------------------
     def clasificar_paciente_ya_existente(self, paciente_existente=None):
             if paciente_existente:
                 if isinstance(paciente_existente, Donante):
@@ -180,6 +261,8 @@ class Incucai:
                 return p 
         return None
     
+    
+#--------------------------------------------------------------------BUSQUEDAS Y ORDENAMIENTOS-------------------------------------------------------------------------------
     
     def lista_espera_ordenada(self):
         if not self.receptores:
@@ -400,7 +483,9 @@ class Incucai:
                 print("Algo fallo.") 
         else:
             print("Seleccione un numero dentro de las opciones.")
-        
+
+
+#------------------------------------------------------------------------METODOS PARA CARGA MANUAL--------------------------------------------------------------------------------------
 
     def pedir_datos_basicos_paciente(self):
         datos = {}
@@ -419,7 +504,6 @@ class Incucai:
         datos['hla_b2'] = self.validaciones('antigeno-B2')
         datos['hla_dr1'] = self.validaciones('antigeno-DR1')
         datos['hla_dr2'] = self.validaciones('antigeno-DR2')
-        
         return datos   
     
     def validaciones (self, validacion):
@@ -428,8 +512,7 @@ class Incucai:
                 nombre = input("\nNombre completo: ").strip()
                 if len(nombre) >= 2 and all(c.isalpha() or c.isspace() for c in nombre):
                     return nombre.title()
-                print("\nNombre inválido. Solo letras y espacios.")
-                
+                print("\nNombre inválido. Solo letras y espacios.")     
         elif validacion=='dni':
             while True:
                 dni = input("\n DNI: ").strip()
@@ -577,7 +660,6 @@ class Incucai:
                 except ValueError:
                     print("Formato  de fecha invalido. Use dd/mm/yyyy.")
         
-        
         elif validacion=='estado_donante':
             estados_donante_validos=["vivo", "muerto"]
             while True:
@@ -585,7 +667,6 @@ class Incucai:
                 if estado in estados_donante_validos:
                     return estado
                 print("Estado inválido. Debe ingresar 'vivo' o 'muerto'.")
-        
         
         elif validacion=='fecha_fall':
             while True:
@@ -656,14 +737,13 @@ class Incucai:
         datos['tipo_sangre'] = self.validaciones('tipo_sangre')
         datos['centro'] = self.validaciones('centro_salud')
         datos['que_es']=('receptor')
-        print("\n--- ANTÍGENOS HLA ---")
+        print("\n----ANTÍGENOS HLA----")
         datos['hla_a1'] = self.validaciones('antigeno-A1')
         datos['hla_a2'] = self.validaciones('antigeno-A2')
         datos['hla_b1'] = self.validaciones('antigeno-B1')
         datos['hla_b2'] = self.validaciones('antigeno-B2')
         datos['hla_dr1'] = self.validaciones('antigeno-DR1')
         datos['hla_dr2'] = self.validaciones('antigeno-DR2')
-        
         return datos
         
         
@@ -671,39 +751,33 @@ class Incucai:
         print("\nSeleccionó la carga manual de un nuevo paciente del tipo donante...")
         print("\nDONANTE NUEVO:")
         paciente_nuevo_base = self.pedir_datos_basicos_paciente()
-        
         print("\nDatos extra de donante:")
         datos_donante = {}
         datos_donante['estado_donante'] = self.validaciones('estado_donante')
         datos_donante['fecha_fall'] = self.validaciones('fecha_fall')
         datos_donante['hora_fall'] = self.validaciones('hora_fall')
         datos_donante['organos_a_donar'] = self.validaciones('organos_a_donar')
-        
         datos_completos = {**paciente_nuevo_base, **datos_donante}
         donante_nuevo = Donante(**datos_completos)
-        
         self.donantes.append(donante_nuevo)
         print(f"\nDonante {donante_nuevo.nombre} cargado exitosamente.")
+        return (donante_nuevo, len(self.donantes))
             
     
     
     def carga_manual_receptor_nuevo(self):
-        print ("\nSelecciono la carga manual de un nuevo paciente del tipo receptor...") #--> opcion en el menu
+        print ("\nSeleccionó la carga manual de un nuevo paciente del tipo receptor...") #--> opcion en el menu
         print("\nRECEPTOR NUEVO:")
         paciente_nuevo_base=self.pedir_datos_basicos_paciente()
         print("\nDatos extra de receptor:")
-        
         datos_receptor={}
         datos_receptor['org_recib']=self.validaciones('organos_a_recibir')
         datos_receptor['fecha_list_esp']=self.validaciones('lista_espera')   
         datos_receptor['patologia']=self.validaciones('patologia')
         datos_receptor['estado'] = self.validaciones('estado') 
-
-        
-
         datos_completos = {**paciente_nuevo_base, **datos_receptor}
         print(datos_completos)
         receptor_nuevo = Receptor(**datos_completos)
-    
         self.receptores.append(receptor_nuevo)
         print(f"\nReceptor {receptor_nuevo.nombre} cargado exitosamente.")
+        return (receptor_nuevo, len(self.receptores))
