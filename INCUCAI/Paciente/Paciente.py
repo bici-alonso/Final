@@ -41,7 +41,6 @@ class Paciente (ABC):
         if fecha_nac > date.today():
             raise ValueError("La fecha de nacimiento no puede ser futura")
         
-        
         self.nombre = nombre
         self.DNI = DNI
         self.fecha_nac = fecha_nac
@@ -52,8 +51,7 @@ class Paciente (ABC):
         self.centro = centro
         self.que_es = que_es.lower()
         
-        #self.lista_pacientes=[]
-        
+        #self.lista_pacientes=[] 
         self.hla_a1=hla_a1
         self.hla_a2=hla_a2
         self.hla_b1=hla_b1
@@ -65,76 +63,19 @@ class Paciente (ABC):
         
         
     def calculo_edad(self):
+        """
+        Calcula la edad actual del paciente en años.
+        returns:
+            -int: Edad del paciente.
+        """
         hoy=date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
     
     def es_menor_de_edad(self):
         return self.calculo_edad() < 18
     
-    def compatibilidad_hla(self, otro_paciente: 'Paciente') -> tuple [int, int]:
-        matchs = 0
-        total = 6
+    def datos_pacientes_generico(self):
         
-        #compara genoma A:
-        if self.hla_a1 in [otro_paciente.hla_a1, otro_paciente.hla_a2]:
-            matchs += 1
-        if self.hla_a2 in [otro_paciente.hla_a1, otro_paciente.hla_a2] and self.hla_a2 != self.hla_a1:
-            matchs += 1
-            
-        #compara genoma B:
-        if self.hla_b1 in [otro_paciente.hla_b1, otro_paciente.hla_b2]:
-            matchs += 1
-        if self.hla_b2 in [otro_paciente.hla_b1, otro_paciente.hla_b2] and self.hla_b2 != self.hla_b1:
-            matchs += 1
-
-        
-        #compara genoma dr:
-        if self.hla_dr1 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2]:
-            matchs += 1 
-        if self.hla_dr2 in [otro_paciente.hla_dr1, otro_paciente.hla_dr2] and self.hla_dr2 != self.hla_dr1:
-            matchs += 1
-            
-        '''
-        implementacion:
-        matchs, total = paciente1.compatibilidad_hla(paciente2)
-        print(f"{matchs} de {total} alelos HLA compatibles.")
-        '''  
-        return matchs, total
-    
-    
-    def es_compatible_sangre(self, otro_paciente: 'Paciente') -> bool:
-        """compatibilidad sanguinea entre donante y receptor
-        
-        retorna un bool: True si son compatibles, False en caso contrario
-        """
-        
-        
-        compatibilidades = {
-                "O-": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"],  #0- dona a todos
-                "O+": ["O+", "A+", "B+", "AB+"],
-                "A-": ["A-", "A+", "AB-", "AB+"],
-                "A+": ["A+", "AB+"],
-                "B-": ["B-", "B+", "AB-", "AB+"],
-                "B+": ["B+", "AB+"],
-                "AB-": ["AB-", "AB+"],
-                "AB+": ["AB+"] 
-            }
-    
-        tipo_donante = self.tipo_sangre
-        if tipo_donante not in compatibilidades.keys():
-            raise ValueError("Tipo de sangre de donante no válido")
-        
-        tipo_receptor = otro_paciente.tipo_sangre
-        if tipo_receptor not in compatibilidades.keys():
-            raise ValueError("Tipo de sangre no válido")
-        
-        return tipo_receptor in compatibilidades.get(tipo_donante, [])
-    
-    
-    def __str__(self):
-        return f"{self.que_es.capitalize()} - {self.nombre} (DNI: {self.DNI})"
-    
-    def datos_pacientes_generico(self): #funciona a modo de getter 
         print("\nINFORMACION DE PACIENTE:")
         print(f"\nDNI: {self.DNI}. Paciente: {self.nombre}.") 
         print (f"\nTelefono: {self.telefono}. \nContacto de emergencia: {self.contacto}")
@@ -144,6 +85,9 @@ class Paciente (ABC):
         print (f"\nSexo: {self.sexo}")
         print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")
 
+    def __str__(self):
+        return f"{self.que_es.capitalize()} - {self.nombre} (DNI: {self.DNI})"
+    
     def __eq__(self, other):
         return isinstance(other, Paciente) and self.DNI == other.DNI
 
