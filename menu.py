@@ -15,7 +15,6 @@ from Testing import *
 
 
 def menu ():
-    
     incucai = Incucai()
     lista_pacientes_test = []
     lista_donantes_test =[]
@@ -30,9 +29,7 @@ def menu ():
 
     
     print("-------------------------------------------------------    INCUCAI    ----------------------------------------------------")
-
     pregunta = None
-
     while pregunta not in [0, 1]:
         try:
             pregunta = int(input("\n¿Desea inicializar el programa? Presione 1 para INICIAR  o 0 para CERRAR: "))
@@ -40,7 +37,6 @@ def menu ():
                 print("❌ El número ingresado debe ser 0 o 1.")
         except ValueError:
             print("❌ Entrada inválida. Solo puede ingresar 0 o 1.")
-        
     if pregunta == 0:
         print("\nMuchas gracias por utilizar el programa!")
         return
@@ -58,60 +54,50 @@ def menu ():
         print("\n9- Buscar informacion de un paciente por DNI")
         print("\n10- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
         print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
+        print("\n12- Donacion especifica entre un donante y un receptor por DNI") #faltan implementar
+        print("\n13- Distribucion completa de todos mis organos cargados")
+        print("\n14- Revisar compatibilidad entre 2 pacientes especificos")
+        print("\n15- Imprimir informacion sobre un centro de salud")
         print("\n0- Cerrar programa")
         
         opcion = int(input("Seleccione una opcion: "))
-        if opcion == 1: #funciona
+        
+        if opcion == 1: #revisar si funciona
             lista_pacientes_test = creacion_pacientes()
-            
             lista_aviones_test = creacion_aviones()
             lista_ambulancias_test = creacion_ambulancias ()
             lista_helicoptero_test = creacion_helicoptero ()
-            
             lista_cirujanos_generales_test = creacion_cirujanos_generales()
             lista_cirujanos_especialistas_test = creacion_cirujanos_especialistas()
-            
             lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
             lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
             
             for donante in lista_donantes_test:
                 incucai.registrar_donante(donante)
-
             for receptor in lista_receptores_test:
                 incucai.registrar_receptor(receptor)
-            
-            # Registrar vehículos en Incucai
             for vehiculo in lista_aviones_test:
                 incucai.registrar_avion(vehiculo)
-                
             for vehiculo in lista_ambulancias_test:
                 incucai.registrar_ambulancia(vehiculo) 
-            
             for vehiculo in lista_helicoptero_test:
                 incucai.registrar_helicoptero(vehiculo)           
-            
-            # Registrar cirujanos en Incucai
             for cirujano in lista_cirujanos_generales_test:
-                incucai.registrar_cirujano_general(cirujano)
-                
+                incucai.registrar_cirujano_general(cirujano)   
             for cirujano in lista_cirujanos_especialistas_test:
                 incucai.registrar_cirujano_especialista(cirujano)
 
-
             print("Pacientes de prueba agregados con éxito...")
-            
-            
+                
         elif opcion == 2: #funciona
             incucai.carga_manual_receptor_nuevo()
             
         elif opcion == 3: #funciona
             incucai.carga_manual_donante_nuevo()
-            
-            
+                
         elif opcion == 4: #funciona
             print("\n--------------------   DONANTES REGISTRADOS EN INCUCAI:  ---------------")
             incucai.listar_donantes()
-            
             
         elif opcion == 5: #funciona
             print("\n---------------------   RECEPTORES REGISTRADOS EN INCUCAI:   ------------------")
@@ -138,7 +124,6 @@ def menu ():
             else:
                 print("❌ Paciente no encontrado.")
         
-        
         elif opcion == 10: #funciona
             print("\n📍 Centros de salud disponibles:")
             incucai.mostrar_centros_salud()
@@ -159,8 +144,13 @@ def menu ():
             else:
                 print("❌ Paciente no encontrado.")
 
+        elif opcion == 12:
+            print("\nDonacion especifica entre donante y receptor:")
+            incucai.donar_organo_de_donante_a_receptor_especifico()
+            
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")
             break
+        
         else:
             print("\nOpcion no valida. Seleccione una de las opciones enlistadas")

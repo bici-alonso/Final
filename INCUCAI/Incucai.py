@@ -483,15 +483,35 @@ class Incucai:
                     self.buscar_match_para_receptor(paciente_existente)
                     return
 
-    #falta definir metodo donar_organo_especifico para clasificar paciente existente
     def donar_organo_especifico(self, paciente_existente: Donante):
-        return None
+        if not paciente_existente.lista_organos:
+            print(f"❌ {paciente_existente.nombre} no tiene órganos disponibles para donar.")
+            return
+
+        print(f"\nÓrganos disponibles para donar de {paciente_existente.nombre}:")
+        for i, organo in enumerate(paciente_existente.lista_organos):
+            print(f"{i+1}. {organo}")
+
+        while True:
+            seleccion = input("\nSeleccione el número del órgano que desea donar: ")
+
+            if seleccion.isdigit():
+                seleccion = int(seleccion)
+                if 1 <= seleccion <= len(paciente_existente.lista_organos):
+                    organo_elegido = paciente_existente.lista_organos[seleccion - 1]
+                    self.buscar_receptor_organo_especifico(paciente_existente, organo_elegido)
+                    break
+                else:
+                    print("❌ Selección fuera de rango. Intente de nuevo.")
+            else:
+                print("❌ Entrada inválida. Por favor, ingrese un número.")
         
     def compatibilidad(self, donante: Donante, receptor:Receptor):
+        
         if not donante.es_compatible_sangre(receptor):
             return False
 
-        match_hla, total_matchs = donante.compatibilidad_hla(receptor) 
+        match_hla, total = donante.compatibilidad_hla(receptor) 
         if match_hla  < 3:
             return False
         
@@ -499,6 +519,11 @@ class Incucai:
         edad_receptor = receptor.calculo_edad()
         if edad_receptor < 18 and abs(edad_receptor - edad_donante) > 3:
             return False
+        
+        print(f"\nPaciente {receptor.nombre} compatible con: {donante.nombre}")
+        print (f"\nCOMPATIBILIDAD:")
+        print(f"\nSangre de {receptor.nombre}: {receptor.tipo_sangre} (compatible con sangre de {donante.nombre} de tipo: {donante.tipo_sangre})")
+        print (f"\nMatchs de HLA entre pacientes: {match_hla}/{total}")
         
         return True
 
@@ -536,17 +561,12 @@ class Incucai:
         if receptor in self.receptores:
             self.receptores.remove(receptor)
             print(f"Receptor {receptor.nombre} removido (trasplante programado)")
-            
+        
     def realizar_transplante(self, receptor: Receptor, donante: Donante, organo):
-
         print(f"\n ➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo}")
 
         centro_donante = self.buscar_centro_por_nombre(donante.centro)
         centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
-
-        #if not centro_donante or not centro_receptor:
-        #    print("❌ No se encontraron los centros de salud correspondientes.")
-        #    return
 
         if centro_donante.coords is None:
             centro_donante.geolocalizar_direccion(self.geolocator)
@@ -566,16 +586,18 @@ class Incucai:
         distancia = centro_donante.calcular_distancia_a(centro_receptor)
         trafico = vehiculo.nivel_trafico()
         tiempo_traslado = vehiculo.calculo_tiempo(distancia, trafico)
+        
+        print(f"\nCentro de donante: {donante.centro}")
+        print(f"\nCentro de receptor: {receptor.centro}")
         print(f"\n🚑 Vehículo seleccionado: {vehiculo}")
         print(f"Distancia entre centros: {distancia:.2f} km | Tráfico: {trafico:.2f} | Tiempo estimado: {tiempo_traslado:.2f} h")
 
         cirujano = centro_receptor.seleccionar_cirujano(organo.tipo)
         if cirujano is None:
-            print("❌ No hay cirujano disponible para ese órgano.")
+            print("No hay cirujano disponible para ese órgano.")
             return False
 
-        print(f"🩺 Cirujano asignado: {cirujano}")
-
+        print(f"🩺 Cirujano asignado para transplante: {cirujano}")
         exito = centro_receptor.realizar_transplante(organo, receptor, cirujano)
         if exito:
             if receptor in self.receptores:
@@ -616,10 +638,8 @@ class Incucai:
                 print(organo.tipo)
                 print(organos_necesarios)
                 if organo.tipo == organos_necesarios:
-                    print("hay organo en comun")
                     if self.compatibilidad(donante, receptor):
                         compatibles.append((donante, organo))
-                        print("se encontro")
 
         if not compatibles:
             print("❌ No hay donantes compatibles para este receptor.")
@@ -639,7 +659,92 @@ class Incucai:
         else:
             print("Seleccione un numero dentro de las opciones.")
 
+
 #------------------------------------------------------------------------FIN DE LOGICA DE DONACION-------------------------------------------------------------------------------
+#------------------------------------------------------------------------INICIO METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------
+    def compatibilidad_2_pacientes(self):
+        print("\n➡️ Compatibilidad dirigida: revisa la compatibilidad entre 2 pacientes de DNI solicitado.")
+
+        try:
+            dni_donante = int(input("Ingrese el DNI del donante: "))
+            dni_receptor = int(input("Ingrese el DNI del receptor: "))
+        except ValueError:
+            print("❌ Entrada inválida. DNI debe ser numérico.")
+            return
+
+        donante = self.buscar_paciente_por_dni(dni_donante)
+        receptor = self.buscar_paciente_por_dni(dni_receptor)
+
+        if not donante or not isinstance(donante, Donante):
+            print("❌ Donante no encontrado o inválido.")
+            return
+
+        if not receptor or not isinstance(receptor, Receptor):
+            print("❌ Receptor no encontrado o inválido.")
+            return
+        
+        self.compatibilidad(donante, receptor)
+        
+        return
+
+    def donar_organo_de_donante_a_receptor_especifico(self):
+        print("\n➡️ Donación dirigida: Donar un órgano específico de un donante a un receptor.")
+
+        try:
+            dni_donante = int(input("Ingrese el DNI del donante: "))
+            dni_receptor = int(input("Ingrese el DNI del receptor: "))
+        except ValueError:
+            print("❌ Entrada inválida. DNI debe ser numérico.")
+            return
+
+        donante = self.buscar_paciente_por_dni(dni_donante)
+        receptor = self.buscar_paciente_por_dni(dni_receptor)
+
+        if not donante or not isinstance(donante, Donante):
+            print("❌ Donante no encontrado o inválido.")
+            return
+
+        if donante.estado_donante != 'vivo':
+            print(f"❌ El donante {donante.nombre} no está en estado 'vivo'.")
+            return
+
+        if not receptor or not isinstance(receptor, Receptor):
+            print("❌ Receptor no encontrado o inválido.")
+            return
+
+        if not donante.lista_organos:
+            print(f"❌ Donante {donante.nombre} no tiene órganos disponibles para donar.")
+            return
+
+        print(f"\nÓrganos disponibles para donar de {donante.nombre}:")
+        for i, organo in enumerate(donante.lista_organos):
+            print(f"{i+1}. {organo}")
+
+        while True:
+            seleccion = input("\nSeleccione el número del órgano que desea donar: ")
+
+            if seleccion.isdigit():
+                seleccion = int(seleccion)
+                if 1 <= seleccion <= len(donante.lista_organos):
+                    organo_elegido = donante.lista_organos[seleccion - 1]
+
+                    # Validar compatibilidad
+                    if organo_elegido.lower() in receptor.org_recib:
+                        if self.compatibilidad(donante, receptor):
+                            self.procesar_asignacion(donante, receptor, organo_elegido)
+                            return
+                        else:
+                            print("❌ El donante y el receptor no son compatibles.")
+                            return
+                    else:
+                        print(f"❌ El receptor no necesita el órgano '{organo_elegido}'.")
+                        return
+                else:
+                    print("❌ Selección fuera de rango. Intente de nuevo.")
+            else:
+                print("❌ Entrada inválida. Por favor, ingrese un número.")
+#------------------------------------------------------------------------FIN DE METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------
+
 
 #------------------------------------------------------------------------INICIO METODOS PARA CARGA MANUAL--------------------------------------------------------------------------------------
     def pedir_datos_basicos_paciente(self):

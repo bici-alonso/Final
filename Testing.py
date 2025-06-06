@@ -12,33 +12,6 @@ from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
 
-
-'''
-            avion11 = Avion(280, "AB456AP", "Hospital de Urgencias")
-            ambulancia11 = Ambulancia(80, "CPP189", "Hospital de Urgencias")
-            helicoptero12 = Helicoptero(150, "AA150AA", "Hospital El Carmen")
-            avion12 = Avion(280, "AB456AP", "Hospital El Carmen")
-            ambulancia12 = Ambulancia(80, "CPP189", "Hospital El Carmen")
-            helicoptero13 = Helicoptero(150, "AA150AA", "Hospital Samic Alem de autogestión nivel II")
-            avion13 = Avion(280, "AB456AP", "Hospital Samic Alem de autogestión nivel II")
-            ambulancia13 = Ambulancia(80, "CPP189", "Hospital Samic Alem de autogestión nivel II")
-            helicoptero14 = Helicoptero(150, "AA150AA", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
-            avion14 = Avion(280, "AB456AP", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
-            ambulancia14 = Ambulancia(80, "CPP189", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
-            helicoptero15 = Helicoptero(150, "AA150AA", "Hospital Papa Francisco")
-            avion15 = Avion(280, "AB456AP", "Hospital Papa Francisco")
-            ambulancia15 = Ambulancia(80, "CPP189", "Hospital Papa Francisco")
-            helicoptero16 = Helicoptero(150, "AA150AA", "Hospital Dr. Guillermo Rawson")
-            avion16 = Avion(280, "AB456AP", "Hospital Dr. Guillermo Rawson")
-            ambulancia16 = Ambulancia(80, "CPP189", "Hospital Dr. Guillermo Rawson")
-            helicoptero17 = Helicoptero(150, "AA150AA", "Hospital Dr. Clemente Alvare")
-            avion17 = Avion(280, "AB456AP", "Hospital Dr. Clemente Alvare")
-            ambulancia17 = Ambulancia(80, "CPP189", "Hospital Dr. Clemente Alvare")
-            helicoptero18 = Helicoptero(150, "AA150AA", "Hospital Regional Rio Grande")
-            avion18 = Avion(280, "AB456AP", "Hospital Regional Rio Grande")
-            ambulancia18 = Ambulancia(80, "CPP189", "Hospital Regional Rio Grande")
-            '''
-        
     
 def creacion_pacientes ():
         dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["rinon"])
@@ -90,8 +63,6 @@ def creacion_cirujanos_especialistas():
             especialista13= Especialista ("Pablo", "Fundacion Favaloro", "plastico")
             
             return [especialista1, especialista2, especialista3, especialista4, especialista5, especialista6, especialista7, especialista8, especialista9, especialista10, especialista11, especialista12, especialista13]
-            
-            
     
 def creacion_cirujanos_generales():
             '''general = General("Juana", "Hospital Garrahan")
@@ -146,6 +117,7 @@ def creacion_ambulancias():
     return [ambulancia1, ambulancia2, ambulancia3, ambulancia4, ambulancia5, ambulancia6, ambulancia7, ambulancia8, ambulancia9, ambulancia10]
     
 def creacion_aviones():
+    
     avion1 = Avion(280, "AB456AP", "Hospital Garrahan")
     avion2 = Avion(280, "AB456AP", "Clinica Mayo SRL")        
     avion3 = Avion(280, "AB456AP", "Hospital El Cruce")
@@ -156,6 +128,31 @@ def creacion_aviones():
     avion8 = Avion(280, "AB456AP", "Hospital Gral. de Agudos Carlos G. Durand")
     avion9 = Avion(280, "AB456AP", "Sanatorio Pasteur")
     avion10 = Avion(280, "AB456AP", "Hospital Zonal Alvear")
-            
     
     return [avion1, avion2, avion3, avion4, avion5, avion6, avion7, avion8, avion9, avion10]
+
+'''
+            avion11 = Avion(280, "AB456AP", "Hospital de Urgencias")
+            ambulancia11 = Ambulancia(80, "CPP189", "Hospital de Urgencias")
+            helicoptero12 = Helicoptero(150, "AA150AA", "Hospital El Carmen")
+            avion12 = Avion(280, "AB456AP", "Hospital El Carmen")
+            ambulancia12 = Ambulancia(80, "CPP189", "Hospital El Carmen")
+            helicoptero13 = Helicoptero(150, "AA150AA", "Hospital Samic Alem de autogestión nivel II")
+            avion13 = Avion(280, "AB456AP", "Hospital Samic Alem de autogestión nivel II")
+            ambulancia13 = Ambulancia(80, "CPP189", "Hospital Samic Alem de autogestión nivel II")
+            helicoptero14 = Helicoptero(150, "AA150AA", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
+            avion14 = Avion(280, "AB456AP", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
+            ambulancia14 = Ambulancia(80, "CPP189", "Hospital Area Programa Cipoletti Dr. Pedro Moguillansky")
+            helicoptero15 = Helicoptero(150, "AA150AA", "Hospital Papa Francisco")
+            avion15 = Avion(280, "AB456AP", "Hospital Papa Francisco")
+            ambulancia15 = Ambulancia(80, "CPP189", "Hospital Papa Francisco")
+            helicoptero16 = Helicoptero(150, "AA150AA", "Hospital Dr. Guillermo Rawson")
+            avion16 = Avion(280, "AB456AP", "Hospital Dr. Guillermo Rawson")
+            ambulancia16 = Ambulancia(80, "CPP189", "Hospital Dr. Guillermo Rawson")
+            helicoptero17 = Helicoptero(150, "AA150AA", "Hospital Dr. Clemente Alvare")
+            avion17 = Avion(280, "AB456AP", "Hospital Dr. Clemente Alvare")
+            ambulancia17 = Ambulancia(80, "CPP189", "Hospital Dr. Clemente Alvare")
+            helicoptero18 = Helicoptero(150, "AA150AA", "Hospital Regional Rio Grande")
+            avion18 = Avion(280, "AB456AP", "Hospital Regional Rio Grande")
+            ambulancia18 = Ambulancia(80, "CPP189", "Hospital Regional Rio Grande")
+            '''
