@@ -29,9 +29,11 @@ class Organo:
             print(f"❌ '{tipo}' no es un órgano válido.")
             print(f"Órganos válidos: {', '.join(self.organos_validos)}")
             raise ValueError(f"'{tipo}' no es un órgano válido.")
-        else:
+        
+        '''else:
             print(f"Órgano registrado: 🫀  {self.tipo.capitalize()} ")
             print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
+        '''
 
     def sacar_acentos(self, texto):
         return ''.join(
@@ -42,53 +44,6 @@ class Organo:
     def get_tiempo_conservacion(self):
         #tiempo de conservación del organo en horas
         return self.tiempos_conservacion.get(self.tipo, 0)
-
-    '''
-    def ingresar_datos_ablacion(self):
-        """Permite ingresar manualmente los datos de ablación con validación continua"""
-        print("\n INGRESO DE DATOS DE ABLACIÓN")
-        print("Formato de fecha: YYYY-MM-DD (ejemplo: 2025-05-25)")
-        print("Formato de hora: HH:MM:SS (ejemplo: 10:30:00)")
-        
-        while True:
-            try:
-                fecha_str = input("\nIngrese la fecha de ablación (YYYY-MM-DD): ").strip()
-                if not fecha_str:
-                    print("❌ La fecha no puede estar vacía. Intente nuevamente.")
-                    continue
-                    
-                fecha = datetime.strptime(fecha_str, "%Y-%m-%d").date()
-                break
-            except ValueError:
-                print("❌ Formato de fecha incorrecto. Use el formato YYYY-MM-DD (ejemplo: 2025-05-25)")
-                print("   Intente nuevamente...")
-        
-        while True:
-            try:
-                hora_str = input("Ingrese la hora de ablación (HH:MM:SS): ").strip()
-                if not hora_str:
-                    print("❌ La hora no puede estar vacía. Intente nuevamente.")
-                    continue
-                    
-                hora = datetime.strptime(hora_str, "%H:%M:%S").time()
-                
-                # verifica que no esté en el futuro
-                fecha_hora_completa = datetime.combine(fecha, hora)
-                if fecha_hora_completa > datetime.now():
-                    print("\nLa fecha y hora no pueden estar en el futuro.")
-                    print("   Ingrese una hora válida...")
-                    continue 
-                break
-            
-            except ValueError:
-                print("\nFormato de hora incorrecto. Use el formato HH:MM:SS (ejemplo: 14:30:00)")
-                print("   Intente nuevamente...")
-        
-        self.fecha_ablacion = fecha
-        self.hora_ablacion = hora
-        print("\nDatos de ablación guardados correctamente.")
-        return True
-    '''
     
     def set_ablacion_auto(self, fecha_ablacion, hora_ablacion):
         #establece la fecha y hora de ablación en automatico
@@ -143,7 +98,10 @@ class Organo:
             print("No hay fecha y hora registrada para calcular el tiempo.")
 
     def mostrar_datos(self):
-        """Muestra toda la información del órgano"""
+        """
+        Muestra toda la información del órgano
+        """
+        
         print(f"\n----------------------------------------------------INFORMACIÓN DEL ÓRGANO----------------------------------------------------")
         print(f"Tipo: {self.tipo.capitalize()}")
         print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
@@ -165,23 +123,3 @@ class Organo:
                         print("Estado: NO VIABLE para trasplante")
         else:
             print("No se ha registrado aún una fecha y hora de ablación.")
-
-
-'''
-print("----------------------------------------------------GESTIÓN DE ÓRGANOS----------------------------------------------------")
-tipo = input("Ingrese el tipo de órgano: ")
-organo = Organo(tipo)    
-if organo.tipo in Organo.organos_validos:
-    exito_ablacion = organo.ingresar_datos_ablacion()    
-    
-    if exito_ablacion:
-        organo.mostrar_datos()    
-        print(f"\n🔍 ¿Es viable para trasplante? {'✅ Sí' if organo.es_viable_para_trasplante() else '❌ No'}")
-            
-        if organo.get_fecha_vencimiento():
-            print(f"\nFecha límite para trasplante: {organo.get_fecha_vencimiento()}")
-        else:
-            print("No se pudieron establecer correctamente los datos de ablación.")
-    else:
-        print("No se puede proceder con un órgano inválido.")
-    '''

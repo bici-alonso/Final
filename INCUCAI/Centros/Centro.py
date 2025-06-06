@@ -38,13 +38,19 @@ Para realizar el trasplante se verifica que no hayan transcurrido más de 20 hor
 
 
 #LIBRERIAS
-#from geopy.geocoders import Nominatim
+from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from geopy.exc import GeocoderTimedOut
 import time
 from datetime import datetime
-from INCUCAI.Centros.Cirujanos.Especialista import *
-#from INCUCAI.Vehiculo.Ambulancia import Ambulancia
+
+from INCUCAI.Centros.Cirujanos.Especialista import Especialista
+from INCUCAI.Centros.Cirujanos.General import General #ESTO ES LEGAL????????????????????????/ CREO QUE NO
+
+
+from INCUCAI.Vehiculo.Ambulancia import Ambulancia
+from INCUCAI.Vehiculo.Avion import Avion
+from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 
 
 class Centro_de_salud:
@@ -61,6 +67,14 @@ class Centro_de_salud:
         self.tel_contacto = tel_contacto.strip()
         self.cirujanos = []
         self.vehiculos = []
+        
+        self.especialistas =[]
+        self.generales =[]
+        
+        self.ambulancias=[]
+        self.aviones=[]
+        self.helicopteros=[]
+        
         self.coords = None
 
     def direccion_completa(self):
@@ -89,10 +103,32 @@ class Centro_de_salud:
     def agregar_cirujano(self, cirujano):
         if cirujano not in self.cirujanos:
             self.cirujanos.append(cirujano)
+    
+    def agregar_cirujano_especialista(self, cirujano: Especialista):
+        if cirujano not in self.especialistas:
+            self.especialistas.append(cirujano)
+    
+    def agregar_cirujano_general(self, cirujano: General):
+        if cirujano not in self.especialistas:
+            self.generales.append(cirujano)
+    
             
     def agregar_vehiculo(self, vehiculo):
         if vehiculo not in self.vehiculos:
             self.vehiculos.append(vehiculo)
+    
+    def agregar_ambulancia(self, vehiculo: Ambulancia):
+        if vehiculo not in self.ambulancias:
+            self.ambulancias.append(vehiculo)
+    
+            
+    def agregar_avion(self, vehiculo: Avion):
+        if vehiculo not in self.aviones:
+            self.aviones.append(vehiculo)
+
+    def agregar_helicoptero(self, vehiculo: Helicoptero):
+        if vehiculo not in self.helicoptero:
+            self.helicoptero.append(vehiculo)
             
     def seleccionar_vehiculo(self, centro_destino):
         if not self.vehiculos:
@@ -230,33 +266,3 @@ class Centro_de_salud:
             return False
         return (self.nombre_cs == otro.nombre_cs and 
                 self.direccion == otro.direccion)
-
-''' 
-def main():
-    #Lista de centros habilitados por el INCUCAI:
-    centros = [cs1, cs2, cs3, cs4, cs5, cs6, cs9, cs10, cs12, cs13, cs19, cs20, cs22, cs23, cs24, cs25, cs27, cs28] #cs7, cs8, cs11, cs14, cs15, cs16, cs17, cs18, cs21, cs25, cs26, cs27, cs28] 
-
-    for centro in centros:
-        print(f"\n📍 {centro.nombre_cs}")
-        print(f"Dirección completa: {centro.direccion_completa()}")
-        location = centro.geolocalizar_direccion(geolocator)
-        if location:
-            print(f"🔢 Coordenadas: ({location.latitude}, {location.longitude})")
-        else:
-            print("⚠️ No se pudo obtener coordenadas.")
-        time.sleep(1)
-
-    
-    try:
-        distancia_km = cs1.calcular_distancia_a(cs2)
-        print(f"\n Distancia entre {cs1.nombre_cs} y {cs2.nombre_cs}: {distancia_km:.2f} km")
-    except ValueError as e:
-        print(f"⚠️ Error al calcular distancia: {e}")
-
-    nombres = nombrar_centros(centros)
-    print("\n📝 Nombres de centros:")
-    for nombre in nombres:
-        print(f"✔️ {nombre}")
-    
-    return centros
-    '''

@@ -2,10 +2,6 @@
 Alonso Victoria
 Pfeifer Zoe
 
-TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. SIMULACION SIST. DONACION DE ORGANOS
-El INCUCAI se encarga de la coordinación y logística de la donación de tejidos y órganos: Consta de una lista de receptores, 
-una lista de donantes y una lista de centros de salud habilitados.
-
 El Sistema tiene que permitir:
     -Registrar pacientes nuevos (Validando que no se encuentre en otra lista ni se repita).
     -Quitar de la lista de donantes a aquellos cuyos organos ya han sido utilizados en su totalidad.
@@ -16,17 +12,12 @@ El Sistema tiene que permitir:
     -Realizar correctamente todo el proceso de asignación y derivación de un organo a un receptor,
     contemplando el viaje, la disponibilidad en ese horario de los vehiculos de un centro medico y el tiempo de viaje.
 
-El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa.
+El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa:
     Si el paciente es donante, al ser ingresado se lo agrega a la lista de pacientes donantes.
-    Luego se busca los posibles receptores para cada órgano que el donante puede donar, 
-    para esto se busca en su lista de pacientes receptores todos los pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. 
-    Finalmente, se elige el receptor, en función a la prioridad del paciente (si tienen la misma prioridad elige al que tiene una fecha anterior de
-    ingreso a la lista de espera). En tal caso, se envia el organo correspondiente a la ubicación del paciente
-    receptor y se quita de la lista de donantes la disponibilidad de ese organo para ese donante en particular. Si el
-    paciente es receptor, se lo agrega a la lista de pacientes receptores, y se busca si hay alguna coincidencia en
-    la lista de donantes. De haberlo se despacha el organo para el receptor, actualizando de igual manera la lista
-    de donantes.
-    
+    Luego se busca los posibles receptores para cada órgano que el donante puede donar, para esto se busca en su lista de pacientes receptores todos los pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. 
+    Finalmente, se elige el receptor, en función a la prioridad del paciente (si tienen la misma prioridad elige al que tiene una fecha anterior de ingreso a la lista de espera). En tal caso, se envia el organo correspondiente a la ubicación del paciente
+    receptor y se quita de la lista de donantes la disponibilidad de ese organo para ese donante en particular. Si el paciente es receptor, se lo agrega a la lista de pacientes receptores, y se busca si hay alguna coincidencia en
+    la lista de donantes. De haberlo se despacha el organo para el receptor, actualizando de igual manera la lista de donantes.  
 '''
 #Importaciones de librerias estandar:
 from geopy.geocoders import Nominatim
@@ -316,6 +307,9 @@ class Incucai:
         for r in sorted(receptores_centro, key=lambda r: r.fecha_list_esp):
             print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, Estado: {r.estado}, Órganos: {', '.join(r.org_recib)})")
             return
+
+    
+        
 #-------------------------------------------------------------------FIN DE IMPRESIONES----------------------------------------------------------------------------------
 
 #------------------------------------------------------INICIO DE BUSQUEDAS, ORDENAMIENTOS Y VALIDACIONES-------------------------------------------------------------------------------
@@ -659,7 +653,6 @@ class Incucai:
         else:
             print("Seleccione un numero dentro de las opciones.")
 
-
 #------------------------------------------------------------------------FIN DE LOGICA DE DONACION-------------------------------------------------------------------------------
 #------------------------------------------------------------------------INICIO METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------
     def compatibilidad_2_pacientes(self):
@@ -743,9 +736,75 @@ class Incucai:
                     print("❌ Selección fuera de rango. Intente de nuevo.")
             else:
                 print("❌ Entrada inválida. Por favor, ingrese un número.")
+
+    def mostrar_info_centro_salud(self):
+        nombre_centro = input("\nIngrese el nombre del centro de salud: ").strip()
+        centro = self.buscar_centro_por_nombre(nombre_centro)
+        if not centro:
+            print(f"❌ Centro de salud '{nombre_centro}' no encontrado.")
+            return
+
+        print(f"\n🏥 Información del Centro: {centro.nombre_cs}")
+        print(f"📍 Dirección: {centro.direccion_completa()}")
+        
+        if centro.coords:
+            print(f"🌐 Coordenadas: {centro.geolocalizar_direccion()}")
+        else:
+            print("🌐 Coordenadas: No geolocalizado.")
+
+        # Vehículos
+        print(f"\n🚑 Vehículos disponibles de {centro.nombre_cs}:")
+        print(f"\nAmbulancias de {centro.cs_nombre}")
+        if centro.ambulancias:
+            for a in centro.ambulancias:
+                print(f" - {a} (Patente: {a.patente}")
+        else:
+            print("🚫 No hay ambulancias registradas en este centro.")
+        
+        print(f"\nAviones de {centro.cs_nombre}")
+        if centro.aviones:
+            for av in centro.aviones:
+                print(f" - {av} (Patente: {av.patente}")
+        else:
+            print("🚫 No hay aviones registradas en este centro.")
+        
+        print(f"\nHelicopteros de {centro.nombre_cs}")
+        if centro.helicopteros:
+            for h in centro.helicopteros:
+                print(f" - {h} (Patente: {h.patente}")
+        else:
+            print("🚫 No hay helicopteros registradas en este centro.")
+        print(f"\nAmbulancias disponibles: {len(centro.ambulancias)}")
+        print(f"\nAviones disponibles: {len(centro.aviones)}")
+        print(f"\nHelicopteros disponibles: {len(centro.helicopteros)}")
+                
+
+        # Cirujanos
+        print(f"\n🚑 Cirujanos disponibles de {centro.nombre_cs}:")
+        if centro.generales:
+            print(f"\n🩺 Cirujanos generales de {centro.nombre_cs}:")
+            for g in centro.generales:
+                print(f" - {g.nombre}")
+        else:
+            print("🛑 No hay cirujanos generales registrados en este centro.")
+        if centro.especialistas:
+            print(f"\n🩺 Cirujanos especialistas de {centro.nombre_cs}:")
+            for e in centro.especialistas:
+                print(f" - {e.nombre}")
+        else:
+            print("🛑 No hay cirujanos especialistas registrados en este centro.")
+        print(f"\nCirujanos especialistas: {len(centro.especialistas)}")
+        print(f"\nCirujanos generales: {len(centro.generales)}")
+        return
+
+    def informacion_incucai(self):
+        print("\nInformacion sobre INCUCAI:")
+        print(f"\nDONANTES REGISTRADOS: {len(self.donantes)}")
+        print(f"\nRECEPTORES REGISTRADOS: {len(self.receptores)}")
+        print(f"\nCENTROS REGISTRADOS: {len(self.centro)}")
+        'agregar info sobre cirujanos y transplantes realizados'
+        
 #------------------------------------------------------------------------FIN DE METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------
-
-
 #------------------------------------------------------------------------INICIO METODOS PARA CARGA MANUAL--------------------------------------------------------------------------------------
     def pedir_datos_basicos_paciente(self):
         """

@@ -50,14 +50,15 @@ def menu ():
         print("\n5- Ver lista de receptores")
         print("\n6- Ver lista de centros de salud")
         print("\n7- Ver lista de espera de receptores en orden")
-        print("\n8- Iniciar protocolo de transplante")
+        print("\n8- Iniciar protocolo de transplante") #perfeccionar --> !!
         print("\n9- Buscar informacion de un paciente por DNI")
         print("\n10- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
         print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
-        print("\n12- Donacion especifica entre un donante y un receptor por DNI") #faltan implementar
-        print("\n13- Distribucion completa de todos mis organos cargados")
+        print("\n12- Donacion especifica entre un donante y un receptor por DNI") 
+        print("\n13- Distribucion completa y automatica de todos mis organos cargados") #faltan implementar --> !!!
         print("\n14- Revisar compatibilidad entre 2 pacientes especificos")
-        print("\n15- Imprimir informacion sobre un centro de salud")
+        print("\n15- Imprimir informacion sobre un centro de salud") 
+        print("\n16- Informacion sobre INCUCAI")
         print("\n0- Cerrar programa")
         
         opcion = int(input("Seleccione una opcion: "))
@@ -147,6 +148,21 @@ def menu ():
         elif opcion == 12:
             print("\nDonacion especifica entre donante y receptor:")
             incucai.donar_organo_de_donante_a_receptor_especifico()
+        
+        elif opcion ==13:
+            print("\nAsignaciones automaticas de paciente cargados:")
+        
+        elif opcion == 14:
+            print ("\nCompatibilidades entre 2 pacientes elegidos:")
+            incucai.compatibilidad_2_pacientes()
+        
+        elif opcion ==15:
+            print ("\nINFORMACION DE CENTRO:")
+            incucai.mostrar_info_centro_salud()
+            
+        elif opcion ==16:
+            print("\nInformacion sobre INCUCAI:")
+            incucai.informacion_incucai()
             
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")

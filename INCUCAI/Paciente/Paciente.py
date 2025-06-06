@@ -19,28 +19,6 @@ class Paciente (ABC):
     
     def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2):
         
-        if DNI in Paciente.pacientes_registrados:
-            raise ValueError(f"Ya existe un paciente con DNI {DNI}")
-        
-        if not nombre or not nombre.strip():
-            raise ValueError("El nombre no puede estar vacío")
-        
-        if not isinstance(DNI, (int, str)) or len(str(DNI)) < 7:
-            raise ValueError("DNI debe tener al menos 7 dígitos")
-        
-        if sexo.upper() not in ['M', 'F']:
-            raise ValueError("Sexo debe ser 'M', 'F'")
-        tipos_sangre_validos = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
-        
-        if tipo_sangre not in tipos_sangre_validos:
-            raise ValueError(f"Tipo de sangre '{tipo_sangre}' no válido. Debe ser uno de: {tipos_sangre_validos}")
-        
-        if not telefono or not telefono.strip():
-            raise ValueError("El teléfono no puede estar vacío")
-        
-        if fecha_nac > date.today():
-            raise ValueError("La fecha de nacimiento no puede ser futura")
-        
         self.nombre = nombre
         self.DNI = DNI
         self.fecha_nac = fecha_nac
@@ -51,7 +29,6 @@ class Paciente (ABC):
         self.centro = centro
         self.que_es = que_es.lower()
         
-        #self.lista_pacientes=[] 
         self.hla_a1=hla_a1
         self.hla_a2=hla_a2
         self.hla_b1=hla_b1
@@ -84,9 +61,6 @@ class Paciente (ABC):
         print(f"HLA: A({self.hla_a1}/{self.hla_a2}) B({self.hla_b1}/{self.hla_b2}) DR({self.hla_dr1}/{self.hla_dr2})")
         print (f"\nSexo: {self.sexo}")
         print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")
-
-    def __str__(self):
-        return f"{self.que_es.capitalize()} - {self.nombre} (DNI: {self.DNI})"
     
     def __eq__(self, other):
         return isinstance(other, Paciente) and self.DNI == other.DNI
