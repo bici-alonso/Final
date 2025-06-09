@@ -754,14 +754,14 @@ class Incucai:
 
         # Vehículos
         print(f"\n🚑 Vehículos disponibles de {centro.nombre_cs}:")
-        print(f"\nAmbulancias de {centro.cs_nombre}")
+        print(f"\nAmbulancias de {centro.nombre_cs}")
         if centro.ambulancias:
             for a in centro.ambulancias:
                 print(f" - {a} (Patente: {a.patente}")
         else:
             print("🚫 No hay ambulancias registradas en este centro.")
         
-        print(f"\nAviones de {centro.cs_nombre}")
+        print(f"\nAviones de {centro.nombre_cs}")
         if centro.aviones:
             for av in centro.aviones:
                 print(f" - {av} (Patente: {av.patente}")
@@ -1058,6 +1058,13 @@ class Incucai:
                     return datetime.strptime(fecha, "%Y/%m/%d")
                 except ValueError:
                     print("Fecha inválida. Use formato yyyy/mm/dd.")
+                    
+        elif validacion == 'que_es'
+            while True:
+                que_es = input (" Que tipo de paciente es? DONANTE O RECEPTOR").strip().lower()
+                if que_es in ["receptor","donante"]:
+                    return que_es
+                print ("Tipo de paciente invalido. Opciones validas: receptor / donante")
     
     def carga_manual_donante_nuevo(self):
         '''

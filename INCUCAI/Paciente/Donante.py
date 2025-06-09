@@ -1,7 +1,8 @@
-from .Paciente import *
 from datetime import datetime, date
-from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Organos.Organo import Organo
+from INCUCAI.Paciente.Paciente import Paciente
+from INCUCAI.Paciente.Receptor import Receptor
+
 
 class Donante(Paciente):
     lista_donantes = []  
@@ -40,7 +41,8 @@ class Donante(Paciente):
                 - El número de coincidencias (máximo 6)
                 - El total posible de coincidencias (siempre 6)
         """
-        matchs = 0, total=6
+        matchs = 0
+        total=6
         #compara genoma A:
         if self.hla_a1 in [otro_paciente.hla_a1, otro_paciente.hla_a2]:
             matchs += 1
@@ -89,8 +91,8 @@ class Donante(Paciente):
         organos = [organo.tipo for organo in self.lista_organos]
         return f"Donante: {self.nombre}, DNI: {self.DNI}, Órganos: {','.join(organos)}, Sangre: {self.tipo_sangre}"
     
-    @classmethod
+    '''@classmethod
     def agregar(cls, donante):
         cls.lista_donantes.append(donante)
-    
+    '''
     

@@ -161,7 +161,6 @@ def menu ():
             incucai.mostrar_info_centro_salud()
             
         elif opcion ==16:
-            print("\nInformacion sobre INCUCAI:")
             incucai.informacion_incucai()
             
         elif opcion == 0:
