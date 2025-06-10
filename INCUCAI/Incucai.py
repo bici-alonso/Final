@@ -35,6 +35,7 @@ from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
 from Testing import *
+import traceback
 
 
 
@@ -83,6 +84,8 @@ class Incucai:
         self.cirujano = []
         self.generales = []
         self.especialistas = []
+        
+        
         
     def centros(self):
         """
@@ -229,32 +232,52 @@ class Incucai:
         return (cirujano, len(self.cirujano), len(self.especialistas))
     
     def crear_objetos_prueba(self):
-        lista_pacientes_test = creacion_pacientes()
+
+        try:
+            print("\n-----------------------   Buscando pacientes anteriores...   -----------------------")
+            lista_pacientes_test = creacion_pacientes()
+            
+            lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
+            lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
+            
+            print("\n-----------------------   Iniciando registro de donantes anteriores...   -----------------------")
+            for i, donante in enumerate(lista_donantes_test):
+                print(f"{i} Registrando donante DNI: {donante.DNI}")
+                self.registrar_donante(donante)
+                print(f"Donante registrado")
+            
+            print("\n-----------------------    Iniciando registro de receptores anteriores...    -----------------------")
+            for i, receptor in enumerate(lista_receptores_test):
+                print(f"{i} Registrando receptor DNI: {receptor.DNI}")
+                self.registrar_receptor(receptor)
+                print(f"Receptor registrado")
+                
+            print(f"\nTOTAL donantes: {len(self.donantes)}")
+            print(f"TOTAL receptores: {len(self.receptores)}")
+        
+        except Exception as e:
+            print(f"ERROR CAPTURADO: {e}")
+            
+            traceback.print_exc()
+        
         lista_aviones_test = creacion_aviones()
         lista_ambulancias_test = creacion_ambulancias ()
         lista_helicoptero_test = creacion_helicoptero ()
         lista_cirujanos_generales_test = creacion_cirujanos_generales()
         lista_cirujanos_especialistas_test = creacion_cirujanos_especialistas()
-        lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
-        lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
-            
-        for donante in lista_donantes_test:
-                self.registrar_donante(donante)
-        for receptor in lista_receptores_test:
-                self.registrar_receptor(receptor)
-        for vehiculo in lista_aviones_test:
-                self.registrar_avion(vehiculo)
-        for vehiculo in lista_ambulancias_test:
-                self.registrar_ambulancia(vehiculo) 
-        for vehiculo in lista_helicoptero_test:
-                self.registrar_helicoptero(vehiculo)           
-        for cirujano in lista_cirujanos_generales_test:
-                self.registrar_cirujano_general(cirujano)   
-        for cirujano in lista_cirujanos_especialistas_test:
-                self.registrar_cirujano_especialista(cirujano)
-            
-        return 
         
+        for vehiculo in lista_aviones_test:
+            self.registrar_avion(vehiculo)
+        for vehiculo in lista_ambulancias_test:
+            self.registrar_ambulancia(vehiculo) 
+        for vehiculo in lista_helicoptero_test:
+            self.registrar_helicoptero(vehiculo)           
+        for cirujano in lista_cirujanos_generales_test:
+            self.registrar_cirujano_general(cirujano)   
+        for cirujano in lista_cirujanos_especialistas_test:
+            self.registrar_cirujano_especialista(cirujano)
+        
+        return        
 #-------------------------------------------------------------------FIN DE REGISTROS----------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------INICIO IMPRESIONES----------------------------------------------------------------------------------

@@ -108,7 +108,7 @@ def menu ():
             else:
                 print("❌ Paciente no encontrado.")
         
-        elif opcion == 10: #funciona
+        elif opcion == 10: #ERROR
             print("\n📍 Centros de salud disponibles:")
             incucai.mostrar_centros_salud()
             
@@ -132,10 +132,10 @@ def menu ():
             print("\nDonacion especifica entre donante y receptor:")
             incucai.donar_organo_de_donante_a_receptor_especifico()
         
-        elif opcion ==13:
+        elif opcion ==13: #implementar
             print("\nAsignaciones automaticas de paciente cargados:")
         
-        elif opcion == 14:
+        elif opcion == 14: #funciona
             print ("\nCompatibilidades entre 2 pacientes elegidos:")
             incucai.compatibilidad_2_pacientes()
         
@@ -143,7 +143,7 @@ def menu ():
             print ("\nINFORMACION DE CENTRO:")
             incucai.mostrar_info_centro_salud()
             
-        elif opcion ==16:
+        elif opcion ==16: #funciona
             incucai.informacion_incucai()
             
         elif opcion == 0:

@@ -38,12 +38,7 @@ def creacion_pacientes ():
             rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "23", "30", "35", "44", "13", "17", "riñón", date(2023, 12, 11), "nefropatía", "estable")
             rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "23", "31", "35", "44", "19", "10", "hígado", date(2024, 5, 9), "insuficiencia hepática", "estable")
             '''    
-        return {
-        "dpaciente1": dpaciente1,
-        "dpaciente2": dpaciente2,
-        "rpaciente11": rpaciente11,
-        "rpaciente12": rpaciente12
-        }
+        return [dpaciente1, dpaciente2, rpaciente11, rpaciente12]
     
 def creacion_cirujanos_especialistas():
             especialista1 = Especialista("Juan", "Hospital Italiano de La Plata", "gastroenterologo")
