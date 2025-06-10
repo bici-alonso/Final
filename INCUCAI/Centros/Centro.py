@@ -128,7 +128,7 @@ class Centro_de_salud:
 
     def agregar_helicoptero(self, vehiculo: Helicoptero):
         if vehiculo not in self.helicoptero:
-            self.helicoptero.append(vehiculo)
+            self.helicopteros.append(vehiculo)
             
     def seleccionar_vehiculo(self, centro_destino):
         if not self.vehiculos:

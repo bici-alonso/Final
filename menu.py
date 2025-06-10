@@ -61,40 +61,23 @@ def menu ():
         print("\n16- Informacion sobre INCUCAI")
         print("\n0- Cerrar programa")
         
-        opcion = int(input("Seleccione una opcion: "))
+        
+        
+        try:
+            opcion = int(input("Seleccione una opción: "))
+        except ValueError:
+            print("❌ Entrada inválida. Por favor ingrese un número entero.")
+            continue  # vuelve a mostrar el menú
         
         if opcion == 1: #revisar si funciona
-            lista_pacientes_test = creacion_pacientes()
-            lista_aviones_test = creacion_aviones()
-            lista_ambulancias_test = creacion_ambulancias ()
-            lista_helicoptero_test = creacion_helicoptero ()
-            lista_cirujanos_generales_test = creacion_cirujanos_generales()
-            lista_cirujanos_especialistas_test = creacion_cirujanos_especialistas()
-            lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
-            lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
+            incucai.crear_objetos_prueba()
             
-            for donante in lista_donantes_test:
-                incucai.registrar_donante(donante)
-            for receptor in lista_receptores_test:
-                incucai.registrar_receptor(receptor)
-            for vehiculo in lista_aviones_test:
-                incucai.registrar_avion(vehiculo)
-            for vehiculo in lista_ambulancias_test:
-                incucai.registrar_ambulancia(vehiculo) 
-            for vehiculo in lista_helicoptero_test:
-                incucai.registrar_helicoptero(vehiculo)           
-            for cirujano in lista_cirujanos_generales_test:
-                incucai.registrar_cirujano_general(cirujano)   
-            for cirujano in lista_cirujanos_especialistas_test:
-                incucai.registrar_cirujano_especialista(cirujano)
-
-            print("Pacientes de prueba agregados con éxito...")
                 
         elif opcion == 2: #funciona
-            incucai.carga_manual_receptor_nuevo()
-            
-        elif opcion == 3: #funciona
             incucai.carga_manual_donante_nuevo()
+            
+        elif opcion == 3: #FUNCIONA --> REVISAR VALIDACIONES
+            incucai.carga_manual_receptor_nuevo()
                 
         elif opcion == 4: #funciona
             print("\n--------------------   DONANTES REGISTRADOS EN INCUCAI:  ---------------")
@@ -167,5 +150,5 @@ def menu ():
             print("\n¡Gracias por utilizar el programa!")
             break
         
-        else:
+        else: #este else no contempla caracteres no numericos
             print("\nOpcion no valida. Seleccione una de las opciones enlistadas")

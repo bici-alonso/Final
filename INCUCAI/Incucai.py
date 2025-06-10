@@ -34,6 +34,7 @@ from INCUCAI.Vehiculo.Avion import Avion
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
+from Testing import *
 
 
 
@@ -226,6 +227,33 @@ class Incucai:
         self.especialistas.append(cirujano)
         centro.agregar_cirujano(cirujano)
         return (cirujano, len(self.cirujano), len(self.especialistas))
+    
+    def crear_objetos_prueba(self):
+        lista_pacientes_test = creacion_pacientes()
+        lista_aviones_test = creacion_aviones()
+        lista_ambulancias_test = creacion_ambulancias ()
+        lista_helicoptero_test = creacion_helicoptero ()
+        lista_cirujanos_generales_test = creacion_cirujanos_generales()
+        lista_cirujanos_especialistas_test = creacion_cirujanos_especialistas()
+        lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
+        lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
+            
+        for donante in lista_donantes_test:
+                self.registrar_donante(donante)
+        for receptor in lista_receptores_test:
+                self.registrar_receptor(receptor)
+        for vehiculo in lista_aviones_test:
+                self.registrar_avion(vehiculo)
+        for vehiculo in lista_ambulancias_test:
+                self.registrar_ambulancia(vehiculo) 
+        for vehiculo in lista_helicoptero_test:
+                self.registrar_helicoptero(vehiculo)           
+        for cirujano in lista_cirujanos_generales_test:
+                self.registrar_cirujano_general(cirujano)   
+        for cirujano in lista_cirujanos_especialistas_test:
+                self.registrar_cirujano_especialista(cirujano)
+            
+        return 
         
 #-------------------------------------------------------------------FIN DE REGISTROS----------------------------------------------------------------------------------
 
@@ -834,6 +862,8 @@ class Incucai:
         datos['hla_b2'] = self.validaciones('antigeno-B2')
         datos['hla_dr1'] = self.validaciones('antigeno-DR1')
         datos['hla_dr2'] = self.validaciones('antigeno-DR2')
+        
+
         return datos   
     
     def validaciones (self, validacion):
@@ -943,7 +973,7 @@ class Incucai:
 
         elif validacion== "antigeno-B2":
             while True:
-                    hla_B2 = input("   Ingrese Antígeno A2 para HLA: ").strip().upper()
+                    hla_B2 = input("Ingrese Antígeno A2 para HLA: ").strip().upper()
                     if 2 <= len(hla_B2) <= 6:
                         if any(c.isdigit() for c in hla_B2):
                             return hla_B2
@@ -953,7 +983,7 @@ class Incucai:
         
         elif validacion == 'antigeno-DR1':
             while True:
-                    hla_DR1 = input("   Ingrese Antígeno DR1 para HLA: ").strip().upper()
+                    hla_DR1 = input("Ingrese Antígeno DR1 para HLA: ").strip().upper()
                     if 2 <= len(hla_DR1) <= 6:
                         if any(c.isdigit() for c in hla_DR1):
                             return hla_DR1
@@ -963,7 +993,7 @@ class Incucai:
         
         elif validacion == 'antigeno-DR2':
             while True:
-                    hla_DR2 = input("   Ingrese Antígeno DR2 para HLA: ").strip().upper()
+                    hla_DR2 = input("Ingrese Antígeno DR2 para HLA: ").strip().upper()
                     if 2 <= len(hla_DR2) <= 6:
                         if any(c.isdigit() for c in hla_DR2):
                             return hla_DR2
@@ -1019,6 +1049,26 @@ class Incucai:
                 except ValueError:
                     print("Hora inválida. Use formato HH:MM.")
 
+        elif validacion == 'hora_ablacion':
+            while True:
+                hora_ablacion = input("Hora de ablacion (HH:MM): ").strip()
+                try:
+                    return datetime.strptime(hora_ablacion, "%H:%M").time()
+                except ValueError:
+                    print("Hora inválida. Use formato HH:MM.")
+            
+        elif validacion == 'fecha_ablacion':    
+            while True:
+                fecha_ablacion = input("Fecha de ablacion (yyyy/mm/dd): ").strip()
+                try:
+                    fecha_obj = datetime.strptime(fecha_ablacion, "%Y/%m/%d")
+                    if fecha_obj > datetime.now():
+                        print("La fecha de ablacion no puede ser futura.")
+                        continue
+                    return fecha_obj
+                except ValueError:
+                    print("Fecha inválida. Use formato yyyy/mm/dd.")
+            
         elif validacion == 'organos_a_donar':
             print("   Ingrese los órganos a donar (separados por coma):")
             while True:
@@ -1030,7 +1080,7 @@ class Incucai:
 
         elif validacion == 'patologia':
             while True:
-                patologia = input("   Ingrese la patología del receptor: ").strip()
+                patologia = input("Ingrese la patología del receptor: ").strip()
                 if len(patologia) >= 3:
                     return patologia
                 print("Patología inválida.")
@@ -1038,7 +1088,7 @@ class Incucai:
         elif validacion == 'organos_a_recibir':
             print("Ingrese los órganos que necesita (separados por coma):")
             while True:
-                entrada = input("   Ej: riñón, hígado: ").strip()
+                entrada = input("Ej: riñón, hígado: ").strip()
                 organos = [o.strip().lower() for o in entrada.split(',') if o.strip()]
                 if organos:
                     return organos
@@ -1059,7 +1109,7 @@ class Incucai:
                 except ValueError:
                     print("Fecha inválida. Use formato yyyy/mm/dd.")
                     
-        elif validacion == 'que_es'
+        elif validacion == 'que_es':
             while True:
                 que_es = input (" Que tipo de paciente es? DONANTE O RECEPTOR").strip().lower()
                 if que_es in ["receptor","donante"]:
@@ -1078,16 +1128,26 @@ class Incucai:
         Return:
             -donante_nuevo: Donante, longitud array de donantes: int
         '''
-        print("\nSeleccionó la carga manual de un nuevo paciente del tipo donante...")
+        print("\nSeleccionó la carga manual de un nuevo paciente del tipo donante. Esta funcion es valida para donantes fallecidos. Se tomara la fecha de la ablacion general.")
         print("\n --- DONANTE NUEVO: --- ")
         paciente_nuevo_base = self.pedir_datos_basicos_paciente()
         print("\n -Datos extra de donante:")
         datos_donante = {}
-        datos_donante['estado_donante'] = self.validaciones('estado_donante')
+        
         datos_donante['fecha_fall'] = self.validaciones('fecha_fall')
         datos_donante['hora_fall'] = self.validaciones('hora_fall')
-        datos_donante['organos_a_donar'] = self.validaciones('organos_a_donar')
+        #datos_donante['lista_organos'] = self.validaciones('organos_a_donar')
+        datos_donante['hora_ablacion'] = self.validaciones('hora_ablacion')
+        datos_donante['fecha_ablacion']=self.validaciones('fecha_ablacion')
+        
+        paciente_nuevo_base['que_es'] = 'donante'
+        datos_donante['estado_donante']='muerto'
+        
+        
+        datos_donante['lista_organos'] = Organo.organos_validos.copy()
+        
         datos_completos = {**paciente_nuevo_base, **datos_donante}
+        
         donante_nuevo = Donante(**datos_completos)
         self.donantes.append(donante_nuevo)
         print(f"\n-Donante: {donante_nuevo.nombre} cargado exitosamente.")
@@ -1107,6 +1167,7 @@ class Incucai:
         '''
         print ("\nSeleccionó la carga manual de un nuevo paciente del tipo receptor...") #--> opcion en el menu
         print("\n --- RECEPTOR NUEVO: --- ")
+        
         paciente_nuevo_base=self.pedir_datos_basicos_paciente()
         print("\n -Datos extra de receptor:")
         datos_receptor={}
@@ -1114,6 +1175,10 @@ class Incucai:
         datos_receptor['fecha_list_esp']=self.validaciones('lista_espera')   
         datos_receptor['patologia']=self.validaciones('patologia')
         datos_receptor['estado'] = self.validaciones('estado') 
+        
+        paciente_nuevo_base['que_es'] = 'receptor'
+        
+        
         datos_completos = {**paciente_nuevo_base, **datos_receptor}
         print(datos_completos)
         receptor_nuevo = Receptor(**datos_completos)

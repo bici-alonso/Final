@@ -1,7 +1,6 @@
-from INCUCAI.Incucai import Incucai
+
 from INCUCAI.Paciente.Donante import Donante
 from INCUCAI.Organos.Organo import Organo
-from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Avion import Avion

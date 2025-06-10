@@ -9,10 +9,24 @@ from datetime import datetime, timedelta
 
 class Organo:
     #organos válidos (sin acentos)
-    organos_validos = [
-        "corazon", "higado", "pancreas", "huesos", "riñon", "rinon", "rinion",
-        "pulmones", "intestino", "piel", "corneas"
-    ]
+    
+    
+    organos_validos = {
+        "corazon": "corazón",
+        "higado": "hígado",
+        "pancreas": "páncreas",
+        "huesos": "huesos",
+        "riñon": "riñón",
+        "rinon": "riñón",
+        "rinion": "riñón",
+        "pulmones": "pulmones",
+        "pulmon": "pilmones",
+        "intestino": "intestino",
+        "piel": "piel",
+        "corneas": "córneas"
+    }
+    
+    
     #vida util de cada organo post ablacion
     
     tiempos_conservacion = {
