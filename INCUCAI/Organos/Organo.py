@@ -137,3 +137,6 @@ class Organo:
                         print("Estado: NO VIABLE para trasplante")
         else:
             print("No se ha registrado aún una fecha y hora de ablación.")
+
+    def __str__(self):
+        return self.organos_validos.get(self.tipo, self.tipo).capitalize()

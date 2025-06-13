@@ -100,10 +100,10 @@ def menu ():
             incucai.pedir_receptor_para_realizar_transplante()
 
         elif opcion == 9: #funciona
-            dni = int(input("\nIngrese DNI del paciente a buscar: "))
+            dni = incucai.pedir_dni()
             paciente = incucai.buscar_paciente_por_dni(dni)
             if paciente:
-                print("\n Datos del paciente encontrados: \n")
+                print("\n✅ Datos del paciente encontrados: \n")
                 print(paciente)
             else:
                 print("❌ Paciente no encontrado.")
@@ -120,7 +120,7 @@ def menu ():
                 print("❌ El centro ingresado no está registrado. Verifique el nombre exacto.")
         
         elif opcion == 11: #funciona
-            dni_receptor = input("\nIngrese DNI del receptor a buscar: ").strip()
+            dni_receptor = incucai.pedir_dni("receptor")
             receptor = incucai.buscar_receptor_por_dni(dni_receptor)
             if receptor:
                 print("\n✅ Datos del paciente encontrados:\n")

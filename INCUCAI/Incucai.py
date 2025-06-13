@@ -379,6 +379,13 @@ class Incucai:
                 return p 
         return None
     
+    def pedir_dni(self, tipo="paciente"):
+        while True:
+            dni = input(f"\nIngrese el DNI del {tipo}: ").strip()
+            if dni.isdigit() and 7 <= len(dni) <= 8:
+                return int(dni)
+            print("❌ DNI inválido. Debe tener 7 u 8 dígitos numéricos.")
+        
     def paciente_existente(self, dni: int) -> bool:
         """
         Verifica si ya existe un paciente (donante o receptor) registrado con el DNI dado.
@@ -734,12 +741,8 @@ class Incucai:
     def donar_organo_de_donante_a_receptor_especifico(self):
         print("\n➡️ Donación dirigida: Donar un órgano específico de un donante a un receptor.")
 
-        try:
-            dni_donante = int(input("Ingrese el DNI del donante: "))
-            dni_receptor = int(input("Ingrese el DNI del receptor: "))
-        except ValueError:
-            print("❌ Entrada inválida. DNI debe ser numérico.")
-            return
+        dni_donante = self.pedir_dni("donante")
+        dni_receptor = self.pedir_dni("receptor")
 
         donante = self.buscar_paciente_por_dni(dni_donante)
         receptor = self.buscar_paciente_por_dni(dni_receptor)
@@ -748,7 +751,7 @@ class Incucai:
             print("❌ Donante no encontrado o inválido.")
             return
 
-        if donante.estado_donante != 'vivo':
+        if donante.estado_donante.lower() != 'vivo':
             print(f"❌ El donante {donante.nombre} no está en estado 'vivo'.")
             return
 
@@ -772,8 +775,7 @@ class Incucai:
                 if 1 <= seleccion <= len(donante.lista_organos):
                     organo_elegido = donante.lista_organos[seleccion - 1]
 
-                    # Validar compatibilidad
-                    if organo_elegido.lower() in receptor.org_recib:
+                    if organo_elegido.tipo in receptor.org_recib:
                         if self.compatibilidad(donante, receptor):
                             self.procesar_asignacion(donante, receptor, organo_elegido)
                             return
@@ -996,7 +998,7 @@ class Incucai:
 
         elif validacion== "antigeno-B2":
             while True:
-                    hla_B2 = input("Ingrese Antígeno A2 para HLA: ").strip().upper()
+                    hla_B2 = input("Ingrese Antígeno B2 para HLA: ").strip().upper()
                     if 2 <= len(hla_B2) <= 6:
                         if any(c.isdigit() for c in hla_B2):
                             return hla_B2
@@ -1043,7 +1045,7 @@ class Incucai:
                         continue
                     return fecha
                 except ValueError:
-                    print("Formato  de fecha invalido. Use dd/mm/yyyy.")
+                    print("Formato  de fecha invalido. Use yyyy/mm/dd.")
         
         elif validacion == 'estado_donante':
             while True:
@@ -1128,7 +1130,7 @@ class Incucai:
             while True:
                 fecha = input("   Fecha de ingreso a lista de espera (yyyy/mm/dd): ").strip()
                 try:
-                    return datetime.strptime(fecha, "%Y/%m/%d")
+                    return datetime.strptime(fecha, "%Y/%m/%d").date()
                 except ValueError:
                     print("Fecha inválida. Use formato yyyy/mm/dd.")
                     
