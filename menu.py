@@ -73,7 +73,7 @@ def menu ():
             incucai.crear_objetos_prueba()
             
                 
-        elif opcion == 2: #funciona
+        elif opcion == 2: #funcionas
             incucai.carga_manual_donante_nuevo()
             
         elif opcion == 3: #FUNCIONA --> REVISAR VALIDACIONES

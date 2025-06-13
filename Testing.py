@@ -13,32 +13,31 @@ from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
     
 def creacion_pacientes ():
-        dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", date(2025, 5, 20), time(14, 0), time(16, 0), date(2025, 5, 21), ["rinon"], "vivo")
+    #DONANTES:
+        dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", None, None, time(16, 0), date(2025, 5, 21), ["rinon"], "vivo")
         dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Fundacion Favaloro", "Donante", "03", "30", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["rinon", "corazon"], "muerto")
-        
-        '''
-            dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "A-", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"])
-            dpaciente5 = Donante("Sofía Díaz", 47000001, date(1999, 8, 13), "F", "1167890123", "1193456789", "O+", "Hospital Zonal Alvear", "Donante", "24", "32", "07", "44", "11", "17", date(2025, 5, 23), time(9, 30), time(11, 30), date(2025, 5, 24), ["corneas", "corazón"])
-            dpaciente6 = Donante("Matías Herrera", 42234567, date(1988, 3, 30), "M", "1178901234", "1194567890", "A-", "Hospital de Urgencias", "Donante", "22", "30", "31", "54", "13", "17",  date(2025, 5, 21), time(11, 0), time(13, 0), date(2025, 5, 22), ["hígado"])
-            dpaciente7 = Donante("Elena Ríos", 41023456, date(1978, 12, 19), "F", "1189012345", "1195678901", "AB-", "Hospital Papa Francisco", "Donante", "23", "33", "25", "40", "12", "17", date(2025, 5, 19), time(15, 0), time(17, 0), date(2025, 5, 20), ["corneas", "piel"])
-            dpaciente8 = Donante("Diego Luna", 46543210, date(1996, 4, 8), "M", "1190123456", "1196789012", "B-", "Hospital Clemente Alvarez", "Donante", "23", "30", "32", "42", "10", "17", date(2025, 5, 27), time(13, 30), time(15, 30), date(2025, 5, 28), ["corazón", "riñón"])
-            dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"])
-            dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado"])
-            '''
+        dpaciente3=Donante("Juan Perez Rojo", 46583722,date (1999, 6, 21), "M", "011234566", "012345678", "A+", "Fundacion Favaloro", "Donante", "33", "23", "21", "10", "11", "33" , date(2024, 10, 10), time (5, 55), time (7, 21), date(2024, 10, 7), ["pulmones"], "muerto")
+        dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "A-", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"], "muerto")
+        dpaciente5 = Donante("Sofía Díaz", 47000001, date(1999, 8, 13), "F", "1167890123", "1193456789", "O+", "Hospital Zonal Alvear", "Donante", "24", "32", "07", "44", "11", "17", date(2025, 5, 23), time(9, 30), time(11, 30), date(2025, 5, 24), ["corneas", "corazón"], "muerto")
+        dpaciente6 = Donante("Matías Herrera", 42234567, date(1988, 3, 30), "M", "1178901234", "1194567890", "A-", "Hospital de Urgencias", "Donante", "22", "30", "31", "54", "13", "17", None, None, time(13, 0), date(2025, 5, 22), ["hígado"], "vivo")
+        dpaciente7 = Donante("Elena Ríos", 41023456, date(1978, 12, 19), "F", "1189012345", "1195678901", "AB-", "Hospital Papa Francisco", "Donante", "23", "33", "25", "40", "12", "17", None, None, time(17, 0), date(2025, 5, 20), ["corneas", "piel"], "vivo")
+        dpaciente8 = Donante("Diego Suarez", 46543210, date(1996, 4, 8), "M", "1190123456", "1196789012", "B-", "Hospital Clemente Alvarez", "Donante", "23", "30", "32", "42", "10", "17", date(2025, 5, 27), time(13, 30), time(15, 30), date(2025, 5, 28), ["corazón", "riñón"], "vivo")
+        dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"], "muerto")
+        dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado", "pulmones", "huesos"], "muerto")
+        dpaciente11 = Donante("Johnny Laburo", 20498885, date(1970, 9, 12), "M", "34567643", "23456788", "O+", "Clinica Mayo SRL", "Donante", "09", "21", "07", "12", "10", "11", None, None, time(21, 20), date(2025,6, 8), ["huesos"], "vivo")
 
-        rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Fundacion Favaloro", "Receptor", "02", "24", "07", "35", "11", "04", "rinon", date(2024, 6, 1), "insuficiencia renal", "inestable")
-        rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Fundacion Favaloro", "Receptor", "03", "30", "08", "15", "13", "07", "rinon", date(2023, 11, 3), "cirrosis", "estable")
-        ''' 
-            rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "A-", "Fundacion Favaloro", "Receptor", "24", "32", "07", "44", "11", "17", "corazón", date(2023, 9, 12), "miocardiopatía", "estable")
-            rpaciente14 = Receptor("Bruno Castro", 47654321, date(2001, 10, 19), "M", "1145678901", "1156789012", "AB+", "Hospital Garrahan", "Receptor", "23", "30", "35", "44", "13", "17", "riñón", date(2024, 2, 18), "glomerulonefritis", "inestable")
-            rpaciente15 = Receptor("Agustina Paz", 47543210, date(1995, 12, 1), "F", "1156789012", "1167890123", "O+", "Hospital Zonal Alvear", "Receptor", "24", "32", "07", "44", "11", "17", "corneas", date(2024, 4, 25), "queratocono", "estable")
-            rpaciente16 = Receptor("Lucas Molina", 47432109, date(1993, 7, 7), "M", "1167890123", "1178901234", "A-", "Hospital de Urgencias", "Receptor", "22", "30", "31", "54", "13", "17", "hígado", date(2024, 1, 6), "hepatitis", "inestable")
-            rpaciente17 = Receptor("Camila Sosa", 47321098, date(2000, 3, 9), "F", "1178901234", "1189012345", "AB-", "Hospital Papa Francisco", "Receptor", "23", "33", "25", "40", "12", "17", "piel", date(2023, 10, 20), "quemaduras", "inestable")
-            rpaciente18 = Receptor("Tomás Aguirre", 47210987, date(1999, 11, 30), "M", "1189012345", "1190123456", "B-", "Hospital Clemente Alvarez", "Receptor", "23", "30", "32", "42", "10", "17", "corazón", date(2024, 3, 3), "cardiopatía", "inestable")
-            rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "23", "30", "35", "44", "13", "17", "riñón", date(2023, 12, 11), "nefropatía", "estable")
-            rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "23", "31", "35", "44", "19", "10", "hígado", date(2024, 5, 9), "insuficiencia hepática", "estable")
-            '''    
-        return [dpaciente1, dpaciente2, rpaciente11, rpaciente12]
+        rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Fundacion Favaloro", "Receptor", "02", "24", "07", "35", "11", "04", "riñón", date(2024, 6, 1), "insuficiencia renal", "inestable")
+        rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Fundacion Favaloro", "Receptor", "03", "30", "08", "15", "13", "07", "riñón", date(2023, 11, 3), "cirrosis", "estable")
+        
+        rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "A-", "Fundacion Favaloro", "Receptor", "24", "32", "07", "44", "11", "17", "corazón", date(2023, 9, 12), "miocardiopatía", "estable")
+        rpaciente14 = Receptor("Bruno Castro", 47654321, date(2001, 10, 19), "M", "1145678901", "1156789012", "AB+", "Hospital Garrahan", "Receptor", "23", "30", "35", "44", "13", "17", "riñón", date(2024, 2, 18), "glomerulonefritis", "inestable")
+        rpaciente15 = Receptor("Agustina Paz", 47543210, date(1995, 12, 1), "F", "1156789012", "1167890123", "O+", "Hospital Zonal Alvear", "Receptor", "24", "32", "07", "44", "11", "17", "corneas", date(2024, 4, 25), "queratocono", "estable")
+        rpaciente16 = Receptor("Lucas Molina", 47432109, date(1993, 7, 7), "M", "1167890123", "1178901234", "A-", "Hospital de Urgencias", "Receptor", "22", "30", "31", "54", "13", "17", "hígado", date(2024, 1, 6), "hepatitis", "inestable")
+        rpaciente17 = Receptor("Camila Sosa", 47321098, date(2000, 3, 9), "F", "1178901234", "1189012345", "AB-", "Hospital Papa Francisco", "Receptor", "23", "33", "25", "40", "12", "17", "piel", date(2023, 10, 20), "quemaduras", "inestable")
+        rpaciente18 = Receptor("Tomás Aguirre", 47210987, date(1999, 11, 30), "M", "1189012345", "1190123456", "B-", "Hospital Clemente Alvarez", "Receptor", "23", "30", "32", "42", "10", "17", "corazón", date(2024, 3, 3), "cardiopatía", "inestable")
+        rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "23", "30", "35", "44", "13", "17", "riñón", date(2023, 12, 11), "nefropatía", "estable")
+        rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "23", "31", "35", "44", "19", "10", "hígado", date(2024, 5, 9), "insuficiencia hepática", "estable")   
+        return [dpaciente1, dpaciente2, dpaciente3, dpaciente4, dpaciente5, dpaciente6, dpaciente7, dpaciente8, dpaciente9, dpaciente10, dpaciente11, rpaciente11, rpaciente12, rpaciente13, rpaciente14, rpaciente15, rpaciente16, rpaciente17, rpaciente18, rpaciente19, rpaciente20]
     
 def creacion_cirujanos_especialistas():
             especialista1 = Especialista("Juan", "Hospital Italiano de La Plata", "gastroenterologo")
