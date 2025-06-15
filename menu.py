@@ -61,8 +61,6 @@ def menu ():
         print("\n16- Informacion sobre INCUCAI")
         print("\n0- Cerrar programa")
         
-        
-        
         try:
             opcion = int(input("Seleccione una opción: "))
         except ValueError:
@@ -73,7 +71,7 @@ def menu ():
             incucai.crear_objetos_prueba()
             
                 
-        elif opcion == 2: #funcionas
+        elif opcion == 2: #funciona
             incucai.carga_manual_donante_nuevo()
             
         elif opcion == 3: #FUNCIONA --> REVISAR VALIDACIONES
@@ -106,6 +104,7 @@ def menu ():
                 print("\n✅ Datos del paciente encontrados: \n")
                 print(paciente)
             else:
+        
                 print("❌ Paciente no encontrado.")
         
         elif opcion == 10: #ERROR
@@ -148,6 +147,7 @@ def menu ():
             
         elif opcion == 0:
             print("\n¡Gracias por utilizar el programa!")
+            print("\n -------------------------------------------------------------------------------------------------------")
             break
         
         else: #este else no contempla caracteres no numericos

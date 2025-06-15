@@ -157,9 +157,9 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.ambulancias.append(vehiculo)
-        print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
-        print(vehiculo.centro_vehiculo) 
-        centro.agregar_vehiculo(vehiculo)
+        #print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
+        #print(vehiculo.centro_vehiculo) 
+        centro.agregar_ambulancia(vehiculo)
         return (vehiculo, len(self.vehiculos))
         
     def registrar_avion(self, vehiculo: Avion):
@@ -176,9 +176,9 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.aviones.append(vehiculo)
-        print(f"Avion agregado al centro: {centro.nombre_cs}")
-        print(vehiculo.centro_vehiculo) 
-        centro.agregar_vehiculo(vehiculo)
+        #print(f"Avion agregado al centro: {centro.nombre_cs}")
+        #print(vehiculo.centro_vehiculo) 
+        centro.agregar_avion(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.aviones))
     
     def registrar_helicoptero(self, vehiculo: Helicoptero):
@@ -194,8 +194,8 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.helicopteros.append(vehiculo)
-        print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
-        print(vehiculo.centro_vehiculo)
+        #print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
+        #print(vehiculo.centro_vehiculo)
         centro.agregar_vehiculo(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.helicopteros))
     
@@ -212,7 +212,7 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(cirujano.centro)
         self.cirujano.append(cirujano)
         self.generales.append(cirujano)
-        centro.agregar_cirujano(cirujano)
+        centro.agregar_cirujano_general(cirujano)
         return (cirujano, len(self.cirujano), len(self.generales))
     
     def registrar_cirujano_especialista(self, cirujano: Especialista):
@@ -228,7 +228,7 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(cirujano.centro)
         self.cirujano.append(cirujano)
         self.especialistas.append(cirujano)
-        centro.agregar_cirujano(cirujano)
+        centro.agregar_cirujano_especialista(cirujano)
         return (cirujano, len(self.cirujano), len(self.especialistas))
     
     def crear_objetos_prueba(self):
