@@ -157,8 +157,7 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.ambulancias.append(vehiculo)
-        #print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
-        #print(vehiculo.centro_vehiculo) 
+        print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
         centro.agregar_ambulancia(vehiculo)
         return (vehiculo, len(self.vehiculos))
         
@@ -176,8 +175,7 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.aviones.append(vehiculo)
-        #print(f"Avion agregado al centro: {centro.nombre_cs}")
-        #print(vehiculo.centro_vehiculo) 
+        print(f"Avion agregado al centro: {centro.nombre_cs}")
         centro.agregar_avion(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.aviones))
     
@@ -194,8 +192,7 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.helicopteros.append(vehiculo)
-        #print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
-        #print(vehiculo.centro_vehiculo)
+        print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
         centro.agregar_vehiculo(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.helicopteros))
     
