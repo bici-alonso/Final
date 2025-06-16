@@ -230,6 +230,13 @@ class Centro_de_salud:
         if vehiculo not in self.helicopteros:
             self.helicopteros.append(vehiculo)
         self.agregar_vehiculo(vehiculo)
+
+    def tiene_vehiculos_disponibles(self) -> bool:
+        """
+        Devuelve True si al menos un vehículo del centro está marcado como disponible.
+        Si aún no manejás disponibilidad, simplemente comprueba que la lista no esté vacía.
+        """
+        return any(getattr(v, "disponible", True) for v in self.vehiculos)
             
     def seleccionar_vehiculo(self, centro_destino):
         '''
@@ -279,8 +286,6 @@ class Centro_de_salud:
             aviones = [v for v in self.vehiculos if v.__class__.__name__ == 'Avion']
             if aviones:
                 return aviones[0]  # Primer avión disponible
-        
-        
         return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
     
     def seleccionar_cirujano(self, organo):

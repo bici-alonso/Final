@@ -22,7 +22,7 @@ El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ing
 #Importaciones de librerias estandar:
 from geopy.geocoders import Nominatim
 from datetime import datetime
-import unicodedata
+from unidecode import unidecode
 #Importaciones de clases creadas: Notese que no importamos clases abstractas porque no pueden instanciarse
 from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Donante import Donante 
@@ -328,7 +328,7 @@ class Incucai:
         for cs in self.centro:
             print(f"- {cs}")
     
-    def receptores_por_centro_salud(self, nombre_centro):
+    '''def receptores_por_centro_salud(self, nombre_centro):
         """
         Imprime la lista de receptores en lista de espera asociados a un centro de salud específico.
 
@@ -339,7 +339,7 @@ class Incucai:
             -None
         """
         nombres_validos = self.centro_valido(nombre_centro)
-        if nombre_centro.lower() not in nombres_validos:
+        if nombre_centro not in nombres_validos:
             print("❌ Centro de salud no registrado. Intente nuevamente con un nombre válido.")
             print("\n📋 Centros disponibles:")
             for c in self.centro:
@@ -354,7 +354,43 @@ class Incucai:
         print(f"\n📋 Receptores en el centro '{nombre_centro}':\n")
         for r in sorted(receptores_centro, key=lambda r: r.fecha_list_esp):
             print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, Estado: {r.estado}, Órganos: {', '.join(r.org_recib)})")
+            return'''
+        
+    def receptores_por_centro_salud(self, nombre_centro: str):
+        """
+        Muestra los receptores en lista de espera asociados a un centro de salud.
+
+        Args:
+            nombre_centro (str): Nombre exacto del centro a consultar.
+
+        Return:
+            None
+        """
+        # 1) Validar que el centro exista (self.centro_valido debe devolver bool)
+        if not self.centro_valido(nombre_centro):
+            print("❌ Centro de salud no registrado. Intente nuevamente con un nombre válido.")
+            print("\n📋 Centros disponibles:")
+            for c in self.centro:
+                print(f"- {c.nombre_cs}")
             return
+
+        # 2) Filtrar receptores cuyo centro coincide
+        receptores_centro = [
+            r for r in self.receptores
+            if r.centro and r.centro.lower() == nombre_centro.lower()
+        ]
+
+        if not receptores_centro:
+            print("⚠️ No hay receptores en lista de espera en ese centro.")
+            return
+
+        # 3) Mostrar receptores ordenados por fecha de ingreso
+        print(f"\n📋 Receptores en el centro '{nombre_centro}':\n")
+        for r in sorted(receptores_centro, key=lambda r: r.fecha_list_esp):
+            organos = ", ".join(r.org_recib)
+            print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, "
+                f"Estado: {r.estado}, Órganos: {organos})")
+
 
     
         
@@ -603,10 +639,16 @@ class Incucai:
             
     def procesar_asignacion(self, donante, receptor, organo):
         print(f"\nAsignando {organo} de {donante.nombre} a {receptor.nombre} en {receptor.centro}")
-        donante.lista_organos = [o for o in donante.lista_organos if o.lower() != organo.lower()]
+
+        nombre_organo = unidecode(organo.tipo.lower().strip())
+
+        donante.lista_organos = [o for o in donante.lista_organos if unidecode(o.tipo.lower().strip()) != nombre_organo]
+        
         if not donante.lista_organos:
-            self.donantes.remove(donante)
+            if donante in self.donantes:
+                self.donantes.remove(donante)
             print(f"Donante {donante.nombre} removido (sin órganos disponibles)")
+
         if receptor in self.receptores:
             self.receptores.remove(receptor)
             print(f"Receptor {receptor.nombre} removido (trasplante programado)")
@@ -614,8 +656,15 @@ class Incucai:
     def realizar_transplante(self, receptor: Receptor, donante: Donante, organo):
         print(f"\n ➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo}")
 
+        #centro_donante = self.buscar_centro_por_nombre(donante.centro)
+        #centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
+
         centro_donante = self.buscar_centro_por_nombre(donante.centro)
         centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
+
+        if centro_donante is None or centro_receptor is None:
+            print("❌ No se encontró el centro de salud del donante o receptor.")
+            return False
 
         if centro_donante.coords is None:
             centro_donante.geolocalizar_direccion(self.geolocator)
@@ -702,7 +751,13 @@ class Incucai:
                 donante, organo = compatibles[seleccion - 1]
 
                 # Validación adicional antes de iniciar el trasplante
-                centro_receptor = receptor.centro_salud
+                centro_donante = self.buscar_centro_por_nombre(donante.centro)
+                centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
+
+                if centro_receptor is None or centro_donante is None:
+                    print("❌ No se encontró el centro de salud asociado para el receptor o donante.")
+                    return
+                
                 if not centro_receptor.tiene_vehiculos_disponibles():  # Este método lo debés definir
                     print("❌ El centro del receptor no tiene vehículos disponibles para realizar el trasplante.")
                     return
@@ -738,7 +793,9 @@ class Incucai:
             print("❌ Receptor no encontrado o inválido.")
             return
         
-        self.compatibilidad(donante, receptor)
+        es_compatible = self.compatibilidad(donante, receptor)
+        if not es_compatible:
+            print(f"\n❌ Pacientes {donante.nombre} y {receptor.nombre} NO son compatibles.")
         
         return
 
@@ -779,7 +836,14 @@ class Incucai:
                 if 1 <= seleccion <= len(donante.lista_organos):
                     organo_elegido = donante.lista_organos[seleccion - 1]
 
-                    if organo_elegido.tipo in receptor.org_recib:
+                    nombre_org_elegido = unidecode(organo_elegido.tipo.lower().strip())
+                    orgs_requeridos = [unidecode(o.lower().strip()) for o in receptor.org_recib]
+
+                    print(f"Receptor necesita: {orgs_requeridos}")
+                    print(f"Órgano seleccionado: {nombre_org_elegido}")
+
+
+                    if nombre_org_elegido in orgs_requeridos:
                         if self.compatibilidad(donante, receptor):
                             self.procesar_asignacion(donante, receptor, organo_elegido)
                             return
@@ -787,7 +851,7 @@ class Incucai:
                             print("❌ El donante y el receptor no son compatibles.")
                             return
                     else:
-                        print(f"❌ El receptor no necesita el órgano '{organo_elegido}'.")
+                        print(f"❌ El receptor no necesita el órgano '{organo_elegido.tipo}'.")
                         return
                 else:
                     print("❌ Selección fuera de rango. Intente de nuevo.")

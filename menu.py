@@ -112,7 +112,7 @@ class Menu:
             
                     print("❌ Paciente no encontrado.")
             
-            elif opcion == 10: #ERROR
+            elif opcion == 10: #funciona
                 print("\n📍 Centros de salud disponibles:")
                 incucai.mostrar_centros_salud()
                 
