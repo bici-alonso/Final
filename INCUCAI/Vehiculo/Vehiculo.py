@@ -71,7 +71,7 @@ class Vehiculo(ABC):
         self.disponible=True
         self.centro_vehiculo = centro_vehiculo
 
-    def nivel_trafico(self):
+    def nivel_trafico(self) -> float:
         """
         Simula y retorna un nivel de tráfico aleatorio entre 0.1 y 2.0.
 
@@ -81,7 +81,7 @@ class Vehiculo(ABC):
         return round(random.uniform(0.1, 2.0), 2)
 
     @abstractmethod
-    def calculo_tiempo (self, dist, trafico=None):
+    def calculo_tiempo (self, dist, trafico=None) -> float:
         """
         Método abstracto para calcular el tiempo estimado de viaje.
 
@@ -96,7 +96,7 @@ class Vehiculo(ABC):
         """
         pass 
 
-    def agregar_viaje(self, dist, tiempo, trafico=0):
+    def agregar_viaje(self, dist, tiempo, trafico=0) -> None:
         """
         Registra un nuevo viaje en el historial del vehículo.
 
@@ -112,7 +112,7 @@ class Vehiculo(ABC):
             'trafico': trafico
         })
 
-    def historial_viajes(self):
+    def historial_viajes(self) -> list[dict]:
         """
         Retorna una copia del historial de viajes del vehículo.
 

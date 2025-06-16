@@ -44,7 +44,7 @@ class Receptor(Paciente):
     
     lista_receptor_temporal = []
     
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, org_recib, fecha_list_esp, patologia, estado):
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, org_recib, fecha_list_esp, patologia, estado) -> None:
         """
         Constructor de la clase Receptor.
 
@@ -82,7 +82,7 @@ class Receptor(Paciente):
             self.estado = estado
         
     
-    def prioridad_numerica(self):
+    def prioridad_numerica(self) -> int:
         """
         Retorna un valor numérico que representa la prioridad del receptor.
 
@@ -95,7 +95,7 @@ class Receptor(Paciente):
         return 1 if self.estado == "INESTABLE" else 2
     
     @classmethod
-    def agregar(cls, receptor):
+    def agregar(cls, receptor) -> None:
         """
         Agrega un objeto Receptor a la lista temporal de receptores.
 
@@ -107,7 +107,7 @@ class Receptor(Paciente):
     
 
     @classmethod
-    def listar(cls):
+    def listar(cls) -> list:
         """
         Devuelve la lista completa de receptores temporales.
 
@@ -116,7 +116,7 @@ class Receptor(Paciente):
         """
         return cls.lista_receptor_temporal
     
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Representación simple del receptor para impresión.
 
@@ -126,7 +126,7 @@ class Receptor(Paciente):
         return f"Receptor: {self.nombre}, DNI: {self.DNI}, Órganos a recibir: {self.org_recib}, Sangre: {self.tipo_sangre}"
     
     @classmethod
-    def lista_espera_ordenada(cls):
+    def lista_espera_ordenada(cls) -> list:
         """
         Retorna la lista de receptores ordenada por fecha de ingreso a la lista de espera.
 

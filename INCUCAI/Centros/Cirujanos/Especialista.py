@@ -29,7 +29,7 @@ class Especialista (Cirujano):
             "pulmonar": ["pulmones"]
         }
         
-    def exito_operacion(self, organo) -> bool:
+    def exito_operacion(self, organo: Organo) -> bool:
         '''
         Determina si una operación realizada por el cirujano especialista es exitosa.
         La probabilidad de éxito depende de si el órgano está dentro de la especialidad del cirujano:
@@ -52,7 +52,7 @@ class Especialista (Cirujano):
         else:
             return resultado > 5
     
-    def tiene_especialidad_para(self, organo) -> bool:
+    def tiene_especialidad_para(self, organo: Organo) -> bool:
         """
         Verifica si el cirujano tiene especialidad para un órgano específico.
         

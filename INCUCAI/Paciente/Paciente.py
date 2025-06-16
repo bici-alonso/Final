@@ -96,7 +96,7 @@ class Paciente (ABC):
         self.hla_dr2=hla_dr2
         Paciente.pacientes_registrados.append(DNI)
         
-    def calculo_edad(self):
+    def calculo_edad(self) -> int:
         """
         Calcula la edad actual del paciente en años.
         returns:
@@ -105,7 +105,7 @@ class Paciente (ABC):
         hoy=date.today()
         return hoy.year - self.fecha_nac.year - ((hoy.month, hoy.day) < (self.fecha_nac.month, self.fecha_nac.day))
     
-    def es_menor_de_edad(self):
+    def es_menor_de_edad(self) -> bool:
         """
         Indica si el paciente es menor de 18 años.
 
@@ -116,7 +116,7 @@ class Paciente (ABC):
         """
         return self.calculo_edad() < 18
     
-    def datos_pacientes_generico(self):
+    def datos_pacientes_generico(self) -> None:
         """
         Muestra por consola los datos generales del paciente.
         """
@@ -129,7 +129,7 @@ class Paciente (ABC):
         print (f"\nSexo: {self.sexo}")
         print(f"\nCentro de salud: {self.centro} \nTipo de paciente: {self.que_es}")
     
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         """
         Compara dos pacientes por su DNI.
 

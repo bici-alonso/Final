@@ -13,11 +13,11 @@ from INCUCAI.Vehiculo.Avion import Avion
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
-from Testing import *
+from Testing import Testing
 import traceback #?
 
 
-
+testing = Testing()
 class Incucai:
     '''    
     Metodos de Incucai:
@@ -136,7 +136,6 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.ambulancias.append(vehiculo)
-        print(f"Ambulancia agregada al centro: {centro.nombre_cs}")
         centro.agregar_ambulancia(vehiculo)
         return (vehiculo, len(self.vehiculos))
         
@@ -154,7 +153,6 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.aviones.append(vehiculo)
-        print(f"Avion agregado al centro: {centro.nombre_cs}")
         centro.agregar_avion(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.aviones))
     
@@ -171,7 +169,6 @@ class Incucai:
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.helicopteros.append(vehiculo)
-        print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
         centro.agregar_helicoptero(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.helicopteros))
     
@@ -222,7 +219,7 @@ class Incucai:
 
         try:
             print("\n-----------------------   Buscando pacientes anteriores...   -----------------------")
-            lista_pacientes_test = creacion_pacientes()
+            lista_pacientes_test = testing.creacion_pacientes()
             
             lista_donantes_test = [p for p in lista_pacientes_test if isinstance(p, Donante)]
             lista_receptores_test = [p for p in lista_pacientes_test if isinstance(p, Receptor)]
@@ -247,11 +244,11 @@ class Incucai:
             
             traceback.print_exc()
         
-        lista_aviones_test = creacion_aviones()
-        lista_ambulancias_test = creacion_ambulancias ()
-        lista_helicoptero_test = creacion_helicoptero ()
-        lista_cirujanos_generales_test = creacion_cirujanos_generales()
-        lista_cirujanos_especialistas_test = creacion_cirujanos_especialistas()
+        lista_aviones_test = testing.creacion_aviones()
+        lista_ambulancias_test = testing.creacion_ambulancias()
+        lista_helicoptero_test = testing.creacion_helicoptero()
+        lista_cirujanos_generales_test = testing.creacion_cirujanos_generales()
+        lista_cirujanos_especialistas_test = testing.creacion_cirujanos_especialistas()
         
         for vehiculo in lista_aviones_test:
             self.registrar_avion(vehiculo)

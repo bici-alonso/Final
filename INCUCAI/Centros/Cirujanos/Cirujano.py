@@ -58,7 +58,7 @@ class Cirujano(ABC):
         return len(self.operaciones_del_dia)
     
     @abstractmethod
-    def exito_operacion(self, organo) -> bool:
+    def exito_operacion(self, organo:str) -> bool:
         '''
         Método abstracto que debe ser implementado por las subclases para determinar
         el resultado de una operación de trasplante.

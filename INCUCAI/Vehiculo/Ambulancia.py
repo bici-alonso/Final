@@ -25,7 +25,7 @@ class Ambulancia(Vehiculo):
         - Si la distancia es negativa.
         - Si el tráfico es negativo.
     """
-    def __init__(self, velocidad, patente, centro_vehiculo):
+    def __init__(self, velocidad, patente, centro_vehiculo) -> None:
         """
         Constructor de la ambulancia.
 
@@ -36,7 +36,7 @@ class Ambulancia(Vehiculo):
         """
         super().__init__(velocidad, patente, centro_vehiculo)
     
-    def calculo_tiempo(self, dist, trafico=None):
+    def calculo_tiempo(self, dist, trafico=None) -> float:
         """
         Calcula el tiempo estimado de viaje teniendo en cuenta el tráfico.
 

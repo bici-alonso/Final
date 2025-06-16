@@ -49,7 +49,7 @@ class Donante(Paciente):
     """
     
     lista_donantes = []  
-    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, fecha_fall, hora_fall, hora_ablacion, fecha_ablacion, lista_organos, estado_donante):
+    def __init__(self, nombre, DNI, fecha_nac, sexo, telefono, contacto, tipo_sangre, centro, que_es, hla_a1, hla_a2, hla_b1, hla_b2, hla_dr1, hla_dr2, fecha_fall, hora_fall, hora_ablacion, fecha_ablacion, lista_organos, estado_donante) -> None:
         """
         Constructor de la clase Donante: Inicializa los datos generales del paciente donante, incluyendo fecha y hora de fallecimiento,
         información de ablación y lista de órganos disponibles.
@@ -153,7 +153,7 @@ class Donante(Paciente):
         
         return tipo_receptor in compatibilidades.get(tipo_donante, [])
     
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Devuelve una representación en texto del donante con sus datos principales.
 
