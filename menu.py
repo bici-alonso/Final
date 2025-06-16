@@ -81,9 +81,9 @@ class Menu:
             print("\n10- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
             print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
             print("\n12- Donacion especifica entre un donante y un receptor por DNI") 
-            print("\n14- Revisar compatibilidad entre 2 pacientes especificos")
-            print("\n15- Imprimir informacion sobre un centro de salud") 
-            print("\n16- Informacion sobre INCUCAI")
+            print("\n13- Revisar compatibilidad entre 2 pacientes especificos")
+            print("\n14- Imprimir informacion sobre un centro de salud") 
+            print("\n15- Informacion sobre INCUCAI")
             print("\n0- Cerrar programa")
             
             try:
@@ -156,15 +156,15 @@ class Menu:
                 print("\nDonacion especifica entre donante y receptor:")
                 incucai.donar_organo_de_donante_a_receptor_especifico()
             
-            elif opcion == 14: #funciona
+            elif opcion == 13: #funciona
                 print ("\nCompatibilidades entre 2 pacientes elegidos:")
                 incucai.compatibilidad_2_pacientes()
             
-            elif opcion ==15:
+            elif opcion ==14:
                 print ("\nINFORMACION DE CENTRO:")
                 incucai.mostrar_info_centro_salud()
                 
-            elif opcion ==16: #funciona
+            elif opcion ==15: #funciona
                 incucai.informacion_incucai()
                 
             elif opcion == 0:
