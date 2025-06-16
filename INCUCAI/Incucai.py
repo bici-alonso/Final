@@ -61,7 +61,7 @@ class Incucai:
     '''
     geolocator = Nominatim(user_agent="incucai_test") #Instancia de Nominatim [necesaria para coordenadas]
     
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Permite instanciar Incucai
             - receptores: Un array para la carga de receptores de INCUCAI
@@ -71,7 +71,7 @@ class Incucai:
             - centros: Un array para la carga de los centros habilitados de INCUCAI
 
         returns:
-            - 
+            - None
         """
         self.receptores = []
         self.donantes = []
@@ -84,15 +84,15 @@ class Incucai:
         self.cirujano = []
         self.generales = []
         self.especialistas = []
-        
-        
-        
-    def centros(self):
+             
+    def centros(self) -> list:
         """
-        Crea distintas instancias de Centro_de_salud como centros habilitados del INCUCAI
-
-        returns: 
-            -Array de Centro_de_salud. Representativo un centro por provincia.  
+        Crea y devuelve una lista de instancias de Centro_de_salud que representan centros habilitados por el INCUCAI,
+        distribuidos en distintas provincias argentinas.
+        Args:
+            - None
+        Returns:
+            - list: Lista de objetos de tipo Centro_de_salud, uno por provincia aproximadamente.
         """
         return [
             Centro_de_salud("Hospital Garrahan", "Pichincha 1890", "Comuna 1", "Ciudad Autónoma de Buenos Aires", "011-12345678"),
@@ -116,11 +116,11 @@ class Incucai:
         ]
     
 #-------------------------------------------------------------------INICIO DE REGISTROS----------------------------------------------------------------------------------
-    def registrar_donante(self, donante:Donante):
+    def registrar_donante(self, donante:Donante) -> None:
         """
         Agrega un nuevo array a la lista de donantes de INCUCAI
         
-        atributos:
+        Args:
             -donante (a agregar): Donante
 
         returns:
@@ -130,11 +130,11 @@ class Incucai:
             self.donantes.append(donante)
         return None
             
-    def registrar_receptor(self, receptor: Receptor):
+    def registrar_receptor(self, receptor: Receptor) -> None:
         """
         Agrega un nuevo array a la lista de receptores de INCUCAI
         
-        atributos:
+        Args:
             -receptor (a agregar)
 
         returns:
@@ -144,15 +144,15 @@ class Incucai:
             self.receptores.append(receptor)
         return None
 
-    def registrar_ambulancia(self, vehiculo: Ambulancia):
+    def registrar_ambulancia(self, vehiculo: Ambulancia) -> tuple:
         """
         Agrega una nueva ambulancia a la lista de vehiculos y de ambulancias de INCUCAI
         
-        atributos:
-            -vehiculo a agregar: Ambulancia
+        Args:
+        vehiculo (Ambulancia): Objeto de tipo Ambulancia a registrar.
 
-        returns:
-            - Vehiculo agregado y nueva longitud del array de vehiculos del INCUCAI
+        Returns:
+            tuple: (ambulancia registrada, cantidad total de vehículos en INCUCAI)
         """
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
@@ -161,15 +161,15 @@ class Incucai:
         centro.agregar_ambulancia(vehiculo)
         return (vehiculo, len(self.vehiculos))
         
-    def registrar_avion(self, vehiculo: Avion):
+    def registrar_avion(self, vehiculo: Avion) -> tuple:
         """
-        Agrega un nuevo avion a la lista de vehiculos y de aviones de INCUCAI
-        
-        atributos:
-            - Vehiculo: Avion
+        Registra un avión en el sistema y lo asocia a su centro de salud correspondiente.
 
-        returns:
-            - Vehiculo agregado: Avion , nueva longitud del array de vehiculos del INCUCAI: int y nueva longitud del array de aviones registrados en INCUCAI: int
+        Args:
+            vehiculo (Avion): Objeto de tipo Avion a registrar.
+
+        Returns:
+            tuple: (avión registrado, total de vehículos en INCUCAI, total de aviones en INCUCAI)
         """
         
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
@@ -179,15 +179,15 @@ class Incucai:
         centro.agregar_avion(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.aviones))
     
-    def registrar_helicoptero(self, vehiculo: Helicoptero):
+    def registrar_helicoptero(self, vehiculo: Helicoptero) -> tuple:
         """
-        Agrega un nuevo helicoptero a la lista de vehiculos de INCUCAI
-        
-        atributos:
-            - Vehiculo a agregar: Helicoptero
+        Registra un helicóptero en el sistema y lo asocia a su centro de salud correspondiente.
 
-        returns:
-            - Vehiculo agregado: Helicoptero, nueva longitud del array de vehiculos del INCUCAI: int y nueva longitud del array de helicopteros registrados en INCUCAI: int
+        Args:
+            vehiculo (Helicoptero): Objeto de tipo Helicoptero a registrar.
+
+        Returns:
+            tuple: (helicóptero registrado, total de vehículos en INCUCAI, total de helicópteros en INCUCAI)
         """
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
@@ -196,15 +196,15 @@ class Incucai:
         centro.agregar_vehiculo(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.helicopteros))
     
-    def registrar_cirujano_general(self, cirujano: General):
+    def registrar_cirujano_general(self, cirujano: General) -> tuple:
         """
-        Agrega un nuevo cirujano general a la lista de cirujanos y de generealesx de INCUCAI
-        
-        atributos:
-            - Cirujano a agregar a la lista: General
+        Registra un cirujano general en el sistema y lo asocia al centro correspondiente.
 
-        returns:
-            - Cirujano General agregado: General, nueva longitud del array de cirujanos del INCUCAI: int y nueva longitud del array de cirujanos generales del INCUCAI: int
+        Args:
+            cirujano (General): Objeto de tipo General a registrar.
+
+        Returns:
+            tuple: (cirujano registrado, total de cirujanos, total de cirujanos generales)
         """
         centro = self.buscar_centro_por_nombre(cirujano.centro)
         self.cirujano.append(cirujano)
@@ -212,15 +212,15 @@ class Incucai:
         centro.agregar_cirujano_general(cirujano)
         return (cirujano, len(self.cirujano), len(self.generales))
     
-    def registrar_cirujano_especialista(self, cirujano: Especialista):
+    def registrar_cirujano_especialista(self, cirujano: Especialista) -> tuple:
         """
-        Agrega un nuevo cirujano especialista a la lista de cirujanos de INCUCAI
-        
-        atributos:
-            - Cirujano a agregar a la lista: Especialista
+        Registra un cirujano especialista en el sistema y lo asocia al centro correspondiente.
 
-        returns:
-            - Cirujano Especialista agregado: Especialista, nueva longitud del array de cirujanos del INCUCAI: int, y nueva longitud del array de cirujanos generales del INCUCAI: int
+        Args:
+            cirujano (Especialista): Objeto de tipo Especialista a registrar.
+
+        Returns:
+            tuple: (cirujano registrado, total de cirujanos, total de especialistas)
         """
         centro = self.buscar_centro_por_nombre(cirujano.centro)
         self.cirujano.append(cirujano)
@@ -228,7 +228,18 @@ class Incucai:
         centro.agregar_cirujano_especialista(cirujano)
         return (cirujano, len(self.cirujano), len(self.especialistas))
     
-    def crear_objetos_prueba(self):
+    def crear_objetos_prueba(self) -> None:
+        """
+        Crea y registra automáticamente pacientes, vehículos y cirujanos de prueba en el sistema INCUCAI.
+
+        Agrupa llamadas a funciones externas de creación y luego registra:
+            - Donantes y receptores
+            - Aviones, ambulancias, helicópteros
+            - Cirujanos generales y especialistas
+
+        Returns:
+            None
+        """
 
         try:
             print("\n-----------------------   Buscando pacientes anteriores...   -----------------------")
@@ -278,15 +289,14 @@ class Incucai:
 #-------------------------------------------------------------------FIN DE REGISTROS----------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------INICIO IMPRESIONES----------------------------------------------------------------------------------
-    def listar_donantes(self):
+    def listar_donantes(self) -> None:
         """
         Imprime la lista de donantes registrados en el sistema.
         
-        Atributos:
+        Args:
             -None
         Return:
-            -None
-            
+            -None  
         """
         if not self.donantes:
             print("No hay donantes registrados.")
@@ -295,15 +305,14 @@ class Incucai:
         for d in self.donantes:
             print(f"- {d}")
 
-    def listar_receptores(self):
+    def listar_receptores(self) -> None:
         """
         Imprime la lista de receptor registrados en el sistema.
         
-        Atributos:
+        Args:
             -None
         Return:
-            -None
-            
+            -None           
         """
         if not self.receptores:
             print("No hay receptores registrados.")
@@ -311,15 +320,14 @@ class Incucai:
         for r in self.receptores:
             print(f"- {r}")
     
-    def mostrar_centros_salud(self):
+    def mostrar_centros_salud(self) -> None:
         """
         Imprime la lista de centros de salud registrados en el sistema.
         
-        Atributos:
+        Args:
             -None
         Return:
-            -None
-            
+            -None 
         """
         if not self.centro:
             print("No hay centros de salud habilitados.")
@@ -327,36 +335,8 @@ class Incucai:
         print("\nCentros de salud habilitados:")
         for cs in self.centro:
             print(f"- {cs}")
-    
-    '''def receptores_por_centro_salud(self, nombre_centro):
-        """
-        Imprime la lista de receptores en lista de espera asociados a un centro de salud específico.
-
-        Parametros:
-            -nombre_centro: string (Nombre del centro de salud para el cual se desea consultar la lista de receptores.)
         
-        Return: 
-            -None
-        """
-        nombres_validos = self.centro_valido(nombre_centro)
-        if nombre_centro not in nombres_validos:
-            print("❌ Centro de salud no registrado. Intente nuevamente con un nombre válido.")
-            print("\n📋 Centros disponibles:")
-            for c in self.centro:
-                print(f"- {c.nombre_cs}")
-            return
-        receptores_centro = [r for r in self.receptores if r.centro.lower() == nombre_centro.lower()]
-        
-        if not receptores_centro:
-            print("⚠️ No hay receptores en lista de espera en ese centro.")
-            return
-
-        print(f"\n📋 Receptores en el centro '{nombre_centro}':\n")
-        for r in sorted(receptores_centro, key=lambda r: r.fecha_list_esp):
-            print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, Estado: {r.estado}, Órganos: {', '.join(r.org_recib)})")
-            return'''
-        
-    def receptores_por_centro_salud(self, nombre_centro: str):
+    def receptores_por_centro_salud(self, nombre_centro: str) -> None:
         """
         Muestra los receptores en lista de espera asociados a un centro de salud.
 
@@ -397,22 +377,31 @@ class Incucai:
 #-------------------------------------------------------------------FIN DE IMPRESIONES----------------------------------------------------------------------------------
 
 #------------------------------------------------------INICIO DE BUSQUEDAS, ORDENAMIENTOS Y VALIDACIONES-------------------------------------------------------------------------------
-    def buscar_paciente_por_dni(self, dni: int):
+    def buscar_paciente_por_dni(self, dni: int) -> Donante | Receptor | None:
         """
         Busca un paciente (donante o receptor) por su DNI.
 
-        Argumentos:
-        dni (str | int): DNI del paciente a buscar.
+        Args:
+            -dni (str | int): DNI del paciente a buscar.
 
         Returns:
-        Donante | Receptor | None: Devuelve el paciente si lo encuentra, o None si no existe.
+            - Donante | Receptor | None: Devuelve el paciente si lo encuentra, o None si no existe.
         """
         for p in self.donantes + self.receptores:
             if p.DNI == dni:
                 return p 
         return None
     
-    def pedir_dni(self, tipo="paciente"):
+    def pedir_dni(self, tipo="paciente") -> int:
+        """
+        Solicita al usuario que ingrese un DNI válido de 7 u 8 dígitos numéricos.
+
+        Args:
+            - tipo (str): Tipo de persona a solicitar (por ejemplo "donante", "receptor"). Default: "paciente".
+
+        Returns:
+            - int: DNI ingresado, convertido a entero.
+        """
         while True:
             dni = input(f"\nIngrese el DNI del {tipo}: ").strip()
             if dni.isdigit() and 7 <= len(dni) <= 8:
@@ -428,9 +417,6 @@ class Incucai:
 
         Returns:
             - bool: True si el paciente ya existe, False en caso contrario.
-
-        Side Effects:
-            Imprime un mensaje si el paciente ya existe.
         """
         if any(p.DNI == dni for p in self.donantes + self.receptores):
             print(f"Ya existe un paciente con DNI {dni}.") #podria omitirse y esta responsabilidad que la haga quien use a la funcion
@@ -442,22 +428,22 @@ class Incucai:
         Verifica si el nombre de centro de salud ingresado corresponde a un centro registrado.
 
         Args:
-        nombre_centro (str): Nombre del centro de salud a validar.
+            - nombre_centro (str): Nombre del centro de salud a validar.
 
         Returns:
-        bool: True si el centro está registrado, False en caso contrario.
+            - bool: True si el centro está registrado, False en caso contrario.
         """
         nombres_validos = [c.nombre_cs.lower() for c in self.centro]
         return nombre_centro.lower() in nombres_validos
     
-    def lista_espera_ordenada(self):
+    def lista_espera_ordenada(self) -> list:
         """
         Ordena y muestra la lista de receptores en espera por fecha de ingreso.
 
         Atributos: 
-            -
+            - None
         Returns:
-            -lista: Lista de objetos Receptor ordenada por fecha de ingreso (`fecha_list_esp`).
+            - list: Lista de objetos Receptor ordenada por fecha de ingreso (`fecha_list_esp`).
         """
         if not self.receptores:
             print("No hay receptores en la lista de espera.")
@@ -473,7 +459,7 @@ class Incucai:
         
         return receptores_ordenados
     
-    def buscar_centro_por_nombre(self, nombre_centro):
+    def buscar_centro_por_nombre(self, nombre_centro) -> None: #nose q ponerle a centrosalud aca 
         """
         Busca un centro de salud por su nombre (ignorando mayúsculas y espacios).
 
@@ -489,18 +475,15 @@ class Incucai:
         print(f"No se encontró el centro: '{nombre_centro}'")
         return None
 
-    def buscar_receptor_por_dni(self, dni: int):
+    def buscar_receptor_por_dni(self, dni: int) -> Receptor | None:
         """
         Busca un receptor en la lista de espera por su DNI y muestra su posición en la lista ordenada por fecha de ingreso.
 
         Args:
-        - dni (int): Número de DNI del receptor a buscar.
+            - dni (int): Número de DNI del receptor a buscar.
 
         Returns:
-            Receptor | None: Devuelve el receptor si se encuentra, o None si no está en la lista o el DNI no es válido.
-
-        Side Effects:
-            Imprime mensajes informativos sobre el resultado de la búsqueda.
+            - Receptor | None: Devuelve el receptor si se encuentra, o None si no está en la lista o el DNI no es válido.
         """
         
         try:
@@ -525,23 +508,16 @@ class Incucai:
 
 #----------------------------------------------------------------INICIO DE LOGICA DE DONACION-----------------------------------------------------------------------
     
-    def clasificar_paciente_ya_existente(self, paciente_existente: Paciente):
+    def clasificar_paciente_ya_existente(self, paciente_existente: Paciente) -> None:
         """
         Clasifica un paciente previamente creado según su tipo (Donante o Receptor) 
         y ejecuta las acciones correspondientes según su estado.
         Si el paciente ya existe en el sistema (por su DNI), no se realiza ninguna acción.
 
         Args:
-        paciente_existente (Donante | Receptor, opcional): Instancia de paciente a clasificar.
-
-        Acciones:
-        - Si es un Donante:
-            - Si ya existe, no se carga de nuevo.
-            - Si está muerto, se procesa la donación múltiple.
-            - Si está vivo, se permite donar un órgano específico.
-        - Si es un Receptor:
-            - Si ya existe, no se carga de nuevo.
-            - Se agrega al sistema y se busca compatibilidad con donantes existentes.
+            - paciente_existente (Donante | Receptor, opcional): Instancia de paciente a clasificar.
+        Return:
+            - None
         """
         if not paciente_existente:
             return
@@ -568,7 +544,14 @@ class Incucai:
                     self.buscar_match_para_receptor(paciente_existente)
                     return
 
-    def donar_organo_especifico(self, paciente_existente: Donante):
+    def donar_organo_especifico(self, paciente_existente: Donante) -> None:
+        '''
+        Permite seleccionar un órgano específico de un donante para iniciar búsqueda de receptor compatible.
+        Args: 
+            -paciente_existente (Donante): Objeto donante con organos disponibles.
+        Return:
+            - None
+        '''
         if not paciente_existente.lista_organos:
             print(f"❌ {paciente_existente.nombre} no tiene órganos disponibles para donar.")
             return
@@ -591,7 +574,15 @@ class Incucai:
             else:
                 print("❌ Entrada inválida. Por favor, ingrese un número.")
         
-    def compatibilidad(self, donante: Donante, receptor:Receptor):
+    def compatibilidad(self, donante: Donante, receptor:Receptor) -> bool:
+        '''
+        Verifica si un donante y receptor son compatibles según sangre, HLA y edad.
+        ArgS: 
+            - donante (Donante): Objeto donante.
+            - receptor (Receptor): Objeto receptor.
+        Return: 
+            - bool: True si son compatibles, False en caso contrario.
+        '''
         
         if not donante.es_compatible_sangre(receptor):
             return False
@@ -612,7 +603,17 @@ class Incucai:
         
         return True
 
-    def buscar_receptor_organo_especifico(self, donante, organo):
+    def buscar_receptor_organo_especifico(self, donante, organo) -> None:
+        """
+        Busca un receptor compatible para un órgano específico de un donante.
+
+        Args:
+            - donante (Donante): Objeto donante.
+            - organo (Órgano): Órgano que se desea donar.
+
+        Returns:
+            - None
+        """
         print(f"\nBuscando receptor para {organo} del donante {donante.nombre}...")
         compatibles = [r for r in self.receptores if organo.lower() in r.org_recib and self.compatibilidad(donante, r)]
         if compatibles:
@@ -621,7 +622,16 @@ class Incucai:
         else:
             print(f"No se encontro receptor compatible para {organo}.")
             
-    def buscar_match_para_receptor(self, receptor):
+    def buscar_match_para_receptor(self, receptor) -> None:
+        """
+        Busca donante compatible para un receptor.
+
+        Args:
+            - receptor (Receptor): Objeto receptor que necesita órgano.
+
+        Returns:
+            - None
+        """
         for donante in self.donantes:
             for organo in donante.lista_organos:
                 if organo.lower() in receptor.org_recib and self.compatibilidad(donante, receptor):
@@ -629,15 +639,44 @@ class Incucai:
                     return
         print(f"No hay donante compatible para {receptor.nombre}.")
 
-    def procesar_donacion_multiple(self, donante):
+    def procesar_donacion_multiple(self, donante) -> None:
+        """
+        Procesa donación múltiple de órganos de un donante.
+
+        Args:
+            - donante (Donante): Objeto donante.
+
+        Returns:
+            - None
+        """
         print(f"\nProcesando donación de {donante.nombre}...")
         for organo in donante.lista_organos[:]:  # copia para modificar e iterar
             self.buscar_receptor_organo_especifico(donante, organo)
 
-    def elegir_receptor(self, lista):
+    def elegir_receptor(self, lista) -> Receptor:
+        """
+        Elige receptor con mayor prioridad y antigüedad de una lista.
+
+        Args:
+            - lista (list): Lista de objetos Receptor.
+
+        Returns:
+            - Receptor: Objeto receptor con prioridad más alta y más antiguo en lista de espera.
+        """
         return sorted(lista, key=lambda r: (r.prioridad_numerica(), r.fecha_list_esp))[0]
             
-    def procesar_asignacion(self, donante, receptor, organo):
+    def procesar_asignacion(self, donante, receptor, organo) -> None:
+        """
+        Asigna un órgano del donante a un receptor y actualiza listas.
+
+        Args:
+            - donante (Donante): Donante que dona el órgano.
+            - receptor (Receptor): Receptor que recibe el órgano.
+            - organo (Órgano): Órgano donado.
+
+        Returns:
+            - None
+        """
         print(f"\nAsignando {organo} de {donante.nombre} a {receptor.nombre} en {receptor.centro}")
 
         nombre_organo = unidecode(organo.tipo.lower().strip())
@@ -653,7 +692,18 @@ class Incucai:
             self.receptores.remove(receptor)
             print(f"Receptor {receptor.nombre} removido (trasplante programado)")
         
-    def realizar_transplante(self, receptor: Receptor, donante: Donante, organo):
+    def realizar_transplante(self, receptor: Receptor, donante: Donante, organo) -> bool:
+        """
+        Ejecuta protocolo completo de trasplante.
+
+        Args:
+            - receptor (Receptor): Paciente receptor.
+            - donante (Donante): Paciente donante.
+            - organo (Órgano): Órgano a trasplantar.
+
+        Returns:
+            bool: True si trasplante exitoso, False si falló o hubo errores.
+        """
         print(f"\n ➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo}")
 
         #centro_donante = self.buscar_centro_por_nombre(donante.centro)
@@ -716,7 +766,16 @@ class Incucai:
 
         return True
 
-    def pedir_receptor_para_realizar_transplante(self):
+    def pedir_receptor_para_realizar_transplante(self) -> None:
+        """
+        Solicita DNI de receptor y ejecuta protocolo para realizar trasplante.
+
+        Args:
+            - None
+
+        Returns:
+            - None
+        """
         try:
             dni = int(input("Ingrese el DNI del receptor que desea trasplantar: "))
         except ValueError:
@@ -772,7 +831,15 @@ class Incucai:
 
 #------------------------------------------------------------------------FIN DE LOGICA DE DONACION-------------------------------------------------------------------------------
 #------------------------------------------------------------------------INICIO METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------
-    def compatibilidad_2_pacientes(self):
+    def compatibilidad_2_pacientes(self) -> None:
+        """
+        Revisa la compatibilidad entre dos pacientes ingresando sus DNI.
+
+        Args:
+            - None
+        Return:
+            - None
+        """
         print("\n➡️ Compatibilidad dirigida: revisa la compatibilidad entre 2 pacientes de DNI solicitado.")
 
         try:
@@ -799,7 +866,14 @@ class Incucai:
         
         return
 
-    def donar_organo_de_donante_a_receptor_especifico(self):
+    def donar_organo_de_donante_a_receptor_especifico(self) -> None:
+        """
+        Permite donar un órgano específico de un donante a un receptor ingresando DNI.
+        Args:
+            - None
+        Return:
+            - None
+        """
         print("\n➡️ Donación dirigida: Donar un órgano específico de un donante a un receptor.")
 
         dni_donante = self.pedir_dni("donante")
@@ -858,7 +932,14 @@ class Incucai:
             else:
                 print("❌ Entrada inválida. Por favor, ingrese un número.")
 
-    def mostrar_info_centro_salud(self):
+    def mostrar_info_centro_salud(self) -> None:
+        """
+        Muestra información detallada de un centro de salud, incluyendo ubicación, vehículos y cirujanos.
+        Args:
+            - None
+        Return:
+            - None
+        """
         nombre_centro = input("\nIngrese el nombre del centro de salud: ").strip()
         centro = self.buscar_centro_por_nombre(nombre_centro)
         if not centro:
@@ -918,7 +999,14 @@ class Incucai:
         print(f"\nCirujanos generales: {len(centro.generales)}")
         return
 
-    def informacion_incucai(self):
+    def informacion_incucai(self) -> None:
+        """
+        Muestra información estadística general del INCUCAI sobre donantes, receptores y centros.
+        Args:
+            - None
+        Return:
+            - None
+        """
         print("\nInformacion sobre INCUCAI:")
         print(f"\nDONANTES REGISTRADOS: {len(self.donantes)}")
         print(f"\nRECEPTORES REGISTRADOS: {len(self.receptores)}")
@@ -962,7 +1050,7 @@ class Incucai:
     def validaciones (self, validacion):
         """
         Solicita y valida distintos tipos de datos de entrada según el tipo de validación solicitado.
-        Parámetros:
+        Args:
             -validacion : str
                 Tipo de dato a validar. 
         Return:
@@ -1216,7 +1304,7 @@ class Incucai:
         2. Solicita datos específicos del donante (estado, fallecimiento, órganos a donar).
         3. Crea una instancia de 'Donante' y la agrega al listado de donantes.
         
-        Argumentos:
+        Args:
             -None
         Return:
             -donante_nuevo: Donante, longitud array de donantes: int
@@ -1253,7 +1341,7 @@ class Incucai:
         2. Solicita datos específicos del receptor (organos a recibir, fecha lista de espera, patologia, estado).
         3. Crea una instancia de 'Donante' y la agrega al listado de donantes.
         
-        Argumentos:
+        Args:
             -None
         Return:
             -receptor_nuevo: Receptor, longitud array de receptores: int

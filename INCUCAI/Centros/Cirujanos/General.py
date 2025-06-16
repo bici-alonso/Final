@@ -11,7 +11,7 @@ class General (Cirujano):
     '''
 
 
-    def __init__(self, nombre, centro):
+    def __init__(self, nombre, centro) -> None:
         '''
         Inicializa un cirujano general con su nombre y centro de salud.
 
@@ -21,7 +21,7 @@ class General (Cirujano):
         '''
         super().__init__(nombre, centro)
 
-    def exito_operacion(self):
+    def exito_operacion(self) -> bool:
         '''
         Simula el resultado de una operación quirúrgica sobre un órgano.
         La operación se considera exitosa con una probabilidad del 50% (número aleatorio entre 1 y 10 > 5).
@@ -33,7 +33,7 @@ class General (Cirujano):
         resultado = random.randint(1, 10) > 5
         return resultado
     
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         Representación en forma de cadena del cirujano general.
 

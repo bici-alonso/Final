@@ -8,7 +8,7 @@ class Especialista (Cirujano):
     Hereda de la clase abstracta `Cirujano` e incorpora una especialidad médica que afecta 
     la probabilidad de éxito en una operación según el órgano a tratar.
     '''
-    def __init__(self, nombre, centro, especialidad):
+    def __init__(self, nombre, centro, especialidad) -> None:
         '''
         Inicializa un cirujano especialista con su nombre, centro de salud y especialidad.
 
@@ -27,7 +27,7 @@ class Especialista (Cirujano):
             "pulmonar": ["pulmones"]
         }
         
-    def exito_operacion(self, organo):
+    def exito_operacion(self, organo) -> bool:
         '''
         Determina si una operación realizada por el cirujano especialista es exitosa.
         La probabilidad de éxito depende de si el órgano está dentro de la especialidad del cirujano:
@@ -50,7 +50,7 @@ class Especialista (Cirujano):
         else:
             return resultado > 5
     
-    def tiene_especialidad_para(self, organo):
+    def tiene_especialidad_para(self, organo) -> bool:
         """
         Verifica si el cirujano tiene especialidad para un órgano específico.
         
@@ -62,9 +62,8 @@ class Especialista (Cirujano):
         """
         tipo = organo.tipo.lower() if isinstance(organo, Organo) else organo.lower()
         return tipo in self.organos.get(self.especialidad, [])
-    
-    
-    def __str__(self):
+       
+    def __str__(self) -> str:
         '''
         Representación textual del cirujano especialista.
 

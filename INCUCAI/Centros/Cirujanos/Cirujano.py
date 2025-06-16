@@ -25,13 +25,15 @@ class Cirujano(ABC):
     '''
 
 
-    def __init__(self, nombre, centro):
+    def __init__(self, nombre, centro) -> None:
         '''
         Inicializa un cirujano con nombre y centro de salud.
 
         Args:
             nombre (str): Nombre del cirujano.
             centro (CentroSalud): Objeto que representa el centro de salud donde trabaja.
+        Return:
+            - None
         '''
         self.nombre=nombre
         self.centro = centro
@@ -48,7 +50,7 @@ class Cirujano(ABC):
         hoy=date.today()
         return self.ult_operacion != hoy
     
-    def dar_operacion (self):
+    def dar_operacion (self) -> None:
         '''
         Registra que el cirujano realiza una operación en el momento actual.
 
@@ -61,7 +63,7 @@ class Cirujano(ABC):
         self.operaciones_del_dia.append(datetime.now())
         print(f"{self.nombre} asignado a operación")
             
-    def __len__(self):
+    def __len__(self) -> int:
         '''
         Retorna la cantidad total de operaciones registradas por el cirujano.
 
@@ -71,7 +73,7 @@ class Cirujano(ABC):
         return len(self.operaciones_del_dia)
     
     @abstractmethod
-    def exito_operacion(self, organo):
+    def exito_operacion(self, organo) -> bool:
         '''
         Método abstracto que debe ser implementado por las subclases para determinar
         el resultado de una operación de trasplante.

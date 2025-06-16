@@ -55,7 +55,7 @@ from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 
 class Centro_de_salud:
 
-    def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto):
+    def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto) -> None:
         '''
         Inicializa un centro de salud con su informacion principal
 
@@ -90,7 +90,7 @@ class Centro_de_salud:
         
         self.coords = None
 
-    def direccion_completa(self):
+    def direccion_completa(self) -> str:
         '''
         Devuelve la dirección completa del centro formateada.
 
@@ -101,14 +101,14 @@ class Centro_de_salud:
 
     def geolocalizar_direccion(self, geolocator, intentos=3):
         '''
-        Obtiene las coordenadas (lat, lon) de la dirección del centro usando un geolocalizador.
+        Obtiene las coordenadas (latitud, longitud) de la dirección del centro usando un geolocalizador externo.
 
         Args:
-            - geolocator (Geolocator): Objeto de geolocalización externa.
-            - intentos (int): Número de intentos permitidos ante fallo.
+            - geolocator: objeto de geolocalización (como Nominatim de geopy).
+            - intentos (int): cantidad de intentos antes de abandonar si ocurre timeout.
 
-        Return:
-            - location (object | None): Objeto con coordenadas o None si falla.
+        Retorna:
+            - location: objeto con atributos .latitude y .longitude, o None si no se logró geolocalizar.
         '''
         direccion = self.direccion_completa()
         for i in range(intentos):
@@ -123,7 +123,7 @@ class Centro_de_salud:
         print(f"❌ No se pudo geolocalizar '{direccion}' después de {intentos} intentos")
         return None
 
-    def calcular_distancia_a(self, otro_centro):
+    def calcular_distancia_a(self, otro_centro) -> float:
         '''
         Calcula la distancia en kilómetros entre un centro y otro.
 
@@ -137,7 +137,7 @@ class Centro_de_salud:
             print("\nUno o ambos centros no tienen coordenadas geográficas.")
         return geodesic(self.coords, otro_centro.coords).kilometers  
     
-    def agregar_cirujano(self, cirujano):
+    def agregar_cirujano(self, cirujano) -> None:
         '''
         Agrega un cirujano general o especialista a la lista general.
 
@@ -150,7 +150,7 @@ class Centro_de_salud:
         if cirujano not in self.cirujanos:
             self.cirujanos.append(cirujano)
     
-    def agregar_cirujano_especialista(self, cirujano: Especialista):
+    def agregar_cirujano_especialista(self, cirujano: Especialista) -> None:
         '''
         Agrega un cirujano especialista a la lista de especialistas.
 
@@ -163,7 +163,7 @@ class Centro_de_salud:
         if cirujano not in self.especialistas:
             self.especialistas.append(cirujano)
     
-    def agregar_cirujano_general(self, cirujano: General):
+    def agregar_cirujano_general(self, cirujano: General) -> None:
         '''
         Agrega un cirujano general a la lista de general.
 
@@ -176,7 +176,7 @@ class Centro_de_salud:
         if cirujano not in self.especialistas:
             self.generales.append(cirujano)
             
-    def agregar_vehiculo(self, vehiculo):
+    def agregar_vehiculo(self, vehiculo) -> None:
         '''
         Agrega un vehículo a la lista general del centro.
 
@@ -189,7 +189,7 @@ class Centro_de_salud:
         if vehiculo not in self.vehiculos:
             self.vehiculos.append(vehiculo)
     
-    def agregar_ambulancia(self, vehiculo: Ambulancia):
+    def agregar_ambulancia(self, vehiculo: Ambulancia) -> None:
         '''
         Agrega una ambulancia a la lista de ambulancias.
 
@@ -203,7 +203,7 @@ class Centro_de_salud:
             self.ambulancias.append(vehiculo)  
         self.agregar_vehiculo(vehiculo)
             
-    def agregar_avion(self, vehiculo: Avion):
+    def agregar_avion(self, vehiculo: Avion) -> None:
         '''
         Agrega un avión a la lista de aviones.
 
@@ -217,7 +217,7 @@ class Centro_de_salud:
             self.aviones.append(vehiculo)
         self.agregar_vehiculo(vehiculo)
 
-    def agregar_helicoptero(self, vehiculo: Helicoptero):
+    def agregar_helicoptero(self, vehiculo: Helicoptero) -> None:
         '''
         Agrega un helicóptero a la lista de helicópteros.
 
@@ -304,7 +304,7 @@ class Centro_de_salud:
                 return c
         return disponibles[0] if disponibles else None
         
-    def realizar_ablacion(self, organo, donante):
+    def realizar_ablacion(self, organo, donante) -> bool:
         """
         Realiza la ablación de un órgano.
 
@@ -313,7 +313,7 @@ class Centro_de_salud:
             -donante: Paciente donante
             
         Return:
-                -bool: True si la ablación fue exitosa
+            -bool: True si la ablación fue exitosa
         """
         try:
             # Setear fecha y hora de ablación usando el método de la clase Organo
@@ -335,7 +335,7 @@ class Centro_de_salud:
             print(f"❌ Error durante la ablación: {e}")
             return False
 
-    def realizar_transplante(self, organo, receptor, cirujano):
+    def realizar_transplante(self, organo, receptor, cirujano) -> bool:
         """
         Realiza el trasplante de un órgano.
 
@@ -376,7 +376,7 @@ class Centro_de_salud:
             print(f"❌ Error durante el trasplante: {e}")
             return False
     
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         Devuelve una representación string del centro (nombre y ubicación).
 
@@ -385,7 +385,7 @@ class Centro_de_salud:
         '''
         return f"{self.nombre_cs} - {self.ciudad}, {self.provincia}, Argentina"
 
-    def __len__(self):
+    def __len__(self) -> int:
         '''
         Devuelve la cantidad total de cirujanos y vehículos en el centro.
 
@@ -394,7 +394,7 @@ class Centro_de_salud:
         '''
         return len(self.cirujanos) + len(self.vehiculos)
 
-    def __eq__(self, otro):
+    def __eq__(self, otro) -> bool:
         """
         Compara dos centros de salud por nombre y dirección.
         
