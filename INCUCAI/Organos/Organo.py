@@ -34,7 +34,18 @@ class Organo:
         "pulmones": 6, "intestino": 12, "piel": 60, "corneas": 90
     }
 
-    def __init__(self, tipo, fecha_ablacion=None, hora_ablacion=None):
+    def __init__(self, tipo, fecha_ablacion=None, hora_ablacion=None) -> None:
+        '''
+        Constructor del órgano.
+
+        Args:
+            - tipo (str): nombre del órgano (ej. "corazón", "riñón"). Se normaliza a minúsculas y sin acentos.
+            - fecha_ablacion (date, opcional): fecha en la que se extrajo el órgano.
+            - hora_ablacion (time, opcional): hora en la que se extrajo el órgano.
+        Return:
+            - None
+        '''
+
         self.tipo = self.sacar_acentos(tipo.strip().lower())
         self.fecha_ablacion = fecha_ablacion
         self.hora_ablacion = hora_ablacion
@@ -49,24 +60,51 @@ class Organo:
             print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
         '''
 
-    def sacar_acentos(self, texto):
+    def sacar_acentos(self, texto) -> None:
+        '''
+        Elimina los acentos del texto usando normalización Unicode.
+        Args:
+            - texto
+        Return:
+            - None
+        '''
         return ''.join(
             c for c in unicodedata.normalize('NFD', texto)
             if unicodedata.category(c) != 'Mn'
         )
     
-    def get_tiempo_conservacion(self):
-        #tiempo de conservación del organo en horas
+    def get_tiempo_conservacion(self) -> int:
+        '''
+        Devuelve cuántas horas puede conservarse este órgano antes de volverse no viable.
+        Args:
+            - None
+        Return:
+            - int: horas máximas desde la ablación
+        '''
         return self.tiempos_conservacion.get(self.tipo, 0)
     
-    def set_ablacion_auto(self, fecha_ablacion, hora_ablacion):
-        #establece la fecha y hora de ablación en automatico
+    def set_ablacion_auto(self, fecha_ablacion, hora_ablacion) -> None:
+        '''
+        Establece manualmente la fecha y hora en que se realizó la ablación.
+        Args:
+            - fecha_ablacion
+            - hora_ablacion
+        Return:
+            - None
+        '''
         self.fecha_ablacion = fecha_ablacion
         self.hora_ablacion = hora_ablacion
         print(f"Ablación establecida a las {self.hora_ablacion}")
         
-    def calcular_tiempo_transcurrido(self):
-        #calcula el tiempo transcurrido desde la ablación en horas
+    def calcular_tiempo_transcurrido(self) -> float | None:
+        '''
+        Calcula cuántas horas han pasado desde la ablación.
+        Args:
+            - None
+        Return:
+            - float: cantidad de horas transcurridas
+            - None: si falta fecha u hora
+        '''
         if not self.fecha_ablacion or not self.hora_ablacion:
             return None
 
@@ -78,8 +116,15 @@ class Organo:
         else:
             return 0  # Si está en el futuro, retornar 0
     
-    def calcular_tiempo_restante(self):
-        """Calcula el tiempo restante antes de que el órgano se venza"""
+    def calcular_tiempo_restante(self) -> float | None:
+        '''
+        Calcula cuántas horas le quedan al órgano antes de vencer.
+        Args:
+            - None
+        Return:
+            - float: tiempo restante (>= 0)
+            - None: si no se puede calcular
+        '''
         tiempo_transcurrido = self.calcular_tiempo_transcurrido()
         if tiempo_transcurrido is None:
             return None
@@ -89,14 +134,28 @@ class Organo:
         
         return max(0, tiempo_restante)  # No devolver valores negativos
     
-    def es_viable_para_trasplante(self):
+    def es_viable_para_trasplante(self) -> bool:
+        '''
+        Indica si el órgano aún puede usarse para trasplante.
+        Args:
+            - None
+        Return:
+            - bool: True si queda tiempo útil. False si venció o falta información
+        '''
         if not self.fecha_ablacion or not self.hora_ablacion:
             return False
         tiempo_restante = self.calcular_tiempo_restante()
         return tiempo_restante is not None and tiempo_restante > 0
 
-    def get_fecha_vencimiento(self):
-        """retorna la fecha y hora límite para el trasplante"""
+    def get_fecha_vencimiento(self) -> datetime | None:
+        '''
+        Devuelve el datetime exacto en que el órgano dejará de ser viable.
+        Args:
+            - None
+        Return:
+            - datetime: fecha y hora de vencimiento
+            - None: si falta info
+        '''
         if not self.fecha_ablacion or not self.hora_ablacion:
             return None
             
@@ -104,17 +163,34 @@ class Organo:
         vencimiento = ablacion_datetime + timedelta(hours=self.get_tiempo_conservacion())
         return vencimiento
 
-    def calcular_tiempo_transcurrido_hoy_ablacion(self):
+    def calcular_tiempo_transcurrido_hoy_ablacion(self) -> None:
+        '''
+        Muestra por pantalla cuánto tiempo ha pasado desde la ablación.
+        Args:
+            - None
+        Return:
+            - None
+        '''
         tiempo_transcurrido = self.calcular_tiempo_transcurrido()
         if tiempo_transcurrido is not None:
             print(f"Tiempo transcurrido desde la ablación: {tiempo_transcurrido:.2f} horas")
         else:
             print("No hay fecha y hora registrada para calcular el tiempo.")
 
-    def mostrar_datos(self):
-        """
-        Muestra toda la información del órgano
-        """
+    def mostrar_datos(self) -> None:
+        '''
+        Muestra toda la información relevante del órgano:
+        - Tipo
+        - Tiempo máximo permitido
+        - Fecha y hora de ablación (si existen)
+        - Tiempo transcurrido y restante
+        - Estado actual: viable o no viable
+
+        Args:
+            - None
+        Return:
+            - None
+        '''
         
         print(f"\n----------------------------------------------------INFORMACIÓN DEL ÓRGANO----------------------------------------------------")
         print(f"Tipo: {self.tipo.capitalize()}")
@@ -138,5 +214,12 @@ class Organo:
         else:
             print("No se ha registrado aún una fecha y hora de ablación.")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        '''
+        Devuelve el nombre del órgano capitalizado.
+        Args: 
+            - None
+        Return:
+            - None
+        '''
         return self.organos_validos.get(self.tipo, self.tipo).capitalize()
