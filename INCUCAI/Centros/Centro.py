@@ -1,43 +1,3 @@
-'''
-TRABAJO PRACTICO FINAL - LABO DE PROGRAMACION I. 
-SIMULACION SIST. DONACION DE ORGANOS
-
-Alonso Victoria - Pfeifer Zoe
-
-CLASE DE CENTROS DE SALUD: 
-Requisitos, estructura y comportamiento:
-
-Acerca de los centros de salud: 
--> Tienen los siguientes datos: [ATRIBUTOS]
-        Nombre
-        Dirección
-        Partido
-        Provincia
-        Teléfono
-        Una lista de cirujanos 
-        Una lista de vehículos.
-
--> Los centros de salud asignan un vehiculo para el transporte del órgano.  Esta selección de vehículos se realiza en base a la distancia:
-        Si se encuentra en la misma provincia y partido: Uso del vehiculo disponible de mayor velocidad pero que no se use para distancias mayores. 
-        Si se encuentra en la misma provincia, pero en un partido distinto, se utiliza el helicóptero.
-        Si discierne la provincia se utiliza el avión.
-
-Una vez que el INCUCAI encontró un match, inicia el protocolo de transporte y trasplante:
-    Este le pide al centro de salud del DONANTE que asigne un vehículo y un cirujano. 
-    Una vez que se asignó el vehículo, el centro procede a realizar la ablación del órgano que necesita el receptor. 
-    En la ablación se setea la fecha y horario de ablación del órgano y se quita el órgano removido de la lista de órganos del paciente donante.
-    Ese vehículo realiza el transporte (el cual demora un tiempo dependiendo de la distancia). 
-
-Finalmente, el centro de salud del receptor realiza el trasplante: 
-Para realizar el trasplante se verifica que no hayan transcurrido más de 20 horas desde la ablación del órgano y procede a realizar el trasplante con el cirujano elegido: 
-        -> Si el trasplante es exitoso, se remueve al paciente receptor de la lista de pacientes receptores. 
-        -> Si el trasplante falla, se cambia la prioridad del paciente receptor a la de mayor prioridad y se setea su estado a inestable.
-    Si el trasplante es exitoso o no se define con un valor aleatorio que varia dependiendo de la especialidad del cirujano.
-
-'''
-
-
-#LIBRERIAS
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from geopy.exc import GeocoderTimedOut
@@ -45,12 +5,11 @@ import time
 from datetime import datetime
 
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
-from INCUCAI.Centros.Cirujanos.General import General #ESTO ES LEGAL????????????????????????/ CREO QUE NO
-
-
+from INCUCAI.Centros.Cirujanos.General import General 
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Vehiculo.Avion import Avion
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
+
 
 
 class Centro_de_salud:

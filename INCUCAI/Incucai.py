@@ -1,24 +1,3 @@
-'''
-Alonso Victoria
-Pfeifer Zoe
-
-El Sistema tiene que permitir:
-    -Registrar pacientes nuevos (Validando que no se encuentre en otra lista ni se repita).
-    -Quitar de la lista de donantes a aquellos cuyos organos ya han sido utilizados en su totalidad.
-    -Quitar de la lista a un receptor una vez que ha recibido su organo exitosamente.
-    -Buscar por centro de salud los pacientes de la lista de espera.
-    -Buscar un receptor e informar qué prioridad tiene en la lista de espera.
-    -Imprimir listado de pacientes donantes y receptores.
-    -Realizar correctamente todo el proceso de asignación y derivación de un organo a un receptor,
-    contemplando el viaje, la disponibilidad en ese horario de los vehiculos de un centro medico y el tiempo de viaje.
-
-El INCUCAI sabe recibir un paciente. Cuando lo hace recibe al Paciente, y lo ingresa:
-    Si el paciente es donante, al ser ingresado se lo agrega a la lista de pacientes donantes.
-    Luego se busca los posibles receptores para cada órgano que el donante puede donar, para esto se busca en su lista de pacientes receptores todos los pacientes que necesitan ese órgano y tienen el mismo tipo de sangre. 
-    Finalmente, se elige el receptor, en función a la prioridad del paciente (si tienen la misma prioridad elige al que tiene una fecha anterior de ingreso a la lista de espera). En tal caso, se envia el organo correspondiente a la ubicación del paciente
-    receptor y se quita de la lista de donantes la disponibilidad de ese organo para ese donante en particular. Si el paciente es receptor, se lo agrega a la lista de pacientes receptores, y se busca si hay alguna coincidencia en
-    la lista de donantes. De haberlo se despacha el organo para el receptor, actualizando de igual manera la lista de donantes.  
-'''
 #Importaciones de librerias estandar:
 from geopy.geocoders import Nominatim
 from datetime import datetime
@@ -35,7 +14,7 @@ from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
 from Testing import *
-import traceback
+import traceback #?
 
 
 
@@ -84,7 +63,7 @@ class Incucai:
         self.cirujano = []
         self.generales = []
         self.especialistas = []
-             
+        
     def centros(self) -> list:
         """
         Crea y devuelve una lista de instancias de Centro_de_salud que representan centros habilitados por el INCUCAI,
@@ -193,7 +172,7 @@ class Incucai:
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.helicopteros.append(vehiculo)
         print(f"Helicoptero agregado al centro: {centro.nombre_cs}")
-        centro.agregar_vehiculo(vehiculo)
+        centro.agregar_helicoptero(vehiculo)
         return (vehiculo, len(self.vehiculos), len(self.helicopteros))
     
     def registrar_cirujano_general(self, cirujano: General) -> tuple:

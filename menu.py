@@ -13,26 +13,47 @@ from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 from Testing import *
 
 
+
 class Menu:
+    """
+    Clase que representa el menú principal de interacción con el sistema INCUCAI.
 
+    Esta clase ofrece una interfaz de texto para que el usuario pueda interactuar con las funcionalidades
+    del sistema INCUCAI, como registrar pacientes, consultar información, y gestionar donaciones y trasplantes.
 
+    Atributos:
+    ----------
+    incucai : Incucai
+        Instancia del sistema central que contiene la lógica principal de gestión de pacientes, centros,
+        órganos y procedimientos de trasplante.
+
+    Métodos:
+    --------
+    menu():
+        Inicia la interfaz de usuario por consola, permite seleccionar opciones del menú y ejecuta
+        las acciones correspondientes.
+    """
     def __init__(self):
+        """
+        Constructor del menú. Inicializa una instancia del sistema INCUCAI.
+        """
         self.incucai = Incucai()
 
     def menu (self):
-        incucai = Incucai()
-        lista_pacientes_test = []
-        lista_donantes_test =[]
-        lista_receptores_test = []
-        
-        lista_cirujanos_generales_test = []
-        lista_cirujanos_especialistas_test = []
-        
-        lista_ambulancias_test = []
-        lista_aviones_test = []
-        lista_helicoptero_test = []
+        """
+        Muestra el menú principal del sistema INCUCAI y gestiona la interacción con el usuario.
 
-        
+        El menú incluye opciones para:
+            - Inicializar pacientes y centros con datos de prueba
+            - Registrar manualmente donantes y receptores
+            - Listar donantes, receptores y centros de salud
+            - Consultar listas de espera y compatibilidades
+            - Realizar procesos de donación y trasplante específicos
+            - Buscar información sobre pacientes y centros
+
+        El programa continúa ejecutándose en bucle hasta que el usuario seleccione la opción de salida (0).
+        """
+        incucai = Incucai()
         print("-------------------------------------------------------    INCUCAI    ----------------------------------------------------")
         pregunta = None
         while pregunta not in [0, 1]:
@@ -60,7 +81,6 @@ class Menu:
             print("\n10- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
             print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
             print("\n12- Donacion especifica entre un donante y un receptor por DNI") 
-            print("\n13- Distribucion completa y automatica de todos mis organos cargados") #faltan implementar --> !!!
             print("\n14- Revisar compatibilidad entre 2 pacientes especificos")
             print("\n15- Imprimir informacion sobre un centro de salud") 
             print("\n16- Informacion sobre INCUCAI")
@@ -135,9 +155,6 @@ class Menu:
             elif opcion == 12:
                 print("\nDonacion especifica entre donante y receptor:")
                 incucai.donar_organo_de_donante_a_receptor_especifico()
-            
-            elif opcion ==13: #implementar
-                print("\nAsignaciones automaticas de paciente cargados:")
             
             elif opcion == 14: #funciona
                 print ("\nCompatibilidades entre 2 pacientes elegidos:")

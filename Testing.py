@@ -1,5 +1,4 @@
 from INCUCAI.Paciente.Donante import Donante
-from INCUCAI.Organos.Organo import Organo
 from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Avion import Avion
@@ -9,7 +8,7 @@ from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
 def creacion_pacientes ():
-    #DONANTES:
+        #Donantes:
         dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", None, None, time(16, 0), date(2025, 5, 21), ["rinon"], "vivo")
         dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Fundacion Favaloro", "Donante", "03", "30", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["rinon", "corazon"], "muerto")
         dpaciente3=Donante("Juan Perez Rojo", 46583722,date (1999, 6, 21), "M", "011234566", "012345678", "A+", "Fundacion Favaloro", "Donante", "33", "23", "21", "10", "11", "33" , date(2024, 10, 10), time (5, 55), time (7, 21), date(2024, 10, 7), ["pulmones"], "muerto")
@@ -21,7 +20,7 @@ def creacion_pacientes ():
         dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"], "muerto")
         dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado", "pulmones", "huesos"], "muerto")
         dpaciente11 = Donante("Johnny Laburo", 20498885, date(1970, 9, 12), "M", "34567643", "23456788", "O+", "Clinica Mayo SRL", "Donante", "09", "21", "07", "12", "10", "11", None, None, time(21, 20), date(2025,6, 8), ["huesos"], "vivo")
-
+        #Receptores:
         rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Fundacion Favaloro", "Receptor", "02", "24", "07", "35", "11", "04", ["riñón"], date(2024, 6, 1), "insuficiencia renal", "inestable")
         rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Fundacion Favaloro", "Receptor", "03", "30", "08", "15", "13", "07", ["riñón"], date(2023, 11, 3), "cirrosis", "estable")
         rpaciente13 = Receptor("Martina Silva", 47765432, date(2004, 8, 5), "F", "1134567890", "1145678901", "A-", "Fundacion Favaloro", "Receptor", "24", "32", "07", "44", "11", "17", ["corazón"], date(2023, 9, 12), "miocardiopatía", "estable")
@@ -36,7 +35,6 @@ def creacion_pacientes ():
         return [dpaciente1, dpaciente2, dpaciente3, dpaciente4, dpaciente5, dpaciente6, dpaciente7, dpaciente8, dpaciente9, dpaciente10, dpaciente11, rpaciente11, rpaciente12, rpaciente13, rpaciente14, rpaciente15, rpaciente16, rpaciente17, rpaciente18, rpaciente19, rpaciente20]
 
 def creacion_cirujanos_especialistas():
-
                 #Hospital Garrahan
                 especialista_garra_1 = Especialista("Juan Rios", "Hospital Garrahan", "gastroenterologo")
                 especialista_garra_2=Especialista("Camila Rios", "Hospital Garrahan", "pulmonar")
@@ -137,76 +135,75 @@ def creacion_cirujanos_especialistas():
                         ]
 
 def creacion_cirujanos_generales():
-            
-            #Hospital Regional Rio Grande
-            general_rio_1=General("Maximo Priotti", "Hospital Regional Rio Grande")
-            general_rio_2=General("Maximo Priotti", "Hospital Regional Rio Grande")
-            
-            #Hospital Dr. Clemente Alvarez
-            general_alvarez_1=General("Fernando Kurd", "Hospital Dr. Clemente Alvarez")
-            general_alvarez_2=General("Francisca Irlion", "Hospital Dr. Clemente Alvarez")
-            
-            #Hospital Dr. Guillermo Rawson
-            general_rawson_1=General("Juan Martin Hugo", "Hospital Dr. Guillermo Rawson")
-            general_rawson_2=General("Joaquin Zabala", "Hospital Dr. Guillermo Rawson")
-            
-            #Hospital Papa Francisco
-            general_papa_1=General("Geronimo Alias", "Hospital Papa Francisco")
-            general_papa_2=General("Azul Dinamarca", "Hospital Papa Francisco")
-            
-            #Hospital Samic Alem
-            general_alem_1=General("Matias Suarez", "Hospital Samic Alem de autogestión nivel II")
-            general_alem_2=General("Josefina Virgala", "Hospital Samic Alem de autogestión nivel II")
-            
-            #Hospital El Carmen
-            general_carmen_1=General("Juana Perez", "Hospital El Carmen")
-            general_carmen_2=General("Andres Fava", "Hospital El Carmen")
-            
-            #Hospital de Urgencias
-            general_urgencias=General("Matias Rebord", "Hospital de Urgencias")
-            general_urgencias_2=General("Matias Zabala", "Hospital de Urgencias")
-            
-            #Hospital Zonal Alvear
-            general_alvear_1=General("Franco Cera", "Hospital Zonal Alvear")
-            general_alvear_2=General("Matias Nardio", "Hospital Zonal Alvear")
-            
-            #Sanatorio Pasteur
-            general_pasteur_1=General("Tomas Martinez", "Sanatorio Pasteur")
-            general_pasteur_2=General("Pablo Codega", "Sanatorio Pasteur")
-            
-            #Hospital Gral. de Agudos Carlos G. Durand
-            general_durand_1=General("Francisco Perez", "Hospital Gral. de Agudos Carlos G. Durand")
-            general_durand_2=General("Marcos Cerasa", "Hospital Gral. de Agudos Carlos G. Durand")
-            
-            #Hospital Universitario Austral
-            general_austral_1=General("Victoria Dimarco", "Hospital Universitario Austral")
-            general_austral_2=General("Belen Jurda", "Hospital Universitario Austral")
-            
-            #Hospital El Cruce
-            general_cruce_1=General("Franco Suarez", "Hospital El Cruce")
-            general_cruce_2=General("Matias Juan Domingo", "Hospital El Cruce")
-            
-            #Hosipital Italiano de La Plata 
-            general_italiano_1 = General("Juana Lara", "Hospital Italiano de La Plata")
-            general_italiano_2 = General("Mateo Fava", "Hospital Italiano de La Plata")
+        #Hospital Regional Rio Grande
+        general_rio_1=General("Maximo Priotti", "Hospital Regional Rio Grande")
+        general_rio_2=General("Maximo Priotti", "Hospital Regional Rio Grande")
 
-            #Hospital General de Niños Dr. R. Gutierrez
-            general3 = General("Juana", "Hospital General de Niños Dr. R. Gutierrez")
-            general4= General("Mateo", "Hospital General de Niños Dr. R. Gutierrez")
+        #Hospital Dr. Clemente Alvarez
+        general_alvarez_1=General("Fernando Kurd", "Hospital Dr. Clemente Alvarez")
+        general_alvarez_2=General("Francisca Irlion", "Hospital Dr. Clemente Alvarez")
 
-            #Fundacion Favaloro
-            general_favaloro_1 = General("Julia Lauro", "Fundacion Favaloro")
-            general_favaloro2= General("Mateo Alonso", "Fundacion Favaloro")
-            
-            #Hospital Garrahan
-            general_garrahan_1 = General("Juana Martinez", "Hospital Garrahan")
-            general_garrahan_2=General("Martin Suarez", "Hospital Garrahan")
+        #Hospital Dr. Guillermo Rawson
+        general_rawson_1=General("Juan Martin Hugo", "Hospital Dr. Guillermo Rawson")
+        general_rawson_2=General("Joaquin Zabala", "Hospital Dr. Guillermo Rawson")
 
-            #Clinica Mayo SRL
-            general_mayo_1 = General("Juan Perez", "Clinica Mayo SRL")
-            general_mayo_2=General("Zoe Fernandez", "Clinica Mayo SRL")
-            
-            return [general_rawson_1, general_rawson_2, general_alem_1, general_alem_2, general_carmen_1, general_carmen_2, general_urgencias, 
+        #Hospital Papa Francisco
+        general_papa_1=General("Geronimo Alias", "Hospital Papa Francisco")
+        general_papa_2=General("Azul Dinamarca", "Hospital Papa Francisco")
+        
+        #Hospital Samic Alem
+        general_alem_1=General("Matias Suarez", "Hospital Samic Alem de autogestión nivel II")
+        general_alem_2=General("Josefina Virgala", "Hospital Samic Alem de autogestión nivel II")
+        
+        #Hospital El Carmen
+        general_carmen_1=General("Juana Perez", "Hospital El Carmen")
+        general_carmen_2=General("Andres Fava", "Hospital El Carmen")
+        
+        #Hospital de Urgencias
+        general_urgencias=General("Matias Rebord", "Hospital de Urgencias")
+        general_urgencias_2=General("Matias Zabala", "Hospital de Urgencias")
+
+        #Hospital Zonal Alvear
+        general_alvear_1=General("Franco Cera", "Hospital Zonal Alvear")
+        general_alvear_2=General("Matias Nardio", "Hospital Zonal Alvear")
+
+        #Sanatorio Pasteur
+        general_pasteur_1=General("Tomas Martinez", "Sanatorio Pasteur")
+        general_pasteur_2=General("Pablo Codega", "Sanatorio Pasteur")
+
+        #Hospital Gral. de Agudos Carlos G. Durand
+        general_durand_1=General("Francisco Perez", "Hospital Gral. de Agudos Carlos G. Durand")
+        general_durand_2=General("Marcos Cerasa", "Hospital Gral. de Agudos Carlos G. Durand")
+
+        #Hospital Universitario Austral
+        general_austral_1=General("Victoria Dimarco", "Hospital Universitario Austral")
+        general_austral_2=General("Belen Jurda", "Hospital Universitario Austral")
+
+        #Hospital El Cruce
+        general_cruce_1=General("Franco Suarez", "Hospital El Cruce")
+        general_cruce_2=General("Matias Juan Domingo", "Hospital El Cruce")
+
+        #Hosipital Italiano de La Plata 
+        general_italiano_1 = General("Juana Lara", "Hospital Italiano de La Plata")
+        general_italiano_2 = General("Mateo Fava", "Hospital Italiano de La Plata")
+
+        #Hospital General de Niños Dr. R. Gutierrez
+        general3 = General("Juana", "Hospital General de Niños Dr. R. Gutierrez")
+        general4= General("Mateo", "Hospital General de Niños Dr. R. Gutierrez")
+
+        #Fundacion Favaloro
+        general_favaloro_1 = General("Julia Lauro", "Fundacion Favaloro")
+        general_favaloro2= General("Mateo Alonso", "Fundacion Favaloro")
+
+        #Hospital Garrahan
+        general_garrahan_1 = General("Juana Martinez", "Hospital Garrahan")
+        general_garrahan_2=General("Martin Suarez", "Hospital Garrahan")
+
+        #Clinica Mayo SRL
+        general_mayo_1 = General("Juan Perez", "Clinica Mayo SRL")
+        general_mayo_2=General("Zoe Fernandez", "Clinica Mayo SRL")
+
+        return [general_rawson_1, general_rawson_2, general_alem_1, general_alem_2, general_carmen_1, general_carmen_2, general_urgencias, 
                     general_urgencias_2, general_alvear_1, general_alvear_2, general_pasteur_1, general_pasteur_2, 
                     general_durand_1, general_durand_2, general_austral_1, general_austral_2, general_cruce_1, general_cruce_2, 
                     general_italiano_1, general_italiano_2, general3, general4, general_favaloro_1, general_favaloro2, general_alvarez_1, general_alvarez_2,

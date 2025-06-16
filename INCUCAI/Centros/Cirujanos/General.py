@@ -3,13 +3,13 @@ from INCUCAI.Centros.Cirujanos.Cirujano import *
 from INCUCAI.Organos.Organo import Organo
 
 
+
 class General (Cirujano):
     '''
     Representa a un cirujano general dentro del sistema de trasplantes.
     Esta clase hereda de `Cirujano` y representa un profesional médico con capacidad para realizar operaciones generales
     dentro del protocolo de trasplantes.
     '''
-
 
     def __init__(self, nombre, centro) -> None:
         '''

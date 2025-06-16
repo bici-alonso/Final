@@ -1,16 +1,9 @@
-''' 
-Los órganos que se pueden donar son los siguientes: 
-corazón, hígado, páncreas, huesos, riñón, pulmones, intestino, piel y córneas. 
-Los órganos almacenan la fecha y hora de ablación (si todavía no corresponde, no recuerda ninguna fecha en particular).
-'''
-
 import unicodedata
 from datetime import datetime, timedelta
 
+
+
 class Organo:
-    #organos válidos (sin acentos)
-    
-    
     organos_validos = {
         "corazon": "corazón",
         "higado": "hígado",
@@ -26,9 +19,6 @@ class Organo:
         "corneas": "córneas"
     }
     
-    
-    #vida util de cada organo post ablacion
-    
     tiempos_conservacion = {
         "corazon": 6, "higado": 12, "pancreas": 12, "huesos": 20, "riñon": 24, "rinon":24, "rinion":24,
         "pulmones": 6, "intestino": 12, "piel": 60, "corneas": 90
@@ -37,7 +27,6 @@ class Organo:
     def __init__(self, tipo, fecha_ablacion=None, hora_ablacion=None) -> None:
         '''
         Constructor del órgano.
-
         Args:
             - tipo (str): nombre del órgano (ej. "corazón", "riñón"). Se normaliza a minúsculas y sin acentos.
             - fecha_ablacion (date, opcional): fecha en la que se extrajo el órgano.
@@ -45,7 +34,6 @@ class Organo:
         Return:
             - None
         '''
-
         self.tipo = self.sacar_acentos(tipo.strip().lower())
         self.fecha_ablacion = fecha_ablacion
         self.hora_ablacion = hora_ablacion
@@ -54,11 +42,6 @@ class Organo:
             print(f"❌ '{tipo}' no es un órgano válido.")
             print(f"Órganos válidos: {', '.join(self.organos_validos)}")
             raise ValueError(f"'{tipo}' no es un órgano válido.")
-        
-        '''else:
-            print(f"Órgano registrado: 🫀  {self.tipo.capitalize()} ")
-            print(f"Tiempo máximo de conservación: {self.get_tiempo_conservacion()} horas")
-        '''
 
     def sacar_acentos(self, texto) -> None:
         '''

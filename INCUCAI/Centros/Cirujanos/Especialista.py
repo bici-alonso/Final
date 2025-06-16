@@ -2,6 +2,8 @@ import random
 from INCUCAI.Centros.Cirujanos.Cirujano import *
 from INCUCAI.Organos.Organo import *
 
+
+
 class Especialista (Cirujano):
     '''
     Representa a un cirujano especialista dentro del sistema de trasplantes.
@@ -62,7 +64,7 @@ class Especialista (Cirujano):
         """
         tipo = organo.tipo.lower() if isinstance(organo, Organo) else organo.lower()
         return tipo in self.organos.get(self.especialidad, [])
-       
+
     def __str__(self) -> str:
         '''
         Representación textual del cirujano especialista.
