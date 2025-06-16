@@ -1,10 +1,10 @@
-from menu import *
+from menu import Menu
 
 
 
 def main():
-    
-    menu()
+    menu = Menu()
+    menu.menu()
     
 
 if __name__ == "__main__":

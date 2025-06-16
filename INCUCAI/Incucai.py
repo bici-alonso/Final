@@ -684,8 +684,6 @@ class Incucai:
 
         for donante in self.donantes:
             for organo in donante.lista_organos:
-                print(organo.tipo)
-                print(organos_necesarios)
                 if organo.tipo == organos_necesarios:
                     if self.compatibilidad(donante, receptor):
                         compatibles.append((donante, organo))
@@ -698,15 +696,24 @@ class Incucai:
         for i, (d, o) in enumerate(compatibles):
             print(f"{i+1}. Donante: {d.nombre} (DNI: {d.DNI}) - Órgano: {o.tipo}")
 
-        
-        seleccion = int(input("\nSeleccione el numero del donante con el que desea proceder: "))
-        if seleccion <= len(compatibles):
-            donante, organo = compatibles[seleccion - 1]
-            funcionotrasplante = self.realizar_transplante(receptor, donante, organo)
-            if not funcionotrasplante:
-                print("Algo fallo.") 
-        else:
-            print("Seleccione un numero dentro de las opciones.")
+        try:
+            seleccion = int(input("\nSeleccione el número del donante con el que desea proceder: "))
+            if 1 <= seleccion <= len(compatibles):
+                donante, organo = compatibles[seleccion - 1]
+
+                # Validación adicional antes de iniciar el trasplante
+                centro_receptor = receptor.centro_salud
+                if not centro_receptor.tiene_vehiculos_disponibles():  # Este método lo debés definir
+                    print("❌ El centro del receptor no tiene vehículos disponibles para realizar el trasplante.")
+                    return
+
+                funcionotrasplante = self.realizar_transplante(receptor, donante, organo)
+                if not funcionotrasplante:
+                    print("Algo falló.")
+            else:
+                print("❌ Número fuera de rango.")
+        except ValueError:
+            print("❌ Entrada inválida. Debe ingresar un número.")
 
 #------------------------------------------------------------------------FIN DE LOGICA DE DONACION-------------------------------------------------------------------------------
 #------------------------------------------------------------------------INICIO METODOS ADICIONALES DE MENU-------------------------------------------------------------------------------

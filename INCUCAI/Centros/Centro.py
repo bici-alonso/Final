@@ -56,6 +56,19 @@ from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 class Centro_de_salud:
 
     def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto):
+        '''
+        Inicializa un centro de salud con su informacion principal
+
+        Args:
+            - nombre_cs (str): Nombre del centro.
+            - direccion (str): Dirección del centro.
+            - barrio (str): Barrio/ciudad del centro.
+            - provincia (str): Provincia donde se ubica.
+            - tel_contacto (str): Teléfono de contacto.
+
+        Return:
+            - None
+        '''
         if not all([nombre_cs, direccion, barrio, provincia, tel_contacto]):
             raise ValueError("Todos los campos son obligatorios.")        
         
@@ -78,9 +91,25 @@ class Centro_de_salud:
         self.coords = None
 
     def direccion_completa(self):
+        '''
+        Devuelve la dirección completa del centro formateada.
+
+        Return:
+            - str: Dirección en formato "calle, ciudad, provincia, Argentina"
+        '''
         return f"{self.direccion}, {self.ciudad}, {self.provincia}, {self.pais}"
 
     def geolocalizar_direccion(self, geolocator, intentos=3):
+        '''
+        Obtiene las coordenadas (lat, lon) de la dirección del centro usando un geolocalizador.
+
+        Args:
+            - geolocator (Geolocator): Objeto de geolocalización externa.
+            - intentos (int): Número de intentos permitidos ante fallo.
+
+        Return:
+            - location (object | None): Objeto con coordenadas o None si falla.
+        '''
         direccion = self.direccion_completa()
         for i in range(intentos):
             try:
@@ -95,42 +124,124 @@ class Centro_de_salud:
         return None
 
     def calcular_distancia_a(self, otro_centro):
+        '''
+        Calcula la distancia en kilómetros entre un centro y otro.
+
+        Args:
+            - otro_centro (Centro_de_salud): Otro centro con coordenadas.
+
+        Return:
+            - float: Distancia en kilómetros.
+        '''
         if self.coords is None or otro_centro.coords is None:
             print("\nUno o ambos centros no tienen coordenadas geográficas.")
-        return geodesic(self.coords, otro_centro.coords).kilometers
-    
+        return geodesic(self.coords, otro_centro.coords).kilometers  
     
     def agregar_cirujano(self, cirujano):
+        '''
+        Agrega un cirujano general o especialista a la lista general.
+
+        Args:
+            - cirujano (Cirujano): Objeto cirujano a agregar.
+
+        Return:
+            - None
+        '''
         if cirujano not in self.cirujanos:
             self.cirujanos.append(cirujano)
     
     def agregar_cirujano_especialista(self, cirujano: Especialista):
+        '''
+        Agrega un cirujano especialista a la lista de especialistas.
+
+        Atributos:
+            - cirujano (Especialista): Objeto especialista.
+
+        Return:
+            - None
+        '''
         if cirujano not in self.especialistas:
             self.especialistas.append(cirujano)
     
     def agregar_cirujano_general(self, cirujano: General):
+        '''
+        Agrega un cirujano general a la lista de general.
+
+        Atributos:
+            - cirujano (General): Objeto general.
+
+        Return:
+            - None
+        '''
         if cirujano not in self.especialistas:
             self.generales.append(cirujano)
-    
             
     def agregar_vehiculo(self, vehiculo):
+        '''
+        Agrega un vehículo a la lista general del centro.
+
+        Atributos:
+            - vehiculo (Vehiculo): Instancia de vehículo.
+
+        Return:
+            - None
+        '''
         if vehiculo not in self.vehiculos:
             self.vehiculos.append(vehiculo)
     
     def agregar_ambulancia(self, vehiculo: Ambulancia):
+        '''
+        Agrega una ambulancia a la lista de ambulancias.
+
+        Atributos:
+            - vehiculo (Ambulancia): Vehículo tipo ambulancia.
+
+        Return:
+            - None
+        '''
         if vehiculo not in self.ambulancias:
-            self.ambulancias.append(vehiculo)
-    
+            self.ambulancias.append(vehiculo)  
+        self.agregar_vehiculo(vehiculo)
             
     def agregar_avion(self, vehiculo: Avion):
+        '''
+        Agrega un avión a la lista de aviones.
+
+        Atributos:
+            - vehiculo (Avion): Vehículo tipo avión.
+
+        Return:
+            - None
+        '''
         if vehiculo not in self.aviones:
             self.aviones.append(vehiculo)
+        self.agregar_vehiculo(vehiculo)
 
     def agregar_helicoptero(self, vehiculo: Helicoptero):
-        if vehiculo not in self.helicoptero:
+        '''
+        Agrega un helicóptero a la lista de helicópteros.
+
+        Atributos:
+            - vehiculo (Helicoptero): Vehículo tipo helicóptero.
+
+        Return:
+            - None
+        '''
+        if vehiculo not in self.helicopteros:
             self.helicopteros.append(vehiculo)
+        self.agregar_vehiculo(vehiculo)
             
     def seleccionar_vehiculo(self, centro_destino):
+        '''
+        Selecciona el mejor vehículo para transportar un órgano al centro destino,
+        considerando ciudad/provincia.
+
+        Args:
+            - centro_destino (Centro_de_salud): Centro de destino.
+
+        Return:
+            - Vehiculo: Vehículo seleccionado.
+        '''
         if not self.vehiculos:
             raise ValueError("No hay vehículos disponibles en este centro")
             
@@ -173,6 +284,15 @@ class Centro_de_salud:
         return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
     
     def seleccionar_cirujano(self, organo):
+        '''
+        Selecciona un cirujano disponible especializado en el órgano si es posible.
+
+        Args:
+            - organo (Organo): Órgano a trasplantar.
+
+        Return:
+            - Cirujano | None: Cirujano seleccionado o None si no hay disponible.
+        '''
         disponibles = [c for c in self.cirujanos if c.cirujano_disponible()]
         for c in disponibles:
             if hasattr(c, 'especialidad') and organo.lower() in c.organos.get(c.especialidad, []):
@@ -182,10 +302,13 @@ class Centro_de_salud:
     def realizar_ablacion(self, organo, donante):
         """
         Realiza la ablación de un órgano.
-            organo (Organo): Órgano 
-            donante: Paciente donante
+
+        Args:
+            -organo (Organo): Órgano 
+            -donante: Paciente donante
             
-            retorna bool: True si la ablación fue exitosa
+        Return:
+                -bool: True si la ablación fue exitosa
         """
         try:
             # Setear fecha y hora de ablación usando el método de la clase Organo
@@ -210,11 +333,13 @@ class Centro_de_salud:
     def realizar_transplante(self, organo, receptor, cirujano):
         """
         Realiza el trasplante de un órgano.
-            organo: a trasplantar
-            receptor: Paciente receptor
-            cirujano: Cirujano que realizará la operación
-            
-            retorna bool: True si el trasplante fue exitoso
+
+        Args:
+            -organo: a trasplantar
+            -receptor: Paciente receptor
+            -cirujano: Cirujano que realizará la operación
+        Return:
+            -bool: True si el trasplante fue exitoso
         """
         # Verificar viabilidad del órgano usando los métodos de la clase Organo
         if not organo.es_viable_para_trasplante():
@@ -247,9 +372,21 @@ class Centro_de_salud:
             return False
     
     def __str__(self):
+        '''
+        Devuelve una representación string del centro (nombre y ubicación).
+
+        Return:
+            - str: "Nombre - ciudad, provincia, Argentina"
+        '''
         return f"{self.nombre_cs} - {self.ciudad}, {self.provincia}, Argentina"
 
     def __len__(self):
+        '''
+        Devuelve la cantidad total de cirujanos y vehículos en el centro.
+
+        Return:
+            - int: Total de elementos humanos y móviles.
+        '''
         return len(self.cirujanos) + len(self.vehiculos)
 
     def __eq__(self, otro):
