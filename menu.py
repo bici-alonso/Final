@@ -10,7 +10,7 @@ from datetime import time, date
 from INCUCAI.Centros.Centro import Centro_de_salud
 from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
-from Testing import *
+from Testing import Testing
 
 
 
