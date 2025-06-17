@@ -7,6 +7,7 @@ from datetime import time, date
 from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
+
 class Testing:
         def creacion_pacientes (self) -> list:
                 '''
@@ -41,7 +42,6 @@ class Testing:
                 rpaciente18 = Receptor("Tomás Aguirre", 47210987, date(1999, 11, 30), "M", "1189012345", "1190123456", "B-", "Hospital Clemente Alvarez", "Receptor", "23", "30", "32", "42", "10", "17", ["corazón"], date(2024, 3, 3), "cardiopatía", "inestable")
                 rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "23", "30", "35", "44", "13", "17", ["riñón"], date(2023, 12, 11), "nefropatía", "estable")
                 rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "23", "31", "35", "44", "19", "10", ["hígado"], date(2024, 5, 9), "insuficiencia hepática", "estable")   
-                
                 return [dpaciente1, dpaciente2, dpaciente3, dpaciente4, dpaciente5, dpaciente6, dpaciente7, dpaciente8, dpaciente9, dpaciente10, dpaciente11, rpaciente11, rpaciente12, rpaciente13, rpaciente14, rpaciente15, rpaciente16, rpaciente17, rpaciente18, rpaciente19, rpaciente20]
 
         def creacion_cirujanos_especialistas(self):
@@ -160,15 +160,15 @@ class Testing:
                 #Hospital Papa Francisco
                 general_papa_1=General("Geronimo Alias", "Hospital Papa Francisco")
                 general_papa_2=General("Azul Dinamarca", "Hospital Papa Francisco")
-                
+
                 #Hospital Samic Alem
                 general_alem_1=General("Matias Suarez", "Hospital Samic Alem de autogestión nivel II")
                 general_alem_2=General("Josefina Virgala", "Hospital Samic Alem de autogestión nivel II")
-                
+
                 #Hospital El Carmen
                 general_carmen_1=General("Juana Perez", "Hospital El Carmen")
                 general_carmen_2=General("Andres Fava", "Hospital El Carmen")
-                
+
                 #Hospital de Urgencias
                 general_urgencias=General("Matias Rebord", "Hospital de Urgencias")
                 general_urgencias_2=General("Matias Zabala", "Hospital de Urgencias")
@@ -362,7 +362,7 @@ class Testing:
                         ambulancia_urgencias_7, ambulancia_urgencias_8, ambulancia_urgencias_9]
                 
         def creacion_aviones(self):
-        
+
                 #Hospital Garrahan
                 avion_garr_1 = Avion(280, "AB466AP", "Hospital Garrahan")
                 avion_garr_2 = Avion(290, "AB467AP", "Hospital Garrahan")
@@ -386,6 +386,8 @@ class Testing:
                 
                 #Hospital Italiano La Plata
                 avion_ita_1 = Avion(310, "AB432AP", "Hospital Italiano de La Plata")
+
+
 
                 #Hospital Gral. de Agudos Carlos G. Durand
                 avion_durand_1 = Avion(290, "AB400AP", "Hospital Gral. de Agudos Carlos G. Durand")

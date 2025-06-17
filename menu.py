@@ -94,7 +94,6 @@ class Menu:
             
             if opcion == 1: #revisar si funciona
                 incucai.crear_objetos_prueba()
-                
                     
             elif opcion == 2: #funciona
                 incucai.carga_manual_donante_nuevo()
