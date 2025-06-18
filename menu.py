@@ -171,5 +171,5 @@ class Menu:
                 print("\n -------------------------------------------------------------------------------------------------------")
                 break
             
-            else: #este else no contempla caracteres no numericos
+            else: 
                 print("\nOpcion no valida. Seleccione una de las opciones enlistadas")
