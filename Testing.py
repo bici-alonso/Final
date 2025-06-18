@@ -30,7 +30,9 @@ class Testing:
                 dpaciente8 = Donante("Diego Suarez", 46543210, date(1996, 4, 8), "M", "1190123456", "1196789012", "B-", "Hospital Clemente Alvarez", "Donante", "23", "30", "32", "42", "10", "17", date(2025, 5, 27), time(13, 30), time(15, 30), date(2025, 5, 28), ["corazón", "riñón"], "vivo")
                 dpaciente9 = Donante("Micaela Suárez", 45987654, date(2001, 6, 17), "F", "1191234567", "1197890123", "A+", "Clinica Mayo SRL", "Donante", "23", "30", "35", "44", "13", "17", date(2025, 5, 26), time(14, 15), time(16, 15), date(2025, 5, 27), ["riñón"], "muerto")
                 dpaciente10 = Donante("Federico Blanco", 44098765, date(1995, 1, 11), "M", "1192345678", "1198901234", "O-", "Hospital Samic Alem", "Donante", "23", "31", "35", "44", "19", "10",date(2025, 5, 22), time(12, 45), time(14, 45), date(2025, 5, 23), ["corazón", "hígado", "pulmones", "huesos"], "muerto")
-                dpaciente11 = Donante("Johnny Laburo", 20498885, date(1970, 9, 12), "M", "34567643", "23456788", "O+", "Clinica Mayo SRL", "Donante", "09", "21", "07", "12", "10", "11", None, None, time(21, 20), date(2025,6, 8), ["huesos"], "vivo")
+                dpaciente11 = Donante("Johnny Bravo", 20498885, date(1970, 9, 12), "M", "34567643", "23456788", "O+", "Clinica Mayo SRL", "Donante", "09", "21", "07", "12", "10", "11", None, None, time(21, 20), date(2025,6, 8), ["huesos"], "vivo")
+                dpaciente12= Donante ("Juliana Rios", 45583733, date(2000, 8, 10), "F", "01135857767", "11456737829", "A+", "Clinica Mayo SRL", "Donante", "02", "24", "07", "35", "10", "06", None, None, time (21, 00), date(2025, 6, 10), ["riñón"], "vivo")
+                
                 #Receptores:
                 rpaciente11 = Receptor("Valentina Rossi", 48012345, date(2002, 5, 10), "F", "1112345678", "1123456789", "A+", "Fundacion Favaloro", "Receptor", "02", "24", "07", "35", "11", "04", ["riñón"], date(2024, 6, 1), "insuficiencia renal", "inestable")
                 rpaciente12 = Receptor("Julián Navarro", 47876543, date(1998, 4, 22), "M", "1123456789", "1134567890", "O-", "Fundacion Favaloro", "Receptor", "03", "30", "08", "15", "13", "07", ["riñón"], date(2023, 11, 3), "cirrosis", "estable")
@@ -42,7 +44,7 @@ class Testing:
                 rpaciente18 = Receptor("Tomás Aguirre", 47210987, date(1999, 11, 30), "M", "1189012345", "1190123456", "B-", "Hospital Clemente Alvarez", "Receptor", "23", "30", "32", "42", "10", "17", ["corazón"], date(2024, 3, 3), "cardiopatía", "inestable")
                 rpaciente19 = Receptor("Luciana Medina", 47109876, date(1996, 6, 14), "F", "1190123456", "1191234567", "A+", "Clinica Mayo SRL", "Receptor", "23", "30", "35", "44", "13", "17", ["riñón"], date(2023, 12, 11), "nefropatía", "estable")
                 rpaciente20 = Receptor("Nicolás Vera", 47098765, date(1997, 2, 4), "M", "1191234567", "1192345678", "O-", "Hospital Samic Alem", "Receptor", "23", "31", "35", "44", "19", "10", ["hígado"], date(2024, 5, 9), "insuficiencia hepática", "estable")   
-                return [dpaciente1, dpaciente2, dpaciente3, dpaciente4, dpaciente5, dpaciente6, dpaciente7, dpaciente8, dpaciente9, dpaciente10, dpaciente11, rpaciente11, rpaciente12, rpaciente13, rpaciente14, rpaciente15, rpaciente16, rpaciente17, rpaciente18, rpaciente19, rpaciente20]
+                return [dpaciente1, dpaciente2, dpaciente3, dpaciente4, dpaciente5, dpaciente6, dpaciente7, dpaciente8, dpaciente9, dpaciente10, dpaciente11, dpaciente12, rpaciente11, rpaciente12, rpaciente13, rpaciente14, rpaciente15, rpaciente16, rpaciente17, rpaciente18, rpaciente19, rpaciente20]
 
         def creacion_cirujanos_especialistas(self):
                         #Hospital Garrahan

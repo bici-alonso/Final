@@ -78,7 +78,7 @@ class Menu:
             print("\n7- Ver lista de espera de receptores en orden")
             print("\n8- Iniciar protocolo de transplante") #perfeccionar --> !!
             print("\n9- Buscar informacion de un paciente por DNI")
-            print("\n10- Buscar en un centro de salud sus pacientes en lista de espera") #imprime para un centro de salud, todos sus pacientes en espera
+            print("\n10- Buscar en un centro de salud sus pacientes en lista de espera")
             print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
             print("\n12- Donacion especifica entre un donante y un receptor por DNI") 
             print("\n13- Revisar compatibilidad entre 2 pacientes especificos")
