@@ -15,9 +15,11 @@ from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
 from Testing import Testing
 import traceback #?
+import unicodedata
 
 
 testing = Testing()
+geolocator = Nominatim(user_agent="incucai_test")
 class Incucai:
     '''    
     Metodos de Incucai:
@@ -262,6 +264,9 @@ class Incucai:
             self.registrar_cirujano_especialista(cirujano)
         
         return        
+    
+    def normalizar (self, texto):
+        return unicodedata.normalize('NFD', texto.lower()).encode('ascii', 'ignore').decode('utf-8')
 #-------------------------------------------------------------------FIN DE REGISTROS----------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------INICIO IMPRESIONES----------------------------------------------------------------------------------
@@ -768,9 +773,17 @@ class Incucai:
 
         for donante in self.donantes:
             for organo in donante.lista_organos:
-                if organo.tipo == organos_necesarios:
-                    if self.compatibilidad(donante, receptor):
-                        compatibles.append((donante, organo))
+                tipo_organo = self.normalizar(organo.tipo)
+
+                if isinstance(organos_necesarios, list):
+                    necesarios_normalizados = [self.normalizar(o) for o in organos_necesarios]
+                    if tipo_organo in necesarios_normalizados:
+                        if self.compatibilidad(donante, receptor):
+                            compatibles.append((donante, organo))
+                elif isinstance(organos_necesarios, str):
+                    if tipo_organo == self.normalizar(organos_necesarios):
+                        if self.compatibilidad(donante, receptor):
+                            compatibles.append((donante, organo))
 
         if not compatibles:
             print("❌ No hay donantes compatibles para este receptor.")
@@ -926,7 +939,7 @@ class Incucai:
         print(f"📍 Dirección: {centro.direccion_completa()}")
         
         if centro.coords:
-            print(f"🌐 Coordenadas: {centro.geolocalizar_direccion()}")
+            print(f"🌐 Coordenadas: {centro.geolocalizar_direccion(geolocator)}")
         else:
             print("🌐 Coordenadas: No geolocalizado.")
 

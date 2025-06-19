@@ -20,7 +20,7 @@ class Testing:
                         list: Lista que contiene instancias de Donante y Receptor.
                 '''
                 #Donantes:
-                dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", None, None, time(16, 0), date(2025, 5, 21), ["rinon"], "vivo")
+                dpaciente1 = Donante("Ana López", 45012345, date(1990, 5, 15), "F", "1123456789", "1198765432", "A+", "Hospital Italiano de La Plata", "Donante", "02", "24", "07", "35", "11", "04", None, None, time(16, 0), date(2025, 5, 21), ["riñón"], "vivo")
                 dpaciente2 = Donante("Carlos Pérez", 43123456, date(1985, 7, 10), "M", "1134567890", "1191234567", "O-", "Fundacion Favaloro", "Donante", "03", "30", "08", "15", "13", "07", date(2025, 5, 18), time(13, 0), time(15, 0), date(2025, 5, 19), ["rinon", "corazon"], "muerto")
                 dpaciente3=Donante("Juan Perez Rojo", 46583722,date (1999, 6, 21), "M", "011234566", "012345678", "A+", "Fundacion Favaloro", "Donante", "33", "23", "21", "10", "11", "33" , date(2024, 10, 10), time (5, 55), time (7, 21), date(2024, 10, 7), ["pulmones"], "muerto")
                 dpaciente4 = Donante("Lucía Torres", 46098765, date(2000, 11, 5), "F", "1156789012", "1192345678", "A-", "Hospital Garrahan", "Donante", "23", "31", "35", "44", "13", "17", date(2025, 5, 24), time(10, 0), time(12, 0), date(2025, 5, 25), ["hígado", "riñón"], "muerto")
