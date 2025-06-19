@@ -203,6 +203,6 @@ class Organo:
         Args: 
             - None
         Return:
-            - None
+            
         '''
         return self.organos_validos.get(self.tipo, self.tipo).capitalize()

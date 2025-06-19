@@ -1,6 +1,6 @@
 import random
-from INCUCAI.Centros.Cirujanos.Cirujano import *
-from INCUCAI.Organos.Organo import *
+from INCUCAI.Centros.Cirujanos.Cirujano import Cirujano
+from INCUCAI.Organos.Organo import Organo
 
 
 
@@ -37,7 +37,7 @@ class Especialista (Cirujano):
             - Si no pertenece, éxito solo con probabilidad > 50% (resultado > 5).
 
         Args:
-            organo (Organo o str): Órgano sobre el que se realiza la operación.
+            organo (Organo): Órgano sobre el que se realiza la operación.
 
         Returns:
             bool: True si la operación fue exitosa, False en caso contrario.

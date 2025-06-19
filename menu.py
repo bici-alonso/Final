@@ -10,7 +10,6 @@ from datetime import time, date
 from INCUCAI.Centros.Centro import Centro_de_salud
 from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Centros.Cirujanos.Especialista import Especialista
-from Testing import Testing
 
 
 
@@ -98,7 +97,7 @@ class Menu:
             elif opcion == 2: #funciona
                 incucai.carga_manual_donante_nuevo()
                 
-            elif opcion == 3: #FUNCIONA --> REVISAR VALIDACIONES
+            elif opcion == 3: #funciona 
                 incucai.carga_manual_receptor_nuevo()
                     
             elif opcion == 4: #funciona

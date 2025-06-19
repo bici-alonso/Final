@@ -1,5 +1,7 @@
 from INCUCAI.Vehiculo.Vehiculo import Vehiculo
 
+
+
 class Ambulancia(Vehiculo):
     """
     Clase que representa una ambulancia utilizada en el sistema de transporte del INCUCAI.

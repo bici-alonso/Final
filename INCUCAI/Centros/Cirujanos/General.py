@@ -1,6 +1,5 @@
 import random
 from INCUCAI.Centros.Cirujanos.Cirujano import *
-from INCUCAI.Organos.Organo import Organo
 
 
 
