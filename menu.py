@@ -1,15 +1,4 @@
 from INCUCAI.Incucai import Incucai
-from INCUCAI.Paciente.Donante import Donante
-from INCUCAI.Organos.Organo import Organo
-from INCUCAI.Paciente.Paciente import Paciente
-from INCUCAI.Paciente.Receptor import Receptor
-from INCUCAI.Vehiculo.Helicoptero import Helicoptero
-from INCUCAI.Vehiculo.Avion import Avion
-from INCUCAI.Vehiculo.Ambulancia import Ambulancia
-from datetime import time, date
-from INCUCAI.Centros.Centro import Centro_de_salud
-from INCUCAI.Centros.Cirujanos.General import General
-from INCUCAI.Centros.Cirujanos.Especialista import Especialista
 
 
 
@@ -75,7 +64,7 @@ class Menu:
             print("\n5- Ver lista de receptores")
             print("\n6- Ver lista de centros de salud")
             print("\n7- Ver lista de espera de receptores en orden")
-            print("\n8- Iniciar protocolo de transplante") #perfeccionar --> !!
+            print("\n8- Iniciar protocolo de transplante") # !!
             print("\n9- Buscar informacion de un paciente por DNI")
             print("\n10- Buscar en un centro de salud sus pacientes en lista de espera")
             print("\n11- Buscar receptor por DNI e informar posicion en la lista de espera")
@@ -91,46 +80,45 @@ class Menu:
                 print("❌ Entrada inválida. Por favor ingrese un número entero.")
                 continue  # vuelve a mostrar el menú
             
-            if opcion == 1: #revisar si funciona
+            if opcion == 1:
                 incucai.crear_objetos_prueba()
                     
-            elif opcion == 2: #funciona
+            elif opcion == 2:
                 incucai.carga_manual_donante_nuevo()
                 
-            elif opcion == 3: #funciona 
+            elif opcion == 3: 
                 incucai.carga_manual_receptor_nuevo()
                     
-            elif opcion == 4: #funciona
+            elif opcion == 4:
                 print("\n--------------------   DONANTES REGISTRADOS EN INCUCAI:  ---------------")
                 incucai.listar_donantes()
                 
-            elif opcion == 5: #funciona
+            elif opcion == 5:
                 print("\n---------------------   RECEPTORES REGISTRADOS EN INCUCAI:   ------------------")
                 incucai.listar_receptores()
                 
-            elif opcion == 6: #funciona
+            elif opcion == 6:
                 print("\n---------------------   CENTROS DE SALUD REGISTRADOS EN INCUCAI:   ------------------")
                 incucai.mostrar_centros_salud()
             
-            elif opcion == 7: #funciona
+            elif opcion == 7:
                 print("\n-----------------------------Lista de receptores por fecha de ingreso a la lista de espera-----------------------------\n")
                 incucai.lista_espera_ordenada()
             
-            elif opcion == 8: #Inicio transplante para un receptor especifico
+            elif opcion == 8: 
                 print("\nIniciando protocolo de transplante....")
                 incucai.pedir_receptor_para_realizar_transplante()
 
-            elif opcion == 9: #funciona
+            elif opcion == 9: 
                 dni = incucai.pedir_dni()
                 paciente = incucai.buscar_paciente_por_dni(dni)
                 if paciente:
                     print("\n✅ Datos del paciente encontrados: \n")
                     print(paciente)
                 else:
-            
                     print("❌ Paciente no encontrado.")
             
-            elif opcion == 10: #funciona
+            elif opcion == 10:
                 print("\n📍 Centros de salud disponibles:")
                 incucai.mostrar_centros_salud()
                 
@@ -141,7 +129,7 @@ class Menu:
                 else:
                     print("❌ El centro ingresado no está registrado. Verifique el nombre exacto.")
             
-            elif opcion == 11: #funciona
+            elif opcion == 11:
                 dni_receptor = incucai.pedir_dni("receptor")
                 receptor = incucai.buscar_receptor_por_dni(dni_receptor)
                 if receptor:
@@ -154,7 +142,7 @@ class Menu:
                 print("\nDonacion especifica entre donante y receptor:")
                 incucai.donar_organo_de_donante_a_receptor_especifico()
             
-            elif opcion == 13: #funciona
+            elif opcion == 13: 
                 print ("\nCompatibilidades entre 2 pacientes elegidos:")
                 incucai.compatibilidad_2_pacientes()
             
@@ -162,7 +150,7 @@ class Menu:
                 print ("\nINFORMACION DE CENTRO:")
                 incucai.mostrar_info_centro_salud()
                 
-            elif opcion ==15: #funciona
+            elif opcion ==15:
                 incucai.informacion_incucai()
                 
             elif opcion == 0:

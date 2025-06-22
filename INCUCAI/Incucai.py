@@ -3,7 +3,6 @@ from geopy.geocoders import Nominatim
 from datetime import datetime
 from unidecode import unidecode
 #Importaciones de clases creadas: Notese que no importamos clases abstractas porque no pueden instanciarse
-from INCUCAI.Paciente.Paciente import Paciente
 from INCUCAI.Paciente.Donante import Donante 
 from INCUCAI.Paciente.Receptor import Receptor
 from INCUCAI.Centros.Centro import Centro_de_salud 
@@ -14,12 +13,13 @@ from INCUCAI.Vehiculo.Helicoptero import Helicoptero
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Organos.Organo import Organo
 from Testing import Testing
-import traceback #?
+import traceback #debug 
 import unicodedata
 
 
+
 testing = Testing()
-geolocator = Nominatim(user_agent="incucai_test")
+geolocator = Nominatim(user_agent="incucai_test") #nombre de usuario necesario = "incucai_test"
 class Incucai:
     '''    
     Metodos de Incucai:
@@ -56,12 +56,15 @@ class Incucai:
         """
         self.receptores = []
         self.donantes = []
+        
         aux_centro=self.centros()
         self.centro = aux_centro
+        
         self.vehiculos = []
         self.ambulancias = []
         self.aviones = []
         self.helicopteros = []
+        
         self.cirujano = []
         self.generales = []
         self.especialistas = []
@@ -133,13 +136,13 @@ class Incucai:
         vehiculo (Ambulancia): Objeto de tipo Ambulancia a registrar.
 
         Returns:
-            tuple: (ambulancia registrada, cantidad total de vehículos en INCUCAI)
+            tuple: (ambulancia registrada, cantidad total de vehículos en INCUCAI, cantidad total de ambulancias en INCUCAI)
         """
         centro = self.buscar_centro_por_nombre(vehiculo.centro_vehiculo)
         self.vehiculos.append(vehiculo) #Nota: Notese que no estamos instanciando Vehiculo, a la lista vehiculos le agrego el vehiculo pasado por atributo
         self.ambulancias.append(vehiculo)
         centro.agregar_ambulancia(vehiculo)
-        return (vehiculo, len(self.vehiculos))
+        return (vehiculo, len(self.vehiculos), len(self.ambulancias))
         
     def registrar_avion(self, vehiculo: Avion) -> tuple:
         """
@@ -298,6 +301,7 @@ class Incucai:
         if not self.receptores:
             print("No hay receptores registrados.")
             return
+        print("\n--- RECEPTORES: --- ")
         for r in self.receptores:
             print(f"- {r}")
     
@@ -351,8 +355,6 @@ class Incucai:
             organos = ", ".join(r.org_recib)
             print(f"- {r.nombre} (DNI: {r.DNI}, Fecha ingreso: {r.fecha_list_esp}, "
                 f"Estado: {r.estado}, Órganos: {organos})")
-
-
     
         
 #-------------------------------------------------------------------FIN DE IMPRESIONES----------------------------------------------------------------------------------
@@ -440,7 +442,7 @@ class Incucai:
         
         return receptores_ordenados
     
-    def buscar_centro_por_nombre(self, nombre_centro) -> None: #nose q ponerle a centrosalud aca 
+    def buscar_centro_por_nombre(self, nombre_centro) -> Centro_de_salud | None: 
         """
         Busca un centro de salud por su nombre (ignorando mayúsculas y espacios).
 
@@ -489,42 +491,6 @@ class Incucai:
 
 #----------------------------------------------------------------INICIO DE LOGICA DE DONACION-----------------------------------------------------------------------
     
-    def clasificar_paciente_ya_existente(self, paciente_existente: Paciente) -> None:
-        """
-        Clasifica un paciente previamente creado según su tipo (Donante o Receptor) 
-        y ejecuta las acciones correspondientes según su estado.
-        Si el paciente ya existe en el sistema (por su DNI), no se realiza ninguna acción.
-
-        Args:
-            - paciente_existente (Donante | Receptor, opcional): Instancia de paciente a clasificar.
-        Return:
-            - None
-        """
-        if not paciente_existente:
-            return
-        dni = paciente_existente.DNI
-        if self.paciente_existente(dni):
-            return  # No agregar duplicados
-        
-        if paciente_existente:
-                if isinstance(paciente_existente, Donante):
-                    if self.paciente_existente(paciente_existente.DNI): 
-                        return
-                    self.donantes.append(paciente_existente)
-                    donante1=paciente_existente
-                    if (donante1.estado_donante=='muerto'):
-                        self.procesar_donacion_multiple(paciente_existente)
-                        return
-                    if (donante1.estado_donante=='vivo'):
-                        self.donar_organo_especifico(paciente_existente)
-                    
-                if isinstance(paciente_existente, Receptor):
-                    if self.paciente_existente(paciente_existente.DNI): 
-                        return
-                    self.receptores.append(paciente_existente)
-                    self.buscar_match_para_receptor(paciente_existente)
-                    return
-
     def donar_organo_especifico(self, paciente_existente: Donante) -> None:
         '''
         Permite seleccionar un órgano específico de un donante para iniciar búsqueda de receptor compatible.
@@ -673,7 +639,7 @@ class Incucai:
             self.receptores.remove(receptor)
             print(f"Receptor {receptor.nombre} removido (trasplante programado)")
         
-    def realizar_transplante(self, receptor: Receptor, donante: Donante, organo) -> bool:
+    def realizar_transplante_incucai (self, receptor: Receptor, donante: Donante, organo) -> bool:
         """
         Ejecuta protocolo completo de trasplante.
 
@@ -687,11 +653,9 @@ class Incucai:
         """
         print(f"\n ➡️ Iniciando protocolo de trasplante para {receptor.nombre} (DNI: {receptor.DNI}) con órgano {organo.tipo}")
 
-        #centro_donante = self.buscar_centro_por_nombre(donante.centro)
-        #centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
-
         centro_donante = self.buscar_centro_por_nombre(donante.centro)
         centro_receptor = self.buscar_centro_por_nombre(receptor.centro)
+
 
         if centro_donante is None or centro_receptor is None:
             print("❌ No se encontró el centro de salud del donante o receptor.")
@@ -722,8 +686,9 @@ class Incucai:
         print(f"Distancia entre centros: {distancia:.2f} km | Tráfico: {trafico:.2f} | Tiempo estimado: {tiempo_traslado:.2f} h")
 
         cirujano = centro_receptor.seleccionar_cirujano(organo.tipo)
+        
         if cirujano is None:
-            print("No hay cirujano disponible para ese órgano.")
+            print("No hay cirujano disponible.")
             return False
 
         print(f"🩺 Cirujano asignado para transplante: {cirujano}")

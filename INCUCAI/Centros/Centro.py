@@ -9,6 +9,7 @@ from INCUCAI.Centros.Cirujanos.General import General
 from INCUCAI.Vehiculo.Ambulancia import Ambulancia
 from INCUCAI.Vehiculo.Avion import Avion
 from INCUCAI.Vehiculo.Helicoptero import Helicoptero
+from INCUCAI.Organos.Organo import Organo
 
 
 
@@ -247,7 +248,7 @@ class Centro_de_salud:
                 return aviones[0]  # Primer avión disponible
         return self.vehiculos[0] if self.vehiculos else None #usar cualquiera disponible si no hay el tipo deseado
     
-    def seleccionar_cirujano(self, organo):
+    def seleccionar_cirujano(self, organo: Organo):
         '''
         Selecciona un cirujano disponible especializado en el órgano si es posible.
 
@@ -290,7 +291,6 @@ class Centro_de_salud:
             return False
             
         except Exception as e:
-            print("hola5")
             print(f"❌ Error durante la ablación: {e}")
             return False
 
