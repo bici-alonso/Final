@@ -775,7 +775,7 @@ class Incucai:
                     print("❌ El centro del receptor no tiene vehículos disponibles para realizar el trasplante.")
                     return
 
-                funcionotrasplante = self.realizar_transplante(receptor, donante, organo)
+                funcionotrasplante = self.realizar_transplante_incucai(receptor, donante, organo)
                 if not funcionotrasplante:
                     print("Algo falló.")
             else:
