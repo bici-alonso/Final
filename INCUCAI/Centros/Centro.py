@@ -121,6 +121,7 @@ class Centro_de_salud:
             - None
         '''
         if cirujano not in self.especialistas:
+            self.cirujanos.append(cirujano)
             self.especialistas.append(cirujano)
     
     def agregar_cirujano_general(self, cirujano: General) -> None:
@@ -134,6 +135,7 @@ class Centro_de_salud:
             - None
         '''
         if cirujano not in self.especialistas:
+            self.cirujanos.append(cirujano)
             self.generales.append(cirujano)
             
     def agregar_vehiculo(self, vehiculo) -> None:
@@ -259,6 +261,10 @@ class Centro_de_salud:
             - Cirujano | None: Cirujano seleccionado o None si no hay disponible.
         '''
         disponibles = [c for c in self.cirujanos if c.cirujano_disponible()]
+
+
+        print(f"Cirujanos disponibles: {[c.nombre for c in disponibles]}")
+
         for c in disponibles:
             if hasattr(c, 'especialidad') and organo.lower() in c.organos.get(c.especialidad, []):
                 return c
