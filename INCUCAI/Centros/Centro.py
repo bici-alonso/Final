@@ -15,6 +15,7 @@ from INCUCAI.Organos.Organo import Organo
 
 class Centro_de_salud:
 
+
     def __init__(self, nombre_cs, direccion, barrio, provincia, tel_contacto) -> None:
         '''
         Inicializa un centro de salud con su informacion principal
@@ -97,19 +98,6 @@ class Centro_de_salud:
             print("\nUno o ambos centros no tienen coordenadas geográficas.")
         return geodesic(self.coords, otro_centro.coords).kilometers  
     
-    def agregar_cirujano(self, cirujano) -> None:
-        '''
-        Agrega un cirujano general o especialista a la lista general.
-
-        Args:
-            - cirujano (Cirujano): Objeto cirujano a agregar.
-
-        Return:
-            - None
-        '''
-        if cirujano not in self.cirujanos:
-            self.cirujanos.append(cirujano)
-    
     def agregar_cirujano_especialista(self, cirujano: Especialista) -> None:
         '''
         Agrega un cirujano especialista a la lista de especialistas.
@@ -137,19 +125,7 @@ class Centro_de_salud:
         if cirujano not in self.especialistas:
             self.cirujanos.append(cirujano)
             self.generales.append(cirujano)
-            
-    def agregar_vehiculo(self, vehiculo) -> None:
-        '''
-        Agrega un vehículo a la lista general del centro.
 
-        Atributos:
-            - vehiculo (Vehiculo): Instancia de vehículo.
-
-        Return:
-            - None
-        '''
-        if vehiculo not in self.vehiculos:
-            self.vehiculos.append(vehiculo)
     
     def agregar_ambulancia(self, vehiculo: Ambulancia) -> None:
         '''
@@ -162,8 +138,8 @@ class Centro_de_salud:
             - None
         '''
         if vehiculo not in self.ambulancias:
-            self.ambulancias.append(vehiculo)  
-        self.agregar_vehiculo(vehiculo)
+            self.ambulancias.append(vehiculo)
+            self.vehiculos.append(vehiculo)  
             
     def agregar_avion(self, vehiculo: Avion) -> None:
         '''
@@ -177,7 +153,7 @@ class Centro_de_salud:
         '''
         if vehiculo not in self.aviones:
             self.aviones.append(vehiculo)
-        self.agregar_vehiculo(vehiculo)
+            self.vehiculos.append(vehiculo) 
 
     def agregar_helicoptero(self, vehiculo: Helicoptero) -> None:
         '''
@@ -191,7 +167,8 @@ class Centro_de_salud:
         '''
         if vehiculo not in self.helicopteros:
             self.helicopteros.append(vehiculo)
-        self.agregar_vehiculo(vehiculo)
+            self.vehiculos.append(vehiculo) 
+        #self.agregar_vehiculo(vehiculo)
 
     def tiene_vehiculos_disponibles(self) -> bool:
         """
